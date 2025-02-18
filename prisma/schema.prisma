@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  password     String
+  firstName    String
+  lastName     String
+  posts        Post[]
+  comments     Comment[]
+  tags         Tag[]     @relation("UserTags")
+  likePosts    Post[]    @relation("UserLikesPosts")
+  likeComments Comment[] @relation("UserLikesComments")
+  createdAt    DateTime  @default(now())
+}
+
+model File {
+  id     String  @id @default(uuid())
+  type   String
+  src    String
+  Post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+}
+
+model Post {
+  id          String     @id @default(uuid())
+  title       String
+  content     String?
+  typeContent String
+  files       File[]
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  comments    Comment[]
+  categories  Category[] @relation("PostCategories")
+  tags        Tag[]      @relation("PostTags")
+  likes       User[]     @relation("UserLikesPosts")
+  createdAt   DateTime   @default(now())
+}
+
+model Tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[] @relation("PostTags")
+  users User[] @relation("UserTags")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  likes     User[]   @relation("UserLikesComments")
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[] @relation("PostCategories")
+}
