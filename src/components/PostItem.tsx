@@ -13,7 +13,7 @@ import LikeButtonPost from './LikeButtonPost'
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
     <li className='p-4 bg-slate-700 rounded-lg shadow-md hover:bg-slate-800 transition-all w-full  text-white space-y-2'>
-      <Link href={`/post/${post.id}`}>
+      <Link href={`/post/${post.id}`} className='space-y-2'>
         <div>
           <div className='flex gap-1'>
             <div className='m-0'>
@@ -34,7 +34,8 @@ export default function PostItem({ post }: { post: PostExtended }) {
           </div>
         </div>
         <p className='text-xs '>
-          {new Date(post.createdAt).toLocaleDateString()}
+          {new Date(post.createdAt).toLocaleDateString()} -{' '}
+          {new Date(post.createdAt).toLocaleTimeString()}
         </p>
         <h2 className='text-lg md:text-xl font-semibold break-all'>
           {post.title}
