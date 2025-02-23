@@ -12,7 +12,8 @@ export default function HomePage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['post', 'posts', orderList],
+    queryKey: ['posts', orderList],
+
     queryFn: async () => {
       const res = await api.get(`/api/posts?${orderList}`)
       return res.data

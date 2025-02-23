@@ -17,8 +17,6 @@ export default function TagsInput() {
     })
   }, [])
   useEffect(() => {
-    console.log(tagsSelected)
-
     setFilteredTags(tags)
     if (refInputSearchTags.current) {
       refInputSearchTags.current.value = ''

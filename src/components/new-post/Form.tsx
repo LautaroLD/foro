@@ -33,20 +33,16 @@ export default function Form() {
   })
   const { handleSubmit, register } = method
   const onSubmit = (data: Inputs) => {
-    console.log(data)
     const formData = new FormData()
     for (const key in data) {
       if (key === 'files' && data[key].length > 0) {
         data[key].forEach((file: File) => {
-          console.log(file)
-          console.log(key)
           formData.append(key, file)
         })
       } else {
         formData.append(key, data[key] as string)
       }
     }
-    console.log(formData.get('files'))
     if (user) {
       formData.append('authorId', user.id)
       createPost.mutate(formData)
@@ -65,7 +61,6 @@ export default function Form() {
     },
     onSuccess: (data) => {
       const postId = data.data.id
-      console.log(data)
 
       queryClient.refetchQueries({ queryKey: ['posts'] })
       toast.success(`Post creado ${postId}`)

@@ -84,7 +84,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const form = await request.formData()
-    console.log('formFile', form.getAll('files'))
 
     const reqFiles = form.getAll('files').map((file) => file as File)
     const reqCategories: Array<string> = form
@@ -114,13 +113,10 @@ export async function POST(request: Request) {
         },
       },
     })
-    console.log(newPost)
-    console.log('reqFiles', reqFiles)
 
     if (reqFiles.length > 0) {
       const filesByCloud = await Promise.all(
         reqFiles.map(async (file: File) => {
-          console.log('file', file)
           const bytes = await file.arrayBuffer()
           const buffer = Buffer.from(bytes)
           const newFile = await new Promise((resolve, reject) => {
@@ -137,7 +133,6 @@ export async function POST(request: Request) {
               )
               .end(buffer)
           })
-          console.log('newFile', newFile)
           if (newFile) {
             const { secure_url } = newFile as UploadApiResponse
             return {
@@ -150,7 +145,6 @@ export async function POST(request: Request) {
         })
       )
       const validUrls = filesByCloud.filter((url) => url !== null)
-      console.log('validUrls', validUrls)
       await prisma.file.createMany({
         data: validUrls.map(({ type, src }) => ({
           type,

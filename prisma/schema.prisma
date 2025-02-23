@@ -17,17 +17,17 @@ datasource db {
 // }
 
 model User {
-  id           String    @id @default(uuid())
-  email        String    @unique
+  id           String        @id @default(uuid())
+  email        String        @unique
   password     String
   firstName    String
   lastName     String
   posts        Post[]
   comments     Comment[]
-  tags         Tag[]     @relation("UserTags")
-  likePosts    Post[]    @relation("UserLikesPosts")
-  likeComments Comment[] @relation("UserLikesComments")
-  createdAt    DateTime  @default(now())
+  tags         Tag[]         @relation("UserTags")
+  likePosts    LikePost[]
+  likeComments LikeComment[]
+  createdAt    DateTime      @default(now())
 }
 
 model File {
@@ -49,8 +49,24 @@ model Post {
   comments    Comment[]
   categories  Category[] @relation("PostCategories")
   tags        Tag[]      @relation("PostTags")
-  likes       User[]     @relation("UserLikesPosts")
+  likes       LikePost[]
   createdAt   DateTime   @default(now())
+}
+
+model LikePost {
+  id     String  @id @default(uuid())
+  postId String?
+  Post   Post?   @relation(fields: [postId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+}
+
+model LikeComment {
+  id        String   @id @default(uuid())
+  commentId String?
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
 }
 
 model Tag {
@@ -61,14 +77,14 @@ model Tag {
 }
 
 model Comment {
-  id        String   @id @default(uuid())
+  id        String        @id @default(uuid())
   content   String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User          @relation(fields: [authorId], references: [id])
   authorId  String
-  likes     User[]   @relation("UserLikesComments")
-  createdAt DateTime @default(now())
+  likes     LikeComment[]
+  createdAt DateTime      @default(now())
 }
 
 model Category {

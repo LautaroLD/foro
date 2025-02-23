@@ -27,7 +27,7 @@ export default function PostPage() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['post', postId],
+    queryKey: ['posts', postId],
     queryFn: async () => {
       const { data: post } = await api.get<PostExtended>(`/api/posts/${postId}`)
 
@@ -46,7 +46,6 @@ export default function PostPage() {
   if (error) return <div>Error loading post</div>
 
   if (!post) return <div>Post not found</div>
-  console.log(post)
 
   return (
     <article className='p-4'>
@@ -105,8 +104,6 @@ export default function PostPage() {
             showIndicators
             showThumbnails={false}
             item={(item) => {
-              console.log(item)
-
               return (
                 <div className=' h-[300px] w-full'>
                   {item.type.includes('image') ? (

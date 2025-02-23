@@ -16,8 +16,6 @@ export default function CategoriesInput() {
     })
   }, [])
   useEffect(() => {
-    console.log(categoriesSelected)
-
     setFilteredCategories(categories)
     if (refInputSearchCategories.current) {
       refInputSearchCategories.current.value = ''

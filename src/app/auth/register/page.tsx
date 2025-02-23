@@ -36,10 +36,8 @@ export default function RegisterPage() {
       }
 
       // const user = await response.json()
-      console.log(dataApi.status)
 
       // Handle register success
-      console.log(dataApi)
     } catch (error) {
       console.error(error)
     } finally {

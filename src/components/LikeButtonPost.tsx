@@ -1,9 +1,8 @@
 'use client'
 import api from '@/services/config'
-import { Post } from '@prisma/client'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { LikePost, Post } from '@prisma/client'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
 import { LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
@@ -13,13 +12,30 @@ export default function LikeButtonPost({
 }: {
   post: Post & { likes: { id: string }[] }
 }) {
-  const [loading, setLoading] = useState(false)
   const { data: session } = useSession()
   const user = session?.user
   const queryClient = useQueryClient()
+
+  const {
+    data: likes,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['post_likes', post.id],
+    queryFn: async () => {
+      const { data } = await api.get<{ likes: LikePost[] }>(
+        '/api/posts/likes',
+        {
+          params: { postId: post.id },
+        }
+      )
+
+      return data.likes
+    },
+  })
+
   const handleLike = useMutation({
     mutationFn: () => {
-      setLoading(true)
       if (user === undefined) {
         toast.error('Debes iniciar sesión para dar like')
         return Promise.reject()
@@ -27,30 +43,33 @@ export default function LikeButtonPost({
         return api.patch(`/api/posts/likes`, {
           userId: user?.id,
           postId: post.id,
-          hasLike: post.likes.some((like) => like.id === user?.id),
         })
       }
     },
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['post'] }).finally(() => {
-        setLoading(false)
-      })
+      queryClient.invalidateQueries({ queryKey: ['post_likes', post.id] })
     },
   })
+  if (isError) return
+
+  if (!likes) return
+
   return (
     <button
-      disabled={loading}
+      disabled={isLoading}
       className='flex gap-1 items-center'
       onClick={() => handleLike.mutate()}
     >
-      {loading ? (
+      {isLoading ? (
         <LuLoader className='animate-spin' />
-      ) : post.likes.some((like) => like.id === user?.id) ? (
+      ) : likes.some(
+          (like) => like.userId === user?.id && like.postId === post?.id
+        ) ? (
         <BiSolidLike />
       ) : (
         <BiLike />
       )}
-      {post.likes.length}
+      {likes.length}
     </button>
   )
 }

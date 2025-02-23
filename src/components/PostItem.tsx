@@ -74,8 +74,6 @@ export default function PostItem({ post }: { post: PostExtended }) {
             showIndicators
             showThumbnails={false}
             item={(item) => {
-              console.log(item)
-
               return (
                 <div className='bg-black bg-opacity-40 rounded-lg overflow-hidden h-[300px] w-full'>
                   {item.type.includes('image') ? (

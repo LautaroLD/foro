@@ -75,7 +75,6 @@ export default function ContentInput() {
               showIndicators
               showThumbnails={false}
               item={(item) => {
-                console.log(item)
                 return (
                   <div className='w-full h-full max-w-md'>
                     <div className='absolute w-full flex justify-end bg-black bg-opacity-50 p-3'>

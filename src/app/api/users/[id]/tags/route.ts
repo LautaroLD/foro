@@ -12,9 +12,6 @@ export async function PATCH(request: Request, { params }: Params) {
       },
       include: { tags: true },
     })
-    console.log(id)
-    console.log(tagId)
-    console.log(user)
 
     const updatedUser = await prisma?.user.update({
       where: {

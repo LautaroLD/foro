@@ -16,8 +16,6 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
   const [comment, setComment] = useState('')
   const addComment = useMutation({
     mutationFn: async () => {
-      console.log(comment)
-
       await api.post(`/api/comments`, {
         content: comment,
         postId: post.id,
@@ -25,7 +23,7 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
       })
     },
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['post', post.id] })
+      queryClient.invalidateQueries({ queryKey: ['posts', post.id] })
       setComment('')
     },
   })

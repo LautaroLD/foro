@@ -1,10 +1,12 @@
 'use client'
 import { CommentExtended } from '@/models/Comment.model'
 import api from '@/services/config'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { LikeComment } from '@prisma/client'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import React from 'react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
+import { LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
 export default function LikeButtonComment({
@@ -15,6 +17,25 @@ export default function LikeButtonComment({
   const { data: session } = useSession()
   const user = session?.user
   const queryClient = useQueryClient()
+
+  const {
+    data: likes,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['comment_likes', comment.id],
+    queryFn: async () => {
+      const { data } = await api.get<{ likes: LikeComment[] }>(
+        '/api/comments/likes',
+        {
+          params: { commentId: comment.id },
+        }
+      )
+
+      return data.likes
+    },
+  })
+
   const handleLike = useMutation({
     mutationFn: () => {
       if (user === undefined) {
@@ -28,20 +49,28 @@ export default function LikeButtonComment({
       }
     },
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ['post'] })
+      queryClient.invalidateQueries({ queryKey: ['comment_likes', comment.id] })
     },
   })
+  if (isError) return
+
+  if (!likes) return
+
   return (
     <button
       className='flex gap-1 items-center'
       onClick={() => handleLike.mutate()}
     >
-      {comment.likes.some((like) => like.id === user?.id) ? (
+      {isLoading ? (
+        <LuLoader className='animate-spin' />
+      ) : likes.some(
+          (like) => like.userId === user?.id && like.commentId === comment?.id
+        ) ? (
         <BiSolidLike />
       ) : (
         <BiLike />
       )}
-      {comment.likes.length}
+      {likes.length}
     </button>
   )
 }

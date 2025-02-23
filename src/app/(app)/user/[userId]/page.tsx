@@ -8,7 +8,6 @@ import React from 'react'
 
 export default function Page() {
   const { userId } = useParams()
-  console.log(userId)
 
   const {
     data: userData,

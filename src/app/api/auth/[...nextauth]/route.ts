@@ -42,8 +42,6 @@ const handler = NextAuth({
             throw new Error()
           }
 
-          console.log(user)
-
           return user
         } catch (error) {
           console.error('Authorization error:', error)
