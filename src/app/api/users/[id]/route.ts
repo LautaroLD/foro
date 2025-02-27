@@ -5,23 +5,12 @@ import { Params } from '@/models/params'
 export async function GET(request: Request, { params }: Params) {
   try {
     const { id } = await params
+
     const user = await prisma?.user.findFirst({
       where: {
         id,
       },
       include: {
-        posts: {
-          include: {
-            author: true,
-            categories: true,
-            tags: true,
-            likes: true,
-            comments: true,
-          },
-          orderBy: {
-            createdAt: 'desc',
-          },
-        },
         comments: true,
         tags: true,
       },

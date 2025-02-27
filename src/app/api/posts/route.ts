@@ -68,6 +68,10 @@ export async function GET(request: Request) {
               }
             : undefined,
         },
+        skip: searchParams.get('page')
+          ? (parseInt(searchParams.get('page') as string) - 1) * 10
+          : 0,
+        take: 10,
       })
       return NextResponse.json(posts)
     }

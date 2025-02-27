@@ -52,7 +52,7 @@ export default function LikeButtonPost({
   })
   if (isError) return
 
-  if (!likes) return
+  if (isLoading) return <LuLoader className='animate-spin' />
 
   return (
     <button
@@ -62,14 +62,14 @@ export default function LikeButtonPost({
     >
       {isLoading ? (
         <LuLoader className='animate-spin' />
-      ) : likes.some(
+      ) : likes?.some(
           (like) => like.userId === user?.id && like.postId === post?.id
         ) ? (
         <BiSolidLike />
       ) : (
         <BiLike />
       )}
-      {likes.length}
+      {likes?.length}
     </button>
   )
 }

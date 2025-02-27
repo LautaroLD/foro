@@ -55,7 +55,7 @@ export default function Page() {
         <h2 className='text-xl  font-bold m-4'>
           Mis Posts ({userData?.posts?.length})
         </h2>
-        <div className='p-4'>
+        <div className='flex flex-col p-4 gap-4 '>
           {userData?.posts?.length === 0 ? (
             <div className='flex  flex-col'>
               <p className=' text-center mb-3'>
@@ -69,7 +69,7 @@ export default function Page() {
               </Link>
             </div>
           ) : (
-            <PostsList posts={userData?.posts ?? []} />
+            <PostsList urlFetch={`/api/users/${user?.id}/posts`} />
           )}
         </div>
       </div>
