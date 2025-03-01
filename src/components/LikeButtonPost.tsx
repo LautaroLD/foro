@@ -4,7 +4,7 @@ import { LikePost, Post } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
-import { LuLoader } from 'react-icons/lu'
+import { LuCircleAlert, LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
 export default function LikeButtonPost({
@@ -50,7 +50,11 @@ export default function LikeButtonPost({
       queryClient.invalidateQueries({ queryKey: ['post_likes', post.id] })
     },
   })
-  if (isError) return
+  if (isError) {
+    console.log('error', likes)
+
+    return <LuCircleAlert />
+  }
 
   if (isLoading) return <LuLoader className='animate-spin' />
 
