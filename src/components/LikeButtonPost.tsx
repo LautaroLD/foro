@@ -20,7 +20,6 @@ export default function LikeButtonPost({
     data: likes,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ['post_likes', post.id],
     queryFn: async () => {
@@ -30,8 +29,6 @@ export default function LikeButtonPost({
           params: { postId: post.id },
         }
       )
-      console.log('data', data)
-
       return data.likes
     },
   })
@@ -53,8 +50,6 @@ export default function LikeButtonPost({
     },
   })
   if (isError) {
-    console.log('error', error)
-
     return <LuCircleAlert />
   }
 
