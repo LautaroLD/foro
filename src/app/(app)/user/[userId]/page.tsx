@@ -51,7 +51,7 @@ export default function Page() {
           {userData?.posts?.length === 0 ? (
             <p className='col-span-3 text-center'>Nada por aquí todavía</p>
           ) : (
-            <PostsList posts={userData?.posts ?? []} />
+            <PostsList urlFetch={`/api/users/${userData?.id}/posts`} />
           )}
         </div>
       </div>
