@@ -4,30 +4,26 @@ import Search from './Search'
 import { Menu } from 'primereact/menu'
 import { Button } from 'primereact/button'
 import { navBarItems } from '@/constants'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { PrimeIcons } from 'primereact/api'
+import useWindowSize from '@/hooks/useWindowSize'
 
 export default function Header() {
-  const [screenWidth, setScreenWidth] = useState(0)
   const { data: session } = useSession()
   const user = session?.user
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  const screenWidth = useWindowSize()
 
   const menuLeft = useRef<null | Menu>(null)
   return (
     <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 sm:grid-cols-3 px-4'>
       <div className='container mx-auto flex justify-between items-center h-full '>
-        {screenWidth >= 768 && (
+        {screenWidth.width && screenWidth.width >= 768 && (
           <Link className='p-2 font-bold text-2xl' href='/'>
             My App
           </Link>
         )}
-        {screenWidth < 768 && (
+        {screenWidth.width && screenWidth.width < 768 && (
           <>
             <Menu
               model={
