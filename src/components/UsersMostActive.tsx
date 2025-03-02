@@ -1,4 +1,5 @@
 'use client'
+import useWindowSize from '@/hooks/useWindowSize'
 import { UserExtended } from '@/models/user.model'
 import api from '@/services/config'
 
@@ -8,6 +9,7 @@ import { Avatar } from 'primereact/avatar'
 import React from 'react'
 
 export default function UsersMostActive() {
+  const screenWidth = useWindowSize()
   const { data, isLoading, isError } = useQuery({
     queryKey: ['users-most-active'],
     queryFn: async () => {
@@ -26,6 +28,7 @@ export default function UsersMostActive() {
       </aside>
     )
   if (isError) return <div>Error loading users</div>
+  if (screenWidth.width && screenWidth.width < 768) return null
   return (
     <aside className='col-span-1 text-white text-center py-3 px-2 space-y-3 overflow-y-scroll hidden md:block'>
       <b>Usuarios mas activos</b>

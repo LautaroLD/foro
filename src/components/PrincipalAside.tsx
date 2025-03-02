@@ -1,10 +1,13 @@
 'use client'
 import { navBarItems } from '@/constants'
+import useWindowSize from '@/hooks/useWindowSize'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { BiLogOut } from 'react-icons/bi'
 export default function PrincipalAside() {
+  const screenWidth = useWindowSize()
   const { data: session, status } = useSession()
+  if (screenWidth.width && screenWidth.width < 768) return null
   const user = session?.user
   if (status === 'loading')
     return (
@@ -16,6 +19,7 @@ export default function PrincipalAside() {
         <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
       </aside>
     )
+
   return (
     <aside className='col-span-1 text-white h-full  hidden md:block'>
       {!user ? (
