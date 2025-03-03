@@ -6,13 +6,14 @@ import { BiComment } from 'react-icons/bi'
 import CategoryPin from './CategoryPin'
 import TagPin from './TagPin'
 import { Avatar } from 'primereact/avatar'
-import { Galleria } from 'primereact/galleria'
 import Image from 'next/image'
 import LikeButtonPost from './LikeButtonPost'
+import { Carousel } from 'primereact/carousel'
 
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
-    <li className='p-4 bg-slate-700 rounded-lg shadow-md hover:bg-slate-800 transition-all w-full  text-white space-y-2'>
+    <li className='p-4 w-full text-white space-y-2'>
+      {/* <li className='p-4 bg-slate-700 rounded-lg shadow-md hover:bg-slate-800 transition-all w-full  text-white space-y-2'> */}
       <Link href={`/post/${post.id}`} className='space-y-2'>
         <div>
           <div className='flex gap-1'>
@@ -27,16 +28,14 @@ export default function PostItem({ post }: { post: PostExtended }) {
               <b className='text-sm overflow-hidden text-ellipsis'>
                 {post.author?.firstName} {post.author?.lastName}
               </b>
-              <p className='text-sm overflow-hidden text-ellipsis'>
-                {post.author?.email}
+              <p className='text-xs '>
+                {new Date(post.createdAt).toLocaleDateString()} -{' '}
+                {new Date(post.createdAt).toLocaleTimeString()}
               </p>
             </div>
           </div>
         </div>
-        <p className='text-xs '>
-          {new Date(post.createdAt).toLocaleDateString()} -{' '}
-          {new Date(post.createdAt).toLocaleTimeString()}
-        </p>
+
         <h2 className='text-lg md:text-xl font-semibold break-all'>
           {post.title}
         </h2>
@@ -66,16 +65,14 @@ export default function PostItem({ post }: { post: PostExtended }) {
           />
         )}
         {post.typeContent === 'image' && (
-          <Galleria
+          <Carousel
             value={post.files}
+            numScroll={1}
             circular
-            showItemNavigators
-            showItemNavigatorsOnHover
-            showIndicators
-            showThumbnails={false}
-            item={(item) => {
+            numVisible={1}
+            itemTemplate={(item) => {
               return (
-                <div className='bg-black bg-opacity-40 rounded-lg overflow-hidden h-[300px] w-full'>
+                <div className='bg-black bg-opacity-40 rounded-lg overflow-hidden h-[300px] w-full relative'>
                   {item.type.includes('image') ? (
                     <Image
                       src={item.src}

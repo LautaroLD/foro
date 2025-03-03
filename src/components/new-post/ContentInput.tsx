@@ -29,6 +29,7 @@ export default function ContentInput() {
         <b className='text-xl'>Contenido</b>
         <SelectButton
           value={type}
+          className='scale-90'
           onChange={(e) => setType(e.value)}
           options={[
             { value: 'text', label: 'Texto' },

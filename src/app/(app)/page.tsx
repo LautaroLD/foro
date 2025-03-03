@@ -1,16 +1,18 @@
 'use client'
 import PostsList from '@/components/PostsList'
+import UsersMostActive from '@/components/UsersMostActive'
+import useWindowSize from '@/hooks/useWindowSize'
 import { Dropdown } from 'primereact/dropdown'
 import { useState } from 'react'
 
 export default function HomePage() {
   const [orderList, setOrderList] = useState('recent=desc')
-
+  const { width } = useWindowSize()
   return (
-    <div className='flex flex-col p-4 gap-4 '>
+    <div className='flex flex-col  '>
       <PostsList orderList={orderList} urlFetch={`/api/posts`}>
         <Dropdown
-          className=' w-full md:w-fit'
+          className='w-fit m-3'
           value={orderList}
           onChange={(e) => setOrderList(e.value)}
           options={[
@@ -20,6 +22,7 @@ export default function HomePage() {
             { label: 'Menos populares', value: 'likes=asc' },
           ]}
         />
+        {width && width < 768 && <UsersMostActive isMobile />}
       </PostsList>
     </div>
   )

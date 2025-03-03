@@ -16,6 +16,9 @@ export async function GET(request: Request, { params }: Params) {
         tags: true,
         comments: {
           include: { author: true, likes: true },
+          orderBy: {
+            createdAt: 'desc',
+          },
         },
         likes: true,
       },

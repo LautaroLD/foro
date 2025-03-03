@@ -10,13 +10,8 @@ import MDEditor from '@uiw/react-md-editor'
 // import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { Avatar } from 'primereact/avatar'
-import { Galleria } from 'primereact/galleria'
+import { Carousel } from 'primereact/carousel'
 import { Image } from 'primereact/image'
-
-// type Params = Promise<{ postId: string }>
-// export async function generateMetadata({ params }: { params: Params }) {
-//   const { postId } = await params
-// }
 
 export default function PostPage() {
   const params = useParams()
@@ -96,14 +91,12 @@ export default function PostPage() {
           />
         )}
         {post.typeContent === 'image' && (
-          <Galleria
+          <Carousel
             value={post.files}
+            numScroll={1}
             circular
-            showItemNavigators
-            showItemNavigatorsOnHover
-            showIndicators
-            showThumbnails={false}
-            item={(item) => {
+            numVisible={1}
+            itemTemplate={(item) => {
               return (
                 <div className=' h-[300px] w-full'>
                   {item.type.includes('image') ? (

@@ -67,7 +67,7 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
                 {comment.author.firstName} {comment.author.lastName}
               </b>
               <p className='text-center text-sm'>
-                {new Date(post.createdAt).toLocaleDateString()}
+                {new Date(comment.createdAt).toLocaleDateString()}
               </p>
             </div>
             <MDEditor.Markdown
