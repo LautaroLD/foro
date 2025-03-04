@@ -18,11 +18,11 @@ export default function UsersMostActive({ isMobile }: { isMobile?: boolean }) {
   if (isLoading)
     return (
       <aside className='col-span-1 text-white  space-y-2 px-2 py-4 '>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg h-32'></div>
+        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg h-32'></div>
+        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg h-32'></div>
+        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg h-32'></div>
+        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg h-32'></div>
       </aside>
     )
   if (isError) return <div>Error loading users</div>
@@ -32,14 +32,16 @@ export default function UsersMostActive({ isMobile }: { isMobile?: boolean }) {
         Usuarios mas activos
       </b>
       <ul
-        className={`space-y-2 text-center ${
-          isMobile ? 'flex gap-2 w-auto space-y-0 overflow-x-auto p-2' : ''
+        className={` text-center  w-full  ${
+          isMobile
+            ? 'flex gap-2 space-y-0 overflow-x-auto p-2 mx-0'
+            : 'max-w-sm mx-auto space-y-2'
         }`}
       >
         {data?.map((user: UserExtended, i: number) => (
           <Link
             href={`/user/${user.id}`}
-            className='py-2 px-4 min-w-[130px] border rounded-lg relative overflow-hidden flex flex-col gap-1 hover:opacity-50 transition-all cursor-pointer'
+            className='py-2 min-w-[135px] border border-slate-600 rounded-lg relative overflow-hidden flex flex-col gap-1 hover:opacity-50 transition-all cursor-pointer'
             key={user.id}
           >
             {i < 3 && (

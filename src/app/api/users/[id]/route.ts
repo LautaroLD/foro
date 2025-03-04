@@ -13,6 +13,7 @@ export async function GET(request: Request, { params }: Params) {
       include: {
         comments: true,
         tags: true,
+        posts: true,
       },
     })
     if (!user) {

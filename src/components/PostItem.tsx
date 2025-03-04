@@ -13,7 +13,6 @@ import { Carousel } from 'primereact/carousel'
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
     <li className='p-4 w-full text-white space-y-2'>
-      {/* <li className='p-4 bg-slate-700 rounded-lg shadow-md hover:bg-slate-800 transition-all w-full  text-white space-y-2'> */}
       <Link href={`/post/${post.id}`} className='space-y-2'>
         <div>
           <div className='flex gap-1'>
@@ -56,9 +55,16 @@ export default function PostItem({ post }: { post: PostExtended }) {
 
         {post.typeContent === 'text' && post.content && (
           <MDEditor.Markdown
+            disallowedElements={['a']}
+            skipHtml
+            components={{
+              h1: ({ children }) => (
+                <p className='text-lg font-bold'>{children}</p>
+              ),
+            }}
             source={
-              post.content.length > 300
-                ? post.content.slice(0, 300) + '...'
+              post.content.length > 350
+                ? post.content.slice(0, 350) + '...'
                 : post.content
             }
             style={{ backgroundColor: 'transparent' }}

@@ -46,14 +46,14 @@ export default function PostsList({
   }, [inView, hasNextPage])
   if (isLoading) {
     return (
-      <>
+      <div className='flex flex-col gap-3 p-3'>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
-      </>
+      </div>
     )
   }
   if (isError) return <div>Error loading posts</div>
