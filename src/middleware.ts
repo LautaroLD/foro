@@ -10,7 +10,12 @@ const PUBLIC_ROUTES = [
 ] // Define your public routes here
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('next-auth.session-token')
+  let token
+  if (process.env.ENVIRONMENT === 'production')
+    token = request.cookies.get('__Secure-next-auth.session-token')
+  if (process.env.ENVIRONMENT === 'development')
+    token = request.cookies.get('next-auth.session-token')
+
   const { pathname } = request.nextUrl
 
   if (PUBLIC_ROUTES.includes(pathname)) {
