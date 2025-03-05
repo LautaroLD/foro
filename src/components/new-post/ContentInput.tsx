@@ -2,7 +2,11 @@
 import { Editor } from 'primereact/editor'
 import { Galleria } from 'primereact/galleria'
 import { Image } from 'primereact/image'
-import { SelectButton } from 'primereact/selectbutton'
+import {
+  SelectButton,
+  SelectButtonPassThroughMethodOptions,
+} from 'primereact/selectbutton'
+import { classNames } from 'primereact/utils'
 import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { BiCloudUpload, BiXCircle } from 'react-icons/bi'
@@ -28,12 +32,22 @@ export default function ContentInput() {
       <div className='flex gap-5 items-center'>
         <b className='text-xl'>Contenido</b>
         <SelectButton
+          unstyled
           value={type}
-          className='scale-90'
+          className='flex'
+          pt={{
+            button: (options: SelectButtonPassThroughMethodOptions) => ({
+              className: classNames(
+                'px-2 py-1',
+                options.context?.selected && 'bg-slate-700 rounded-lg'
+              ),
+            }),
+          }}
+          itemTemplate={(option) => <i className={option.icon}></i>}
           onChange={(e) => setType(e.value)}
           options={[
-            { value: 'text', label: 'Texto' },
-            { value: 'image', label: 'Imagen' },
+            { value: 'text', icon: 'pi pi-align-center' },
+            { value: 'image', icon: 'pi pi-images' },
           ]}
         />
       </div>

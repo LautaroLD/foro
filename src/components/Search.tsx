@@ -35,10 +35,10 @@ export default function Search() {
         className='focus:outline-none  bg-transparent w-full'
       />
       {searchResults.length > 0 && (
-        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 rounded-lg py-4 bg-slate-500 divide-y z-50'>
+        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 rounded-lg py-4 bg-slate-700 divide-y divide-slate-600 z-50'>
           {searchResults.map((post: PostExtended) => (
             <div
-              className='py-2 px-4 hover:bg-slate-600 cursor-pointer'
+              className='py-2 px-4 hover:bg-slate-900 cursor-pointer'
               key={post.id}
               onClick={() => handleRoute(post)}
             >
