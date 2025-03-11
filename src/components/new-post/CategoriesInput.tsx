@@ -24,7 +24,7 @@ export default function CategoriesInput() {
   }, [categoriesSelected])
   return (
     <section className=' gap-2 flex flex-col'>
-      <b className='text-xl'>Categorías</b>
+      <p className='text-xl font-semibold'>Categorías</p>
       <input
         ref={refInputSearchCategories}
         className='p-2 bg-black border border-slate-500 text-white rounded-lg'
@@ -62,8 +62,8 @@ export default function CategoriesInput() {
         {filteredCategories.map((category, index) => (
           <li
             key={index}
-            className={`p-2  text-white rounded-lg hover:bg-slate-600 cursor-pointer ${
-              categoriesSelected.includes(category.id) && 'bg-slate-700'
+            className={`p-2  text-white rounded-lg hover:bg-blue-800 cursor-pointer ${
+              categoriesSelected.includes(category.id) && 'bg-blue-600'
             }`}
             onClick={() => {
               if (categoriesSelected.includes(category.id)) {

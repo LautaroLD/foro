@@ -71,7 +71,7 @@ export default function Form() {
     <FormProvider {...method}>
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <label className='flex flex-col gap-2'>
-          <b className='text-xl'>Titulo</b>
+          <p className='text-xl font-semibold'>Titulo</p>
           <input
             {...register('title')}
             type='text'

@@ -30,7 +30,7 @@ export default function ContentInput() {
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex gap-5 items-center'>
-        <b className='text-xl'>Contenido</b>
+        <p className='text-xl font-semibold'>Contenido</p>
         <SelectButton
           unstyled
           value={type}

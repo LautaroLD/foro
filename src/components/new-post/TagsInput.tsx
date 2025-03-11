@@ -25,7 +25,7 @@ export default function TagsInput() {
   }, [tagsSelected])
   return (
     <section className=' gap-2 flex flex-col'>
-      <b className='text-xl'>Etiquetas</b>
+      <p className='text-xl font-semibold'>Etiquetas</p>
       <input
         ref={refInputSearchTags}
         className='p-2 bg-black border border-slate-500 text-white rounded-lg'
@@ -63,8 +63,8 @@ export default function TagsInput() {
         {filteredTags.map((tag, index) => (
           <li
             key={index}
-            className={`p-2  text-white rounded-lg hover:bg-slate-600 cursor-pointer ${
-              tagsSelected.includes(tag.id) && 'bg-slate-700'
+            className={`p-2  text-white rounded-lg hover:bg-purple-800 cursor-pointer ${
+              tagsSelected.includes(tag.id) && 'bg-purple-600'
             }`}
             onClick={() => {
               if (tagsSelected.includes(tag.id)) {
