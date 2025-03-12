@@ -90,7 +90,7 @@ export default function LoginPage() {
 
         <button className='p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 w-full text-lg'>
           {loading ? (
-            <LuLoader className='animate-spin mx-auto' size={18} />
+            <LuLoader className='animate-spin mx-auto' />
           ) : (
             'Iniciar sesión'
           )}

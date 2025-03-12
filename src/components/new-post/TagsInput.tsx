@@ -63,7 +63,7 @@ export default function TagsInput() {
         {filteredTags.map((tag, index) => (
           <li
             key={index}
-            className={`p-2  text-white rounded-lg hover:bg-purple-800 cursor-pointer ${
+            className={`p-1 text-sm  text-white rounded-lg hover:bg-purple-800 cursor-pointer ${
               tagsSelected.includes(tag.id) && 'bg-purple-600'
             }`}
             onClick={() => {

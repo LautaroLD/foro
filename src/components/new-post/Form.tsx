@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react'
 import api from '@/services/config'
 import { toast } from 'react-toastify'
 import ContentInput from './ContentInput'
+import { LuLoader } from 'react-icons/lu'
 interface Inputs {
   [key: string]: string | string[] | File[]
   title: string
@@ -34,10 +35,15 @@ export default function Form() {
   const { handleSubmit, register } = method
   const onSubmit = (data: Inputs) => {
     const formData = new FormData()
+
     for (const key in data) {
-      if (key === 'files' && data[key].length > 0) {
-        data[key].forEach((file: File) => {
-          formData.append(key, file)
+      if (
+        key === 'files' ||
+        key === 'categories' ||
+        (key === 'tags' && data[key].length > 0)
+      ) {
+        data[key].forEach((item: File | string) => {
+          formData.append(key, item)
         })
       } else {
         formData.append(key, data[key] as string)
@@ -61,9 +67,8 @@ export default function Form() {
     },
     onSuccess: (data) => {
       const postId = data.data.id
-
       queryClient.refetchQueries({ queryKey: ['posts'] })
-      toast.success(`Post creado ${postId}`)
+      toast.success(`Post creado correctamente.`)
       router.push(`/post/${postId}`)
     },
   })
@@ -84,7 +89,11 @@ export default function Form() {
         <TagsInput />
         <ContentInput />
         <button className='p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700'>
-          Publicar
+          {createPost.isPending ? (
+            <LuLoader className='animate-spin mx-auto' />
+          ) : (
+            'Publicar'
+          )}
         </button>
       </form>
     </FormProvider>

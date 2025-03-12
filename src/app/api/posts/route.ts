@@ -90,10 +90,8 @@ export async function POST(request: Request) {
     const form = await request.formData()
 
     const reqFiles = form.getAll('files').map((file) => file as File)
-    const reqCategories: Array<string> = form
-      .getAll('categories')
-      .map((id) => id as string)
-    const reqTags: Array<string> = form.getAll('tags').map((id) => id as string)
+    const reqCategories: Array<string> = form.getAll('categories') as string[]
+    const reqTags: Array<string> = form.getAll('tags') as string[]
     const reqTitle = form.get('title') as string
     const reqContent = form.get('content') as string
     const reqTypeContent = form.get('typeContent') as string

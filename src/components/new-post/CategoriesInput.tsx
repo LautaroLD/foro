@@ -20,6 +20,9 @@ export default function CategoriesInput() {
     if (refInputSearchCategories.current) {
       refInputSearchCategories.current.value = ''
     }
+
+    setValue('categories', categoriesSelected)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoriesSelected])
   return (
@@ -62,7 +65,7 @@ export default function CategoriesInput() {
         {filteredCategories.map((category, index) => (
           <li
             key={index}
-            className={`p-2  text-white rounded-lg hover:bg-blue-800 cursor-pointer ${
+            className={`p-1 text-sm  text-white rounded-lg hover:bg-blue-800 cursor-pointer ${
               categoriesSelected.includes(category.id) && 'bg-blue-600'
             }`}
             onClick={() => {
@@ -72,13 +75,8 @@ export default function CategoriesInput() {
                   // setValue('category', newList)
                   return newList
                 })
-                setValue('categories', (prev: string[]) => {
-                  const newList = prev.filter((i) => i !== category.id)
-                  return newList
-                })
               } else {
-                setCategoriesSelected([...categoriesSelected, category.id])
-                setValue('categories', [...categoriesSelected, category.id])
+                setCategoriesSelected((prev) => [...prev, category.id])
               }
             }}
           >

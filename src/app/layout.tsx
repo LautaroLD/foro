@@ -32,7 +32,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950  flex flex-col min-h-dvh min-w-dvw max-h-dvh max-w-dvw `}
         >
-          <ToastContainer theme='dark' autoClose={2000} />
+          <ToastContainer theme='dark' autoClose={1200} />
           <Header />
           {children}
         </body>
