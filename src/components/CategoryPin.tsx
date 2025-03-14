@@ -1,13 +1,14 @@
 import { Category } from '@prisma/client'
+import { Tag } from 'primereact/tag'
 import React from 'react'
 
 export default function CategoryPin({ category }: { category: Category }) {
   return (
-    <li
-      className='text-xs p-1 bg-blue-600 rounded-lg font-bold'
+    <Tag
+      value={category.name}
+      className='text-xs bg-blue-600  font-bold text-white'
       key={category.id}
-    >
-      {category.name}
-    </li>
+      rounded
+    ></Tag>
   )
 }

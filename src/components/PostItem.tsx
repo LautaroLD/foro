@@ -9,6 +9,7 @@ import { Avatar } from 'primereact/avatar'
 import Image from 'next/image'
 import LikeButtonPost from './LikeButtonPost'
 import { Carousel } from 'primereact/carousel'
+import { Tag } from 'primereact/tag'
 
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
@@ -39,17 +40,41 @@ export default function PostItem({ post }: { post: PostExtended }) {
           {post.title}
         </h2>
         {post.categories.length > 0 && (
-          <ul className='flex gap-2 list-none flex-wrap'>
-            {post.categories.map((category) => (
-              <CategoryPin category={category} key={category.id} />
-            ))}
+          <ul className='flex gap-1 list-none flex-wrap'>
+            {post.categories.length > 3 ? (
+              <>
+                {post.categories.slice(0, 3).map((category) => (
+                  <CategoryPin category={category} key={category.id} />
+                ))}
+                <Tag
+                  className='text-xs text-white bg-slate-600'
+                  value={`+${post.categories.length - 3}`}
+                  rounded
+                />
+              </>
+            ) : (
+              post.categories.map((category) => (
+                <CategoryPin category={category} key={category.id} />
+              ))
+            )}
           </ul>
         )}
         {post.tags.length > 0 && (
-          <ul className='flex gap-2 list-none flex-wrap'>
-            {post.tags.map((tag) => (
-              <TagPin tag={tag} key={tag.id} />
-            ))}
+          <ul className='flex gap-1 list-none flex-wrap'>
+            {post.tags.length > 3 ? (
+              <>
+                {post.tags.slice(0, 3).map((tag) => (
+                  <TagPin tag={tag} key={tag.id} />
+                ))}
+                <Tag
+                  className='text-xs text-white bg-slate-600'
+                  value={`+${post.tags.length - 3}`}
+                  rounded
+                />
+              </>
+            ) : (
+              post.tags.map((tag) => <TagPin tag={tag} key={tag.id} />)
+            )}
           </ul>
         )}
 

@@ -54,14 +54,14 @@ export default function PostPage() {
           </p>
         </div>
         {post.categories && (
-          <ul className='flex gap-2 list-none justify-center'>
+          <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.categories.map((category) => (
               <CategoryPin category={category} key={category.id} />
             ))}
           </ul>
         )}
         {post.tags && (
-          <ul className='flex gap-2 list-none justify-center '>
+          <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.tags.map((tag) => (
               <TagPin tag={tag} key={tag.id} />
             ))}
