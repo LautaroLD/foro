@@ -1,6 +1,6 @@
 'use client'
 import PrincipalAside from '@/components/PrincipalAside'
-import UsersMostActive from '@/components/UsersMostActive'
+import TagsTrends from '@/components/TagsTrends'
 import useWindowSize from '@/hooks/useWindowSize'
 import { ScrollTop } from 'primereact/scrolltop'
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
           icon='pi pi-arrow-up font-bold  text-slate-900'
         />
       </section>
-      {width && width > 768 && <UsersMostActive />}
+      {width && width > 768 && <TagsTrends />}
     </main>
   )
 }

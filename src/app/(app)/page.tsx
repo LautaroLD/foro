@@ -1,6 +1,6 @@
 'use client'
 import PostsList from '@/components/PostsList'
-import UsersMostActive from '@/components/UsersMostActive'
+import TagsTrends from '@/components/TagsTrends'
 import useWindowSize from '@/hooks/useWindowSize'
 import { Dropdown } from 'primereact/dropdown'
 import { useState } from 'react'
@@ -22,7 +22,7 @@ export default function HomePage() {
             { label: 'Menos populares', value: 'likes=asc' },
           ]}
         />
-        {width && width < 768 && <UsersMostActive isMobile />}
+        {width && width < 768 && <TagsTrends isMobile />}
       </PostsList>
     </div>
   )
