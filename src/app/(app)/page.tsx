@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className='flex flex-col  '>
       <PostsList orderList={orderList} urlFetch={`/api/posts`}>
         <Dropdown
-          className='w-fit m-3'
+          className='w-fit m-3 text-xs'
           value={orderList}
           onChange={(e) => setOrderList(e.value)}
           options={[

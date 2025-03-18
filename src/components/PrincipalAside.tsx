@@ -21,7 +21,7 @@ export default function PrincipalAside() {
     )
 
   return (
-    <aside className='col-span-1 text-white h-full  hidden md:block'>
+    <aside className='col-span-1 text-white   hidden md:block'>
       {!user ? (
         <div className='text-center space-y-3 p-4 lg:p-10'>
           <b className='text-xl'>
