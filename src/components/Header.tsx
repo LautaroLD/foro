@@ -16,7 +16,7 @@ export default function Header() {
 
   const menuLeft = useRef<null | Menu>(null)
   return (
-    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 sm:grid-cols-3 px-4'>
+    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-[auto_1fr] px-4'>
       <div className='container mx-auto flex justify-between items-center h-full '>
         {screenWidth.width && screenWidth.width >= 768 && (
           <Link className='p-2 font-bold text-2xl' href='/'>

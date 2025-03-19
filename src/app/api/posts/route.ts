@@ -21,6 +21,7 @@ export async function GET(request: Request) {
             {
               title: {
                 contains: searchParam as string,
+                mode: 'insensitive',
               },
             },
             {
@@ -28,6 +29,7 @@ export async function GET(request: Request) {
                 some: {
                   name: {
                     contains: searchParam as string,
+                    mode: 'insensitive',
                   },
                 },
               },
@@ -37,6 +39,7 @@ export async function GET(request: Request) {
                 some: {
                   name: {
                     contains: searchParam as string,
+                    mode: 'insensitive',
                   },
                 },
               },

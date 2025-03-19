@@ -1,10 +1,11 @@
 'use client'
 import { PostExtended } from '@/models/post.model'
 import api from '@/services/config'
-import { Category, Post, Tag } from '@prisma/client'
+import { Post } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
+import { Tag as TagPrime } from 'primereact/tag'
 
 export default function Search() {
   const [search, setSearch] = useState('')
@@ -25,7 +26,7 @@ export default function Search() {
     setSearch('')
   }
   return (
-    <div className='flex items-center gap-2 w-full h-fit m-auto  focus:outline-none  text-sm relative p-2 bg-black border border-slate-500 text-white rounded-lg'>
+    <div className='flex items-center gap-2 w-full max-w-[50vw] h-fit m-auto  focus:outline-none  text-sm relative p-2 bg-black border border-slate-500 text-white rounded-lg'>
       <BiSearch />
       <input
         type='text'
@@ -35,10 +36,10 @@ export default function Search() {
         className='focus:outline-none  bg-transparent w-full'
       />
       {searchResults.length > 0 && (
-        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 rounded-lg py-4 bg-slate-700 divide-y divide-slate-600 z-50'>
+        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 rounded-lg py-4 bg-slate-700 divide-y divide-slate-600 z-50 max-h-[calc(100vh-56px)] overflow-y-scroll'>
           {searchResults.map((post: PostExtended) => (
             <div
-              className='py-2 px-4 hover:bg-slate-900 cursor-pointer'
+              className='py-2 px-4 hover:bg-slate-900 cursor-pointer flex flex-col gap-1'
               key={post.id}
               onClick={() => handleRoute(post)}
             >
@@ -48,20 +49,54 @@ export default function Search() {
                   {new Date(post.createdAt).toLocaleDateString()}
                 </p>
               </div>
-              <ul className='flex gap-2 list-none'>
-                {post.categories.map((category: Category) => (
-                  <li className='text-xs' key={category.id}>
-                    {category.name}
-                  </li>
-                ))}
-              </ul>
-              <ul className='flex gap-2 list-none'>
-                {post.tags.map((tag: Tag) => (
-                  <li className='text-xs' key={tag.id}>
-                    {tag.name}
-                  </li>
-                ))}
-              </ul>
+              {post.categories.length > 0 && (
+                <ul className='flex gap-1 list-none flex-wrap'>
+                  {post.categories.length > 3 ? (
+                    <div className='flex gap-1 items-center'>
+                      {post.categories.slice(0, 3).map((category) => (
+                        <li className='text-xs' key={category.id}>
+                          {category.name}
+                        </li>
+                      ))}
+                      <TagPrime
+                        className='text-[10px]  text-white bg-slate-600'
+                        value={`+${post.categories.length - 3}`}
+                        rounded
+                      />
+                    </div>
+                  ) : (
+                    post.categories.map((category) => (
+                      <li className='text-xs' key={category.id}>
+                        {category.name}
+                      </li>
+                    ))
+                  )}
+                </ul>
+              )}
+              {post.tags.length > 0 && (
+                <ul className='flex gap-1 list-none flex-wrap'>
+                  {post.tags.length > 3 ? (
+                    <div className='flex gap-1 items-center '>
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <li className='text-xs' key={tag.id}>
+                          {tag.name}
+                        </li>
+                      ))}
+                      <TagPrime
+                        className='text-[10px] text-white bg-slate-600'
+                        value={`+${post.tags.length - 3}`}
+                        rounded
+                      />
+                    </div>
+                  ) : (
+                    post.tags.map((tag) => (
+                      <li className='text-xs' key={tag.id}>
+                        {tag.name}
+                      </li>
+                    ))
+                  )}
+                </ul>
+              )}
             </div>
           ))}
         </div>
