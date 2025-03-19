@@ -25,7 +25,7 @@ export default function PostsList({
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['posts', orderList],
+    queryKey: ['posts', orderList, urlFetch],
     queryFn: async ({ pageParam }) => {
       const res = await api.get(
         `${urlFetch}${
@@ -57,6 +57,7 @@ export default function PostsList({
     )
   }
   if (isError) return <div>Error loading posts</div>
+
   return (
     <>
       {children}

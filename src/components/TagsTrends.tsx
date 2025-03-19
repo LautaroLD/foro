@@ -3,6 +3,7 @@ import { Trends } from '@/models/tags.model'
 import api from '@/services/config'
 
 import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
 import React from 'react'
 
 export default function TagsTrends({ isMobile }: { isMobile?: boolean }) {
@@ -24,6 +25,7 @@ export default function TagsTrends({ isMobile }: { isMobile?: boolean }) {
       </aside>
     )
   if (isError) return <div>Error loading users</div>
+
   return (
     <aside
       className={`col-span-1 text-white ${
@@ -42,14 +44,15 @@ export default function TagsTrends({ isMobile }: { isMobile?: boolean }) {
       >
         {data?.map((tagTrend: Trends) => (
           <li key={tagTrend.id} className=' items-center flex w-full flex-col'>
-            <p
-              className={`text-base font-semibold text-wrap ${
-                isMobile && 'w-max'
+            <Link
+              className={` w-full text-base font-semibold text-wrap hover:bg-slate-700 transition-all rounded-lg ${
+                isMobile && 'w-max p-1'
               }`}
+              href={`/tags/${tagTrend.name}`}
             >
               {tagTrend.name}
-            </p>
-            <p className='text-sm text-slate-500'>{tagTrend.posts} posts</p>
+              <p className='text-sm text-slate-500'>{tagTrend.posts} posts</p>
+            </Link>
           </li>
         ))}
       </ul>
