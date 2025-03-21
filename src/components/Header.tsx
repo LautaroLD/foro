@@ -8,6 +8,7 @@ import { useRef } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { PrimeIcons } from 'primereact/api'
 import useWindowSize from '@/hooks/useWindowSize'
+import Image from 'next/image'
 
 export default function Header() {
   const { data: session } = useSession()
@@ -16,11 +17,11 @@ export default function Header() {
 
   const menuLeft = useRef<null | Menu>(null)
   return (
-    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-[auto_1fr] px-4'>
-      <div className='container mx-auto flex justify-between items-center h-full '>
+    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 px-4'>
+      <div className='w-full flex  h-full max-w-[180px] '>
         {screenWidth.width && screenWidth.width >= 768 && (
-          <Link className='p-2 font-bold text-2xl' href='/'>
-            My App
+          <Link className='h-full relative w-[200px]' href='/'>
+            <Image src={'/logo.svg'} fill alt='logo' className='invert' />
           </Link>
         )}
         {screenWidth.width && screenWidth.width < 768 && (
@@ -59,15 +60,18 @@ export default function Header() {
               id='popup_menu_left'
             />
             <Button
-              label='My App'
               icon='pi pi-chevron-down'
-              className='flex flex-row-reverse gap-2 items-center p-2 font-bold text-2xl'
+              className='flex flex-row-reverse gap-2  h-full w-full'
               onClick={(event) =>
                 menuLeft.current && menuLeft.current.toggle(event)
               }
               aria-controls='popup_menu_left'
               aria-haspopup
-            />
+            >
+              <Link className='h-full w-full relative' href='/'>
+                <Image src={'/logo.svg'} fill alt='logo' className='invert' />
+              </Link>
+            </Button>
           </>
         )}
       </div>

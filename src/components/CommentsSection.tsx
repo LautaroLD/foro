@@ -9,6 +9,7 @@ import '@uiw/react-md-editor/markdown-editor.css'
 import { PostExtended } from '@/models/post.model'
 import LikeButtonComment from './LikeButtonComment'
 import { Editor } from 'primereact/editor'
+import Button from './Button'
 export default function CommentsSection({ post }: { post: PostExtended }) {
   const queryClient = useQueryClient()
   const { data: session } = useSession()
@@ -54,9 +55,10 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
               border: '1px solid #64748b ',
             }}
           />
-          <button className='bg-slate-600 p-2 rounded-lg w-full hover:bg-slate-700 transition-all flex justify-center'>
-            Comentar
-          </button>
+
+          <Button loading={addComment.isPending} primary>
+            <p className='p-2'>Comentar</p>
+          </Button>
         </form>
       )}
       <ul className=' divide-y divide-slate-600 '>

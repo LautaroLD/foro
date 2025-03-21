@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 import api from '@/services/config'
 import { toast } from 'react-toastify'
 import ContentInput from './ContentInput'
-import { LuLoader } from 'react-icons/lu'
+import Button from '../Button'
 interface Inputs {
   [key: string]: string | string[] | File[]
   title: string
@@ -88,13 +88,10 @@ export default function Form() {
         <CategoriesInput />
         <TagsInput />
         <ContentInput />
-        <button className='p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700'>
-          {createPost.isPending ? (
-            <LuLoader className='animate-spin mx-auto' />
-          ) : (
-            'Publicar'
-          )}
-        </button>
+
+        <Button loading={createPost.isPending} primary>
+          <p className='p-2'>Publicar</p>
+        </Button>
       </form>
     </FormProvider>
   )

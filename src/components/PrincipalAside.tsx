@@ -4,6 +4,7 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { BiLogOut } from 'react-icons/bi'
+import Button from './Button'
 export default function PrincipalAside() {
   const screenWidth = useWindowSize()
   const { data: session, status } = useSession()
@@ -27,19 +28,17 @@ export default function PrincipalAside() {
           <b className='text-xl'>
             Inicia sesión para tener una experiencia completa
           </b>
-          <Link
-            href='/auth/login'
-            className='bg-slate-600 p-2 rounded-lg w-full hover:scale-105 transition-all flex justify-center'
-          >
-            Iniciar sesión
-          </Link>
+          <Button primary>
+            <Link href='/auth/login' className='w-full h-full p-2'>
+              Iniciar sesión
+            </Link>
+          </Button>
           <p>¿No tienes una cuenta?</p>
-          <Link
-            href='/auth/register'
-            className='border p-2 rounded-lg w-full hover:scale-105 transition-all flex justify-center'
-          >
-            Registrarse
-          </Link>
+          <Button>
+            <Link href='/auth/register' className='w-full h-full p-2'>
+              Registrarse
+            </Link>
+          </Button>
         </div>
       ) : (
         <ul className=' divide-y divide-slate-600 w-full flex flex-col  h-full'>

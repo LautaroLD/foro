@@ -26,7 +26,7 @@ export default function Search() {
     setSearch('')
   }
   return (
-    <div className='flex items-center gap-2 w-full max-w-[50vw] h-fit m-auto  focus:outline-none  text-sm relative p-2 bg-black border border-slate-500 text-white rounded-lg'>
+    <div className='flex items-center gap-2 w-full max-w-[40vw] h-fit m-auto  focus:outline-none  text-sm relative p-2 bg-black border border-slate-500 text-white rounded-lg'>
       <BiSearch />
       <input
         type='text'

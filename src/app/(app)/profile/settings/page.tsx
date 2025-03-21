@@ -1,4 +1,5 @@
 'use client'
+import Button from '@/components/Button'
 import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -75,12 +76,9 @@ export default function Page() {
       </h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
         {enableEdit && (
-          <button
-            type='submit'
-            className='bg-slate-600 p-2 rounded-lg w-fit hover:bg-slate-700 transition-all flex justify-center text-white font-bold col-span-2'
-          >
-            Guardar
-          </button>
+          <Button primary buttonProps={{ className: 'max-w-[150px]' }}>
+            <p className='p-2'>Guardar</p>
+          </Button>
         )}
         <div className='flex flex-wrap justify-evenly gap-4'>
           {userDataToForm.map((data) => (

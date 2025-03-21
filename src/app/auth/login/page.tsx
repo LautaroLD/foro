@@ -1,10 +1,10 @@
 'use client'
+import Button from '@/components/Button'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
 type LoginFormInputs = {
@@ -88,13 +88,9 @@ export default function LoginPage() {
           )}
         </label>
 
-        <button className='p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 w-full text-lg'>
-          {loading ? (
-            <LuLoader className='animate-spin mx-auto' />
-          ) : (
-            'Iniciar sesión'
-          )}
-        </button>
+        <Button loading={loading} primary>
+          <p className='p-2'>Iniciar sesión</p>
+        </Button>
       </form>
       <p className='text-center mt-4 text-sm text-gray-300 '>
         ¿No tienes una cuenta?
