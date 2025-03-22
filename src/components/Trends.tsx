@@ -1,16 +1,16 @@
 'use client'
-import { Trends } from '@/models/tags.model'
+import { Trends } from '@/models/trend.model'
 import api from '@/services/config'
 
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import React from 'react'
 
-export default function TagsTrends({ isMobile }: { isMobile?: boolean }) {
+export default function TrendsSection({ isMobile }: { isMobile?: boolean }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['tags-trends'],
+    queryKey: ['trends'],
     queryFn: async () => {
-      const res = await api.get('/api/tags/trends')
+      const res = await api.get('/api/trends')
       return res.data
     },
   })
@@ -42,16 +42,16 @@ export default function TagsTrends({ isMobile }: { isMobile?: boolean }) {
             : 'max-w-sm mx-auto space-y-2 max-h-[calc(100vh-76px)] overflow-y-scroll pb-5'
         }`}
       >
-        {data?.map((tagTrend: Trends) => (
-          <li key={tagTrend.id} className=' items-center flex w-full flex-col'>
+        {data?.map((trend: Trends) => (
+          <li key={trend.id} className=' items-center flex w-full flex-col'>
             <Link
               className={` w-full text-base font-semibold text-wrap hover:bg-slate-700 transition-all rounded-lg ${
                 isMobile && 'w-max p-1'
               }`}
-              href={`/tags/${tagTrend.name}`}
+              href={`/trend/${trend.type}/${trend.name}`}
             >
-              {tagTrend.name}
-              <p className='text-sm text-slate-500'>{tagTrend.posts} posts</p>
+              {trend.name}
+              <p className='text-sm text-slate-500'>{trend.posts} posts</p>
             </Link>
           </li>
         ))}

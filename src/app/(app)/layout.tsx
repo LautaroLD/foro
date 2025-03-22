@@ -1,6 +1,6 @@
 'use client'
 import PrincipalAside from '@/components/PrincipalAside'
-import TagsTrends from '@/components/TagsTrends'
+import TagsTrends from '@/components/Trends'
 import useWindowSize from '@/hooks/useWindowSize'
 import { ScrollTop } from 'primereact/scrolltop'
 export default function RootLayout({

@@ -1,6 +1,6 @@
 'use client'
 import PostsList from '@/components/PostsList'
-import TagsTrends from '@/components/TagsTrends'
+import TagsTrends from '@/components/Trends'
 import useWindowSize from '@/hooks/useWindowSize'
 import { Dropdown } from 'primereact/dropdown'
 import { useState } from 'react'
