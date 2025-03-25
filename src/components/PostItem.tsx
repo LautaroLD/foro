@@ -44,17 +44,23 @@ export default function PostItem({ post }: { post: PostExtended }) {
             {post.categories.length > 3 ? (
               <>
                 {post.categories.slice(0, 3).map((category) => (
-                  <CategoryPin category={category} key={category.id} />
+                  <li key={category.id}>
+                    <CategoryPin category={category} />
+                  </li>
                 ))}
-                <Tag
-                  className='text-xs text-white bg-slate-600'
-                  value={`+${post.categories.length - 3}`}
-                  rounded
-                />
+                <li>
+                  <Tag
+                    className='text-xs text-white bg-slate-600'
+                    value={`+${post.categories.length - 3}`}
+                    rounded
+                  />
+                </li>
               </>
             ) : (
               post.categories.map((category) => (
-                <CategoryPin category={category} key={category.id} />
+                <li key={category.id}>
+                  <CategoryPin category={category} />
+                </li>
               ))
             )}
           </ul>
@@ -64,16 +70,24 @@ export default function PostItem({ post }: { post: PostExtended }) {
             {post.tags.length > 3 ? (
               <>
                 {post.tags.slice(0, 3).map((tag) => (
-                  <TagPin tag={tag} key={tag.id} />
+                  <li key={tag.id}>
+                    <TagPin tag={tag} />
+                  </li>
                 ))}
-                <Tag
-                  className='text-xs text-white bg-slate-600'
-                  value={`+${post.tags.length - 3}`}
-                  rounded
-                />
+                <li>
+                  <Tag
+                    className='text-xs text-white bg-slate-600'
+                    value={`+${post.tags.length - 3}`}
+                    rounded
+                  />
+                </li>
               </>
             ) : (
-              post.tags.map((tag) => <TagPin tag={tag} key={tag.id} />)
+              post.tags.map((tag) => (
+                <li key={tag.id}>
+                  <TagPin tag={tag} />
+                </li>
+              ))
             )}
           </ul>
         )}
@@ -105,13 +119,14 @@ export default function PostItem({ post }: { post: PostExtended }) {
             numVisible={1}
             itemTemplate={(item) => {
               return (
-                <div className='bg-black bg-opacity-40 rounded-lg overflow-hidden h-[300px] w-full relative'>
+                <div className='bg-black bg-opacity-40 rounded-lg overflow-hidden aspect-video w-full relative'>
                   {item.type.includes('image') ? (
                     <Image
+                      quality={50}
                       src={item.src}
                       alt={post.files.findIndex((f) => f === item).toString()}
                       fill
-                      sizes='100%'
+                      sizes='10%'
                       className='object-contain'
                       priority
                     />

@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <SessionAuthProvider>
-      <html>
+      <html lang='es'>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950  flex flex-col min-h-dvh min-w-dvw max-h-dvh max-w-dvw `}
         >

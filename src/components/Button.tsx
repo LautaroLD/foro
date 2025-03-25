@@ -16,10 +16,11 @@ export default function Button({
     <button
       {...buttonProps}
       className={` ${
-        primary ? 'bg-[#FF6F3C]' : 'bg-transparent border border-[#FF6F3C]'
-      }  text-white rounded-lg hover:bg-opacity-70 w-full text-lg flex justify-center items-center ${
+        primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
+      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center ${
         buttonProps?.className
       }`}
+      name='button'
     >
       {loading ? (
         <LuLoader className='animate-spin mx-auto m-2' size={28} />

@@ -45,13 +45,13 @@ export default function TrendsSection({ isMobile }: { isMobile?: boolean }) {
         {data?.map((trend: Trends) => (
           <li key={trend.id} className=' items-center flex w-full flex-col'>
             <Link
-              className={` w-full text-base font-semibold text-wrap hover:bg-slate-700 transition-all rounded-lg ${
+              className={` w-full text-base  text-wrap hover:bg-slate-700 transition-all rounded-lg ${
                 isMobile && 'w-max p-1'
               }`}
               href={`/trend/${trend.type}/${trend.name}`}
             >
-              {trend.name}
-              <p className='text-sm text-slate-500'>{trend.posts} posts</p>
+              <b>{trend.name}</b>
+              <p className='text-sm text-slate-300'>{trend.posts} posts</p>
             </Link>
           </li>
         ))}

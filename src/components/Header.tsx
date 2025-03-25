@@ -21,12 +21,12 @@ export default function Header() {
     <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 px-4'>
       <div className='w-full flex  h-full max-w-[180px] '>
         {screenWidth.width && screenWidth.width >= 768 && (
-          <Link className='h-full relative w-[200px]' href='/'>
+          <Link className='h-full relative w-full' href='/'>
             <Image
-              src={'/logo.svg'}
+              src={'/logo.webp'}
               fill
               alt='logo'
-              className='invert'
+              className='object-contain'
               priority
             />
           </Link>
@@ -78,12 +78,11 @@ export default function Header() {
             >
               <div className='h-full w-full relative'>
                 <Image
-                  src={'/logo.svg'}
+                  src={'/logo.webp'}
                   fill
                   alt='logo'
-                  className='invert'
+                  className='object-contain'
                   priority
-                  sizes='100%'
                 />
               </div>
             </Button>

@@ -14,6 +14,7 @@ export default function HomePage() {
         <Dropdown
           className='w-fit m-3 text-xs'
           value={orderList}
+          name='orderList'
           onChange={(e) => setOrderList(e.value)}
           options={[
             { label: 'Mas recientes', value: 'recent=desc' },

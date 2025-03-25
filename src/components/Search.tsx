@@ -52,18 +52,18 @@ export default function Search() {
               {post.categories.length > 0 && (
                 <ul className='flex gap-1 list-none flex-wrap'>
                   {post.categories.length > 3 ? (
-                    <div className='flex gap-1 items-center'>
+                    <li className='flex gap-1 items-center'>
                       {post.categories.slice(0, 3).map((category) => (
-                        <li className='text-xs' key={category.id}>
+                        <p className='text-xs' key={category.id}>
                           {category.name}
-                        </li>
+                        </p>
                       ))}
                       <TagPrime
                         className='text-[10px]  text-white bg-slate-600'
                         value={`+${post.categories.length - 3}`}
                         rounded
                       />
-                    </div>
+                    </li>
                   ) : (
                     post.categories.map((category) => (
                       <li className='text-xs' key={category.id}>
@@ -76,18 +76,18 @@ export default function Search() {
               {post.tags.length > 0 && (
                 <ul className='flex gap-1 list-none flex-wrap'>
                   {post.tags.length > 3 ? (
-                    <div className='flex gap-1 items-center '>
+                    <li className='flex gap-1 items-center '>
                       {post.tags.slice(0, 3).map((tag) => (
-                        <li className='text-xs' key={tag.id}>
+                        <p className='text-xs' key={tag.id}>
                           {tag.name}
-                        </li>
+                        </p>
                       ))}
                       <TagPrime
                         className='text-[10px] text-white bg-slate-600'
                         value={`+${post.tags.length - 3}`}
                         rounded
                       />
-                    </div>
+                    </li>
                   ) : (
                     post.tags.map((tag) => (
                       <li className='text-xs' key={tag.id}>
