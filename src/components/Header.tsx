@@ -16,12 +16,19 @@ export default function Header() {
   const screenWidth = useWindowSize()
 
   const menuLeft = useRef<null | Menu>(null)
+
   return (
     <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 px-4'>
       <div className='w-full flex  h-full max-w-[180px] '>
         {screenWidth.width && screenWidth.width >= 768 && (
           <Link className='h-full relative w-[200px]' href='/'>
-            <Image src={'/logo.svg'} fill alt='logo' className='invert' />
+            <Image
+              src={'/logo.svg'}
+              fill
+              alt='logo'
+              className='invert'
+              priority
+            />
           </Link>
         )}
         {screenWidth.width && screenWidth.width < 768 && (
@@ -60,17 +67,25 @@ export default function Header() {
               id='popup_menu_left'
             />
             <Button
-              icon='pi pi-chevron-down'
-              className='flex flex-row-reverse gap-2  h-full w-full'
-              onClick={(event) =>
-                menuLeft.current && menuLeft.current.toggle(event)
-              }
+              icon='pi pi-bars text-2xl'
+              className='flex  gap-2  h-full w-full focus:shadow-none'
+              onClick={(event) => {
+                console.log(event.currentTarget)
+                return menuLeft.current && menuLeft.current.toggle(event)
+              }}
               aria-controls='popup_menu_left'
               aria-haspopup
             >
-              <Link className='h-full w-full relative' href='/'>
-                <Image src={'/logo.svg'} fill alt='logo' className='invert' />
-              </Link>
+              <div className='h-full w-full relative'>
+                <Image
+                  src={'/logo.svg'}
+                  fill
+                  alt='logo'
+                  className='invert'
+                  priority
+                  sizes='100%'
+                />
+              </div>
             </Button>
           </>
         )}

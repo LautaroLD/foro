@@ -109,7 +109,9 @@ export default function PostItem({ post }: { post: PostExtended }) {
                       src={item.src}
                       alt={post.files.findIndex((f) => f === item).toString()}
                       fill
-                      objectFit='contain'
+                      sizes='100%'
+                      className='object-contain'
+                      priority
                     />
                   ) : (
                     <video

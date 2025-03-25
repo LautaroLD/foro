@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Carousel } from 'primereact/carousel'
 import { Editor } from 'primereact/editor'
-import { Galleria } from 'primereact/galleria'
 import { Image } from 'primereact/image'
 import {
   SelectButton,
@@ -81,21 +81,18 @@ export default function ContentInput() {
             />
           </div>
           {files.length > 0 && (
-            <Galleria
+            <Carousel
               value={files}
-              numVisible={5}
+              numScroll={1}
               circular
-              showItemNavigators
-              showItemNavigatorsOnHover
-              showIndicators
-              showThumbnails={false}
-              item={(item) => {
+              numVisible={1}
+              itemTemplate={(item) => {
                 return (
-                  <div className='w-full h-full max-w-md'>
-                    <div className='absolute w-full flex justify-end bg-black bg-opacity-50 p-3'>
+                  <div className=' h-[300px] w-full'>
+                    <div className='absolute w-full flex justify-end bg-black bg-opacity-50 p-3  z-20'>
                       <BiXCircle
                         size={35}
-                        className='cursor-pointer'
+                        className='cursor-pointer hover:text-red-500 transition-all duration-300'
                         onClick={() =>
                           removeImage(files.findIndex((f) => f === item))
                         }
@@ -106,11 +103,19 @@ export default function ContentInput() {
                         preview
                         src={item.src}
                         alt={files.findIndex((f) => f === item).toString()}
-                        // className='object-cover rounded-lg'
-                        style={{ borderRadius: '10px', overflow: 'hidden' }}
+                        style={{ height: '100%', width: '100%' }}
+                        imageStyle={{
+                          height: '100%',
+                          objectFit: 'contain',
+                          margin: 'auto',
+                        }}
                       />
                     ) : (
-                      <video src={item.src} controls />
+                      <video
+                        src={item.src}
+                        controls
+                        className='h-full w-full  m-auto'
+                      />
                     )}
                   </div>
                 )
