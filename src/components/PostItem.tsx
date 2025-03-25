@@ -98,6 +98,8 @@ export default function PostItem({ post }: { post: PostExtended }) {
         {post.typeContent === 'image' && (
           <Carousel
             value={post.files}
+            showIndicators={post.files.length > 1 ? true : false}
+            showNavigators={post.files.length > 1 ? true : false}
             numScroll={1}
             circular
             numVisible={1}

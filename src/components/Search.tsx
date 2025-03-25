@@ -13,7 +13,7 @@ export default function Search() {
   const [searchResults, setSearchResults] = useState([])
   useEffect(() => {
     if (search) {
-      api.get(`api/posts?q=${search}`).then((response) => {
+      api.get(`/api/posts?q=${search}`).then((response) => {
         setSearchResults(response.data)
       })
     } else {
