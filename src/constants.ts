@@ -11,6 +11,11 @@ export const navBarItems = [
     icon: PrimeIcons.PLUS,
   },
   {
+    label: 'Tendencias',
+    url: '/trends',
+    icon: PrimeIcons.CHART_LINE,
+  },
+  {
     label: 'Mi perfil',
     url: '/profile',
     icon: PrimeIcons.USER,

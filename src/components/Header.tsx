@@ -51,6 +51,11 @@ export default function Header() {
                         icon: PrimeIcons.HOME,
                       },
                       {
+                        label: 'Tendencias',
+                        url: '/trends',
+                        icon: PrimeIcons.CHART_LINE,
+                      },
+                      {
                         label: 'Iniciar sesión',
                         url: '/auth/login',
                         icon: PrimeIcons.SIGN_IN,

@@ -1,13 +1,10 @@
 'use client'
 import PostsList from '@/components/PostsList'
-import TagsTrends from '@/components/Trends'
-import useWindowSize from '@/hooks/useWindowSize'
 import { Dropdown } from 'primereact/dropdown'
 import { useState } from 'react'
 
 export default function HomePage() {
   const [orderList, setOrderList] = useState('recent=desc')
-  const { width } = useWindowSize()
   return (
     <div className='flex flex-col  '>
       <PostsList orderList={orderList} urlFetch={`/api/posts`}>
@@ -23,7 +20,6 @@ export default function HomePage() {
             { label: 'Menos populares', value: 'likes=asc' },
           ]}
         />
-        {width && width < 768 && <TagsTrends isMobile />}
       </PostsList>
     </div>
   )
