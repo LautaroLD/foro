@@ -1,19 +1,14 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Roboto } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import { ToastContainer } from 'react-toastify'
 import { SessionAuthProvider } from '@/context/SessionProvider'
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -30,7 +25,7 @@ export default function RootLayout({
     <SessionAuthProvider>
       <html lang='es'>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950  flex flex-col min-h-dvh min-w-dvw max-h-dvh max-w-dvw `}
+          className={` ${roboto.className} antialiased bg-slate-950  flex flex-col min-h-dvh min-w-dvw max-h-dvh max-w-dvw `}
         >
           <ToastContainer theme='dark' autoClose={1200} />
           <Header />

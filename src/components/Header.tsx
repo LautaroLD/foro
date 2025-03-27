@@ -4,7 +4,7 @@ import Search from './Search'
 import { Menu } from 'primereact/menu'
 import { Button } from 'primereact/button'
 import { navBarItems } from '@/constants'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { PrimeIcons } from 'primereact/api'
 import useWindowSize from '@/hooks/useWindowSize'
@@ -12,6 +12,7 @@ import Image from 'next/image'
 
 export default function Header() {
   const { data: session } = useSession()
+  const [menuOpen, setMenuOpen] = useState(false)
   const user = session?.user
   const screenWidth = useWindowSize()
 
@@ -21,19 +22,19 @@ export default function Header() {
     <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 px-4'>
       <div className='w-full flex  h-full max-w-[180px] '>
         {screenWidth.width && screenWidth.width >= 768 && (
-          <Link className='h-full relative w-full' href='/'>
-            <Image
-              src={'/logo.webp'}
-              fill
-              alt='logo'
-              className='object-contain'
-              priority
-            />
+          <Link className='h-full relative w-[150px] flex' href='/'>
+            <Image src={'/logo_desktop.svg'} fill alt='logo' priority />
           </Link>
         )}
         {screenWidth.width && screenWidth.width < 768 && (
           <>
             <Menu
+              onShow={() => {
+                setMenuOpen(true)
+              }}
+              onHide={() => {
+                setMenuOpen(false)
+              }}
               model={
                 user
                   ? [
@@ -72,21 +73,22 @@ export default function Header() {
               id='popup_menu_left'
             />
             <Button
-              icon='pi pi-bars text-2xl'
-              className='flex  gap-2  h-full w-full focus:shadow-none'
+              icon={`pi ${
+                menuOpen ? 'pi-chevron-up' : 'pi-chevron-down'
+              }  text-xl`}
+              className='flex flex-row-reverse justify-end  gap-1  h-full w-full focus:shadow-none'
               onClick={(event) => {
-                console.log(event.currentTarget)
                 return menuLeft.current && menuLeft.current.toggle(event)
               }}
               aria-controls='popup_menu_left'
               aria-haspopup
             >
-              <div className='h-full w-full relative'>
+              <div className='h-full w-fit flex  '>
                 <Image
-                  src={'/logo.webp'}
-                  fill
+                  src={'/logo_mobile.svg'}
+                  width={30}
+                  height={30}
                   alt='logo'
-                  className='object-contain'
                   priority
                 />
               </div>
