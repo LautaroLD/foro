@@ -74,7 +74,7 @@ export default function Form() {
   })
   return (
     <FormProvider {...method}>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-10'>
         <label className='flex flex-col gap-2'>
           <p className='text-xl font-semibold'>Titulo</p>
           <input

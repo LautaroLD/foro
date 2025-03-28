@@ -36,7 +36,7 @@ export default function PostItem({ post }: { post: PostExtended }) {
           </div>
         </div>
 
-        <h2 className='text-lg md:text-xl font-semibold break-all'>
+        <h2 className='text-lg md:text-xl font-semibold break-all break-words'>
           {post.title}
         </h2>
         {post.categories.length > 0 && (

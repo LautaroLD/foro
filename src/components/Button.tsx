@@ -17,7 +17,7 @@ export default function Button({
       {...buttonProps}
       className={` ${
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
-      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center ${
+      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto ${
         buttonProps?.className
       }`}
       name='button'

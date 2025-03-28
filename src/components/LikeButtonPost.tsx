@@ -61,7 +61,7 @@ export default function LikeButtonPost({
       className='flex gap-1 items-center'
       onClick={() => handleLike.mutate()}
     >
-      {isLoading ? (
+      {handleLike.isPending ? (
         <LuLoader className='animate-spin' />
       ) : likes?.some(
           (like) => like.userId === user?.id && like.postId === post?.id

@@ -1,11 +1,11 @@
 'use client'
 
+import Button from '@/components/Button'
 import api from '@/services/config'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
 export default function RegisterPage() {
@@ -20,24 +20,13 @@ export default function RegisterPage() {
     setLoading(true)
     try {
       const { data: dataApi } = await api.post('/api/auth/register', data)
-      // const response = await fetch('/api/auth/register', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(data),
-      // })
-
-      if (dataApi.status === 500) {
+      console.log(dataApi.status)
+      if (dataApi.status === 500 || dataApi.status === 400) {
         toast.error(dataApi.message)
       } else {
         toast.success('Registro exitoso')
         router.push('/auth/login')
       }
-
-      // const user = await response.json()
-
-      // Handle register success
     } catch (error) {
       console.error(error)
     } finally {
@@ -103,6 +92,15 @@ export default function RegisterPage() {
             className='p-2 bg-black border border-slate-500 text-white rounded-lg'
             {...register('password', {
               required: 'La contraseña es requerida',
+              minLength: {
+                value: 6,
+                message: 'La contraseña debe tener al menos 6 caracteres',
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+                message:
+                  'La contraseña debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número.',
+              },
             })}
           />
           {errors.password && (
@@ -110,13 +108,9 @@ export default function RegisterPage() {
           )}
         </label>
 
-        <button className='p-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 w-full '>
-          {loading ? (
-            <LuLoader className='animate-spin mx-auto' />
-          ) : (
-            'Registrarse'
-          )}
-        </button>
+        <Button loading={loading} primary>
+          <p className='p-2'>Registrarse</p>
+        </Button>
       </form>
       <p className='text-center mt-4 text-sm text-gray-300 '>
         Ya tienes cuenta?

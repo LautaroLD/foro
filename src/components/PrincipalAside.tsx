@@ -12,7 +12,7 @@ export default function PrincipalAside() {
   const user = session?.user
   if (status === 'loading')
     return (
-      <aside className=' text-white  space-y-2 px-2 py-4 hidden md:block'>
+      <aside className=' text-white  space-y-2 px-2 py-4 w-[25vw] hidden md:block'>
         <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
@@ -22,7 +22,7 @@ export default function PrincipalAside() {
     )
 
   return (
-    <aside className='w-[25vw] text-white   hidden md:block'>
+    <aside className='w-[25vw] text-white  '>
       {!user ? (
         <div className='text-center space-y-3 p-4 lg:p-10'>
           <b className='text-xl'>
