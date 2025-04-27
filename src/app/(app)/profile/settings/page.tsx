@@ -79,7 +79,7 @@ export default function Page() {
   }
   return (
     <section className='p-4 space-y-4'>
-      <h1 className='text-3xl font-bold flex gap-2 items-center '>
+      <h1 className='text-3xl font-bold flex gap-2 w-fit '>
         Configuraciones de perfil{' '}
         <Button primary className='w-min mx-0'>
           <BiEdit
@@ -91,7 +91,7 @@ export default function Page() {
       </h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
         {enableEdit && (
-          <Button primary className='mr-auto mx-0 w-min'>
+          <Button primary className=''>
             <p className='p-2'>Guardar</p>
           </Button>
         )}

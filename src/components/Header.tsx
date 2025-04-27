@@ -12,8 +12,8 @@ import Image from 'next/image'
 
 export default function Header() {
   const { data: session } = useSession()
-  const [menuOpen, setMenuOpen] = useState(false)
   const user = session?.user
+  const [menuOpen, setMenuOpen] = useState(false)
   const screenWidth = useWindowSize()
 
   const menuLeft = useRef<null | Menu>(null)

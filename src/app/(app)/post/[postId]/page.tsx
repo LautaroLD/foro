@@ -8,6 +8,7 @@ import { PostExtended } from '@/models/post.model'
 import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 // import Image from 'next/image'
 import { useParams } from 'next/navigation'
@@ -17,6 +18,8 @@ import { Image } from 'primereact/image'
 import { IoSettingsSharp } from 'react-icons/io5'
 
 export default function PostPage() {
+  const { data: session } = useSession()
+  const user = session?.user
   const params = useParams()
   const postId = params.postId
 
@@ -55,11 +58,13 @@ export default function PostPage() {
           <p className='text-center text-sm'>
             {new Date(post.createdAt).toLocaleDateString()}
           </p>
-          <Link href={`/post/${post.id}/settings`} className='w-fit ml-auto'>
-            <Button className='w-fit' primary>
-              <IoSettingsSharp size={30} className='p-1' />
-            </Button>
-          </Link>
+          {user && post.author.id === user?.id && (
+            <Link href={`/post/${post.id}/settings`} className='w-fit ml-auto'>
+              <Button className='w-fit' primary>
+                <IoSettingsSharp size={30} className='p-1' />
+              </Button>
+            </Link>
+          )}
         </div>
         {post.categories && (
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
