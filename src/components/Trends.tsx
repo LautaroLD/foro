@@ -40,11 +40,7 @@ export default function TrendsSection() {
             key={trend.id}
             className=' items-center flex w-full h-full  flex-col'
           >
-            <Button
-              buttonProps={{
-                className: 'hover:bg-[#b94d25] transition-all h-full',
-              }}
-            >
+            <Button className='hover:bg-[#b94d25] transition-all h-full'>
               <Link
                 className='w-full h-full py-2 px-1'
                 href={`/trends/${trend.type}/${trend.name}`}

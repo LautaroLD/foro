@@ -139,22 +139,22 @@ export async function POST(request: Request) {
               .end(buffer)
           })
           if (newFile) {
-            const { secure_url } = newFile as UploadApiResponse
-            return {
-              type: file.type,
-              src: secure_url,
-            }
+            return newFile
           } else {
             return null
           }
         })
       )
-      const validUrls = filesByCloud.filter((url) => url !== null)
+      const validUrls = filesByCloud.filter(
+        (url) => url !== null
+      ) as UploadApiResponse[]
+
       await prisma.file.createMany({
-        data: validUrls.map(({ type, src }) => ({
-          type,
-          src,
+        data: validUrls.map(({ resource_type, secure_url, public_id }) => ({
+          type: resource_type,
+          src: secure_url,
           postId: newPost.id,
+          publicId: public_id,
         })),
       })
     }

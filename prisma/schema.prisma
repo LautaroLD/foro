@@ -31,11 +31,12 @@ model User {
 }
 
 model File {
-  id     String  @id @default(uuid())
-  type   String
-  src    String
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
+  id       String @id @default(uuid())
+  type     String
+  src      String
+  Post     Post?  @relation(fields: [postId], references: [id])
+  postId   String
+  publicId String
 }
 
 model Post {

@@ -145,9 +145,7 @@ export default function PostItem({ post }: { post: PostExtended }) {
       </Link>
 
       <div className='flex gap-4'>
-        <p className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg  cursor-pointer'>
-          <LikeButtonPost post={post} />
-        </p>
+        <LikeButtonPost post={post} />
         <Link
           href={`/post/${post.id}`}
           className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg  cursor-pointer'

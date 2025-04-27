@@ -10,6 +10,8 @@ import { PostExtended } from '@/models/post.model'
 import LikeButtonComment from './LikeButtonComment'
 import { Editor } from 'primereact/editor'
 import Button from './Button'
+import { IoTrash } from 'react-icons/io5'
+import { LuLoader } from 'react-icons/lu'
 export default function CommentsSection({ post }: { post: PostExtended }) {
   const queryClient = useQueryClient()
   const { data: session } = useSession()
@@ -26,6 +28,14 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts', post.id] })
       setComment('')
+    },
+  })
+  const deleteComment = useMutation({
+    mutationFn: async (commentId: string) => {
+      await api.delete(`/api/comments/${commentId}`)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts', post.id] })
     },
   })
   return (
@@ -68,9 +78,26 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
               <b>
                 {comment.author.firstName} {comment.author.lastName}
               </b>
-              <p className='text-center text-sm'>
-                {new Date(comment.createdAt).toLocaleDateString()}
-              </p>
+
+              <div className='flex gap-4 items-center'>
+                <p className='text-center text-sm'>
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                </p>
+                {user?.id === comment.authorId && (
+                  <>
+                    {!deleteComment.isPending && (
+                      <IoTrash
+                        size={20}
+                        className='cursor-pointer'
+                        onClick={() => deleteComment.mutate(comment.id)}
+                      />
+                    )}
+                    {deleteComment.isPending && (
+                      <LuLoader className='animate-spin m-auto' size={20} />
+                    )}
+                  </>
+                )}
+              </div>
             </div>
             <MDEditor.Markdown
               source={comment.content}

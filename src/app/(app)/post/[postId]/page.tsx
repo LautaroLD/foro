@@ -1,4 +1,5 @@
 'use client'
+import Button from '@/components/Button'
 import CategoryPin from '@/components/CategoryPin'
 import CommentsSection from '@/components/CommentsSection'
 import LikeButtonPost from '@/components/LikeButtonPost'
@@ -7,11 +8,13 @@ import { PostExtended } from '@/models/post.model'
 import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
+import Link from 'next/link'
 // import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { Avatar } from 'primereact/avatar'
 import { Carousel } from 'primereact/carousel'
 import { Image } from 'primereact/image'
+import { IoSettingsSharp } from 'react-icons/io5'
 
 export default function PostPage() {
   const params = useParams()
@@ -45,19 +48,26 @@ export default function PostPage() {
   return (
     <article className='p-4'>
       <section className='  text-white space-y-2'>
-        <div className='space-y-2 p-4 border rounded-lg w-full md:w-2/3 m-auto'>
+        <div className='gap-2 p-4 border flex flex-col rounded-lg w-full md:w-4/5 m-auto'>
           <p className='text-xl font-semibold break-all text-center'>
             {post.title}
           </p>
           <p className='text-center text-sm'>
             {new Date(post.createdAt).toLocaleDateString()}
           </p>
+          <Link href={`/post/${post.id}/settings`} className='w-fit ml-auto'>
+            <Button className='w-fit' primary>
+              <IoSettingsSharp size={30} className='p-1' />
+            </Button>
+          </Link>
         </div>
         {post.categories && (
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.categories.map((category) => (
               <li key={category.id}>
-                <CategoryPin category={category} />
+                <Link href={`/trends/category/${category.name}`}>
+                  <CategoryPin category={category} />
+                </Link>
               </li>
             ))}
           </ul>
@@ -66,7 +76,9 @@ export default function PostPage() {
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.tags.map((tag) => (
               <li key={tag.id}>
-                <TagPin tag={tag} />
+                <Link href={`/trends/tag/${tag.name}`}>
+                  <TagPin tag={tag} />
+                </Link>
               </li>
             ))}
           </ul>

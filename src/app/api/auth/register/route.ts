@@ -5,7 +5,6 @@ export async function POST(request: Request) {
   try {
     const data = await request.json()
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
-    console.log(regex.test(data.password))
 
     if (!regex.test(data.password)) {
       return NextResponse.json({

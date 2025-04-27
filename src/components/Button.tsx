@@ -1,24 +1,23 @@
 import React from 'react'
 import { LuLoader } from 'react-icons/lu'
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
   children: React.ReactNode
   primary?: boolean
-  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 export default function Button({
   loading,
   children,
   primary,
-  buttonProps,
+  ...props
 }: ButtonProps) {
   return (
     <button
-      {...buttonProps}
+      {...props}
       className={` ${
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
       }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto ${
-        buttonProps?.className
+        props?.className
       }`}
       name='button'
     >

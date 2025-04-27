@@ -20,7 +20,6 @@ export default function RegisterPage() {
     setLoading(true)
     try {
       const { data: dataApi } = await api.post('/api/auth/register', data)
-      console.log(dataApi.status)
       if (dataApi.status === 500 || dataApi.status === 400) {
         toast.error(dataApi.message)
       } else {

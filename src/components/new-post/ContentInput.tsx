@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { PostFile } from '@/models/file.model'
 import { Carousel } from 'primereact/carousel'
 import { Editor } from 'primereact/editor'
 import { Image } from 'primereact/image'
@@ -11,13 +12,32 @@ import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { BiCloudUpload, BiXCircle } from 'react-icons/bi'
 
-export default function ContentInput() {
+export default function ContentInput({
+  contentInput,
+  filesInput,
+  typeContent,
+  deletedFiles,
+  setDeletedFiles,
+}: {
+  contentInput?: string
+  filesInput?: PostFile[]
+  typeContent?: 'image' | 'text'
+  deletedFiles?: PostFile[]
+  setDeletedFiles?: React.Dispatch<React.SetStateAction<PostFile[]>>
+}) {
   const { setValue, getValues } = useFormContext()
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(contentInput || '')
 
-  const [type, setType] = useState<'image' | 'text'>('image')
-  const [files, setFiles] = useState<{ type: string; src: string }[]>([])
-  const removeImage = (index: number) => {
+  const [type, setType] = useState<'image' | 'text'>(typeContent || 'text')
+  const [files, setFiles] = useState<{ type: string; src: string }[]>(
+    filesInput || []
+  )
+
+  const removeImage = (item: PostFile) => {
+    const index = files.findIndex((f) => f.src === item.src)
+    if (deletedFiles && setDeletedFiles) {
+      setDeletedFiles((prev) => [...prev, item])
+    }
     setFiles((prev) => prev.filter((_, i) => i !== index))
   }
   useEffect(() => {
@@ -26,30 +46,31 @@ export default function ContentInput() {
   useEffect(() => {
     setValue('typeContent', type)
   }, [type])
-
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex gap-5 items-center'>
         <p className='text-xl font-semibold'>Contenido</p>
-        <SelectButton
-          unstyled
-          value={type}
-          className='flex'
-          pt={{
-            button: (options: SelectButtonPassThroughMethodOptions) => ({
-              className: classNames(
-                'px-2 py-1',
-                options.context?.selected && 'bg-slate-700 rounded-lg'
-              ),
-            }),
-          }}
-          itemTemplate={(option) => <i className={option.icon}></i>}
-          onChange={(e) => setType(e.value)}
-          options={[
-            { value: 'text', icon: 'pi pi-align-center' },
-            { value: 'image', icon: 'pi pi-images' },
-          ]}
-        />
+        {!typeContent && (
+          <SelectButton
+            unstyled
+            value={type}
+            className='flex'
+            pt={{
+              button: (options: SelectButtonPassThroughMethodOptions) => ({
+                className: classNames(
+                  'px-2 py-1',
+                  options.context?.selected && 'bg-slate-700 rounded-lg'
+                ),
+              }),
+            }}
+            itemTemplate={(option) => <i className={option.icon}></i>}
+            onChange={(e) => setType(e.value)}
+            options={[
+              { value: 'text', icon: 'pi pi-align-center' },
+              { value: 'image', icon: 'pi pi-images' },
+            ]}
+          />
+        )}
       </div>
       {type === 'image' && (
         <div className='flex flex-col w-full h-fit items-center justify-center gap-4'>
@@ -62,6 +83,10 @@ export default function ContentInput() {
               multiple
               onChange={(e) => {
                 if (e.target.files?.length) {
+                  if (filesInput && filesInput.length > 0 && setDeletedFiles) {
+                    setDeletedFiles(filesInput)
+                    setFiles([])
+                  }
                   ;[...e.target.files].forEach((file) => {
                     setValue('files', [...(getValues('files') ?? []), file])
                     const reader = new FileReader()
@@ -93,9 +118,7 @@ export default function ContentInput() {
                       <BiXCircle
                         size={35}
                         className='cursor-pointer hover:text-red-500 transition-all duration-300'
-                        onClick={() =>
-                          removeImage(files.findIndex((f) => f === item))
-                        }
+                        onClick={() => removeImage(item)}
                       />
                     </div>
                     {item.type.includes('image') ? (

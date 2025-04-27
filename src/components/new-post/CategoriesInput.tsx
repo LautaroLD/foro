@@ -3,10 +3,16 @@ import { Category } from '@prisma/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-export default function CategoriesInput() {
+export default function CategoriesInput({
+  idSelected,
+}: {
+  idSelected?: string[]
+}) {
   const { setValue } = useFormContext()
   const refInputSearchCategories = useRef<HTMLInputElement | null>(null)
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
+  const [categoriesSelected, setCategoriesSelected] = useState<string[]>(
+    idSelected || []
+  )
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   useEffect(() => {

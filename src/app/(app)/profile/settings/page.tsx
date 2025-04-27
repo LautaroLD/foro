@@ -32,7 +32,20 @@ export default function Page() {
       return res
     },
   })
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading)
+    return (
+      <div>
+        <div className='bg-slate-600 rounded-lg  w-1/2 p-9 animate-pulse m-3'></div>
+        <div className='flex flex-wrap justify-evenly gap-4 '>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-1/4 p-7 animate-pulse'></div>
+        </div>
+      </div>
+    )
   if (isError) return <div>Error loading user</div>
 
   const userDataToForm = [
@@ -66,17 +79,19 @@ export default function Page() {
   }
   return (
     <section className='p-4 space-y-4'>
-      <h1 className='text-3xl font-bold flex gap-2'>
+      <h1 className='text-3xl font-bold flex gap-2 items-center '>
         Configuraciones de perfil{' '}
-        <BiEdit
-          onClick={() => setEnableEdit(!enableEdit)}
-          size={35}
-          className='hover:bg-white hover:text-black transition-all p-1 rounded-lg cursor-pointer'
-        />{' '}
+        <Button primary className='w-min mx-0'>
+          <BiEdit
+            onClick={() => setEnableEdit(!enableEdit)}
+            size={30}
+            className=' p-1 '
+          />{' '}
+        </Button>
       </h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
         {enableEdit && (
-          <Button primary buttonProps={{ className: 'max-w-[150px]' }}>
+          <Button primary className='mr-auto mx-0 w-min'>
             <p className='p-2'>Guardar</p>
           </Button>
         )}

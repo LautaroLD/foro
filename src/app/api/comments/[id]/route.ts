@@ -37,7 +37,7 @@ export async function DELETE(request: Request, { params }: Params) {
     if (!comment) {
       return NextResponse.json({ error: true, message: 'comment not found' })
     }
-    return NextResponse.json(comment)
+    return NextResponse.json({ message: 'comment deleted' })
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({

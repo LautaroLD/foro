@@ -58,7 +58,7 @@ export default function LikeButtonPost({
   return (
     <button
       disabled={isLoading}
-      className='flex gap-1 items-center'
+      className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg '
       onClick={() => handleLike.mutate()}
     >
       {handleLike.isPending ? (

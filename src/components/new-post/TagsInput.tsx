@@ -3,9 +3,9 @@ import { Tag } from '@prisma/client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-export default function TagsInput() {
+export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
   const { setValue } = useFormContext()
-  const [tagsSelected, setTagsSelected] = useState<string[]>([])
+  const [tagsSelected, setTagsSelected] = useState<string[]>(idSelected || [])
   const [filteredTags, setFilteredTags] = useState<Tag[]>([])
   const [tags, setTags] = useState<Tag[]>([])
   const refInputSearchTags = useRef<HTMLInputElement | null>(null)

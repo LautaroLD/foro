@@ -67,6 +67,7 @@ export default function Form() {
     },
     onSuccess: (data) => {
       const postId = data.data.id
+
       queryClient.refetchQueries({ queryKey: ['posts'] })
       toast.success(`Post creado correctamente.`)
       router.push(`/post/${postId}`)
