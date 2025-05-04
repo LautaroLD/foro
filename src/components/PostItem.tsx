@@ -13,7 +13,7 @@ import { Tag } from 'primereact/tag'
 
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
-    <li className='p-4 w-full text-white space-y-2'>
+    <li className='px-6 py-4 w-full text-white space-y-2'>
       <Link href={`/post/${post.id}`} className='space-y-2'>
         <div>
           <div className='flex gap-1'>

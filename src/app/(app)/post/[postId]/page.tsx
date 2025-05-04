@@ -49,7 +49,7 @@ export default function PostPage() {
   if (!post) return <div>Post not found</div>
 
   return (
-    <article className='p-4'>
+    <article className='p-6'>
       <section className='  text-white space-y-2'>
         <div className='gap-2 p-4 border flex flex-col rounded-lg w-full md:w-4/5 m-auto'>
           <p className='text-xl font-semibold break-all text-center'>
@@ -97,9 +97,9 @@ export default function PostPage() {
             />
           </div>
           <div>
-            <b>
+            <Link href={`/user/${post.author.id}`} className='font-bold'>
               {post.author.firstName} {post.author.lastName}
-            </b>
+            </Link>
             <p>{post.author.email}</p>
           </div>
         </div>

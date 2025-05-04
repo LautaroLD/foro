@@ -139,7 +139,7 @@ export default function Form() {
   if (error) return <div>Error loading post</div>
 
   return (
-    <article className='p-4'>
+    <article className='p-6'>
       {post && (
         <FormProvider {...method}>
           <form

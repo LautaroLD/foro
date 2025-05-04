@@ -42,7 +42,7 @@ export default function Page() {
 
   return (
     <article className='pb-4'>
-      <div className='grid  grid-flow-col w-fit gap-3 m-4'>
+      <div className='grid  grid-flow-col w-fit gap-3 m-6'>
         <div className='w-fit ml-auto'>
           <Avatar
             label={`${userData.firstName[0]}${userData.lastName[0]}`}
@@ -66,7 +66,7 @@ export default function Page() {
         </div>
       </div>
       <div>
-        <h2 className='text-xl  font-bold m-4'>
+        <h2 className='text-xl  font-bold m-6'>
           Mis Posts ({userData?.posts?.length})
         </h2>
         <div className='flex flex-col gap-4 '>

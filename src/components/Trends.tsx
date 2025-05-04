@@ -29,7 +29,7 @@ export default function TrendsSection() {
 
   return (
     <section
-      className={`w-full text-white overflow-hidden  py-3 px-2 flex flex-col space-y-2`}
+      className={`w-full text-white overflow-hidden  p-6 flex flex-col space-y-2`}
     >
       <b className={`text-xl `}>Tendencias</b>
       <ul

@@ -65,7 +65,6 @@ export default function PostsList({
         <ul
           key={i + '-page'}
           className='list-none flex flex-col   w-full h-full divide-y divide-slate-600 border-t border-t-slate-600'
-          // className='list-none flex flex-col gap-6  w-full h-full overflow-y-scroll '
         >
           {page.map((post: PostExtended) => (
             <PostItem key={post.id} post={post} />

@@ -15,12 +15,14 @@ export default function PrincipalAside() {
   const user = session?.user
   if (status === 'loading')
     return (
-      <aside className=' text-white  space-y-2 px-2 py-4 w-[25vw] hidden md:block'>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
-        <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+      <aside className={`w-auto relative p-4 `}>
+        <div className='w-[20vw] flex flex-col gap-4'>
+          <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+          <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+          <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+          <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+          <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+        </div>
       </aside>
     )
 
@@ -44,7 +46,7 @@ export default function PrincipalAside() {
         } overflow-hidden  text-white transition-all duration-300 ease-in-out h-full`}
       >
         {!user ? (
-          <div className='text-center space-y-3 lg:p-5 w-[20vw]'>
+          <div className='text-center space-y-3 w-[20vw]'>
             <b className='text-xl'>
               Inicia sesión para tener una experiencia completa
             </b>
