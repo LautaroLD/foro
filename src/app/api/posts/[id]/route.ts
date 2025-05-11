@@ -53,7 +53,11 @@ export async function DELETE(request: Request, { params }: Params) {
     if (!post) {
       return NextResponse.json({ error: true, message: 'post not found' })
     }
-    return NextResponse.json(post)
+    cloudinary.api.delete_resources_by_prefix(`foro/post/${post.id}`, () => {
+      cloudinary.api.delete_folder(`foro/post/${post.id}`)
+    })
+
+    return NextResponse.json({ message: 'post deleted' })
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({

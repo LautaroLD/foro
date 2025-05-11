@@ -1,5 +1,5 @@
 import React from 'react'
-import { LuLoader } from 'react-icons/lu'
+import { RiLoader5Line } from 'react-icons/ri'
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
   children: React.ReactNode
@@ -16,13 +16,13 @@ export default function Button({
       {...props}
       className={` ${
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
-      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto ${
+      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60 ${
         props?.className
       }`}
       name='button'
     >
       {loading ? (
-        <LuLoader className='animate-spin mx-auto m-2' size={28} />
+        <RiLoader5Line className='animate-spin mx-auto m-2' size={28} />
       ) : (
         <>{children}</>
       )}

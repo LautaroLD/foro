@@ -148,7 +148,7 @@ export default function PostItem({ post }: { post: PostExtended }) {
         <LikeButtonPost post={post} />
         <Link
           href={`/post/${post.id}`}
-          className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg  cursor-pointer'
+          className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg  cursor-pointer'
         >
           <BiComment />
           {post.comments.length}

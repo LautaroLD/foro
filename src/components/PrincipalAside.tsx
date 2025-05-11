@@ -67,7 +67,7 @@ export default function PrincipalAside() {
             {navBarItems.map((item) => (
               <li key={item.label}>
                 <Link
-                  className='p-3 w-full hover:bg-slate-600 flex items-center gap-2 rounded-lg'
+                  className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 rounded-lg'
                   href={item.url}
                 >
                   <i className={item.icon} />
@@ -77,7 +77,7 @@ export default function PrincipalAside() {
             ))}
 
             <li
-              className='p-3 w-full hover:bg-slate-600 flex items-center gap-2 mt-auto cursor-pointer rounded-lg'
+              className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 mt-auto cursor-pointer rounded-lg'
               onClick={() => signOut()}
             >
               <BiLogOut size={20} />

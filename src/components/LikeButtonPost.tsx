@@ -1,27 +1,25 @@
 'use client'
+import { PostExtended } from '@/models/post.model'
 import api from '@/services/config'
-import { LikePost, Post } from '@prisma/client'
+import { LikePost } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
-import { LuCircleAlert, LuLoader } from 'react-icons/lu'
+import { LuCircleAlert } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
-export default function LikeButtonPost({
-  post,
-}: {
-  post: Post & { likes: { id: string }[] }
-}) {
+export default function LikeButtonPost({ post }: { post: PostExtended }) {
   const { data: session } = useSession()
   const user = session?.user
   const queryClient = useQueryClient()
 
   const {
     data: likes,
-    isLoading,
+    isFetching,
     isError,
   } = useQuery({
     queryKey: ['post_likes', post.id],
+    enabled: !!post?.id,
     queryFn: async () => {
       const { data } = await api.get<{ likes: LikePost[] }>(
         '/api/posts/likes',
@@ -53,16 +51,16 @@ export default function LikeButtonPost({
     return <LuCircleAlert />
   }
 
-  if (isLoading) return <LuLoader className='animate-spin' />
+  if (isFetching) return <BiSolidLike className='m-2' />
 
   return (
     <button
-      disabled={isLoading}
-      className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg '
+      disabled={isFetching}
+      className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg '
       onClick={() => handleLike.mutate()}
     >
       {handleLike.isPending ? (
-        <LuLoader className='animate-spin' />
+        <BiSolidLike />
       ) : likes?.some(
           (like) => like.userId === user?.id && like.postId === post?.id
         ) ? (

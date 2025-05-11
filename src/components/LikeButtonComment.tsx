@@ -6,7 +6,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import React from 'react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
-import { LuLoader } from 'react-icons/lu'
 import { toast } from 'react-toastify'
 
 export default function LikeButtonComment({
@@ -20,7 +19,7 @@ export default function LikeButtonComment({
 
   const {
     data: likes,
-    isLoading,
+    isFetching,
     isError,
   } = useQuery({
     queryKey: ['comment_likes', comment.id],
@@ -55,15 +54,15 @@ export default function LikeButtonComment({
   if (isError) return
 
   if (!likes) return
-  if (isLoading) return <LuLoader className='animate-spin' />
+  if (isFetching) return <BiSolidLike className='m-2' />
 
   return (
     <button
-      className='flex gap-1 items-center hover:bg-slate-500 p-1 rounded-lg '
+      className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg '
       onClick={() => handleLike.mutate()}
     >
       {handleLike.isPending ? (
-        <LuLoader className='animate-spin' />
+        <BiSolidLike />
       ) : likes.some(
           (like) => like.userId === user?.id && like.commentId === comment?.id
         ) ? (

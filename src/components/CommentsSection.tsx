@@ -3,33 +3,20 @@ import api from '@/services/config'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
 import { useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import React from 'react'
 import '@uiw/react-markdown-preview/markdown.css'
 import '@uiw/react-md-editor/markdown-editor.css'
 import { PostExtended } from '@/models/post.model'
 import LikeButtonComment from './LikeButtonComment'
-import { Editor } from 'primereact/editor'
-import Button from './Button'
+
 import { IoTrash } from 'react-icons/io5'
-import { LuLoader } from 'react-icons/lu'
+import { RiLoader5Line } from 'react-icons/ri'
+import CreateComment from './CreateComment'
 export default function CommentsSection({ post }: { post: PostExtended }) {
   const queryClient = useQueryClient()
   const { data: session } = useSession()
   const user = session?.user
-  const [comment, setComment] = useState('')
-  const addComment = useMutation({
-    mutationFn: async () => {
-      await api.post(`/api/comments`, {
-        content: comment,
-        postId: post.id,
-        authorId: user?.id,
-      })
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts', post.id] })
-      setComment('')
-    },
-  })
+
   const deleteComment = useMutation({
     mutationFn: async (commentId: string) => {
       await api.delete(`/api/comments/${commentId}`)
@@ -46,30 +33,7 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
           <p>Debes iniciar sesión para dejar un comentario.</p>
         </div>
       ) : (
-        <form
-          className='flex gap-2 flex-col'
-          onSubmit={(e) => {
-            e.preventDefault()
-            addComment.mutate()
-          }}
-        >
-          <Editor
-            value={comment}
-            onTextChange={(val) => setComment(val.htmlValue || '')}
-            style={{
-              height: 200,
-              borderBottomLeftRadius: 8,
-              borderBottomRightRadius: 8,
-              overflow: 'hidden',
-              padding: 2,
-              border: '1px solid #64748b ',
-            }}
-          />
-
-          <Button loading={addComment.isPending} primary>
-            <p className='p-2'>Comentar</p>
-          </Button>
-        </form>
+        <CreateComment postId={post.id} userId={user?.id as string} />
       )}
       <ul className=' divide-y divide-slate-600 '>
         {post.comments.map((comment) => (
@@ -93,7 +57,10 @@ export default function CommentsSection({ post }: { post: PostExtended }) {
                       />
                     )}
                     {deleteComment.isPending && (
-                      <LuLoader className='animate-spin m-auto' size={20} />
+                      <RiLoader5Line
+                        className='animate-spin m-auto'
+                        size={20}
+                      />
                     )}
                   </>
                 )}

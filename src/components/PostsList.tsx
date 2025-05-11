@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import PostItem from './PostItem'
 import { PostExtended } from '@/models/post.model'
-import { LuLoader } from 'react-icons/lu'
+import { RiLoader5Line } from 'react-icons/ri'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useInView } from 'react-intersection-observer'
 import api from '@/services/config'
@@ -18,7 +18,7 @@ export default function PostsList({
 }) {
   const { ref, inView } = useInView()
   const {
-    isLoading,
+    isFetching,
     data,
     isError,
     fetchNextPage,
@@ -44,7 +44,7 @@ export default function PostsList({
       fetchNextPage()
     }
   }, [inView, hasNextPage])
-  if (isLoading) {
+  if (isFetching) {
     return (
       <div className='flex flex-col gap-3 p-3'>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
@@ -74,7 +74,7 @@ export default function PostsList({
       {hasNextPage && (
         <span ref={ref} className='pb-4 '>
           {isFetchingNextPage && (
-            <LuLoader className='animate-spin m-auto' size={30} />
+            <RiLoader5Line className='animate-spin m-auto' size={30} />
           )}
         </span>
       )}

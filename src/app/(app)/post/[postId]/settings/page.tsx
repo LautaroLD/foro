@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { IoTrash } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 
 interface Inputs {
@@ -127,6 +128,19 @@ export default function Form() {
       router.push(`/post/${postId}`)
     },
   })
+  const deletePost = useMutation({
+    mutationFn: async () => {
+      return await api.delete(`/api/posts/${postId}`)
+    },
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ['posts'],
+        exact: false,
+      })
+      toast.success(`Post eliminado correctamente.`)
+      router.push('/')
+    },
+  })
 
   if (isLoading)
     return (
@@ -139,7 +153,12 @@ export default function Form() {
   if (error) return <div>Error loading post</div>
 
   return (
-    <article className='p-6'>
+    <article className='p-6 flex flex-col gap-6'>
+      <span className='w-fit mr-auto'>
+        <Button className=' w-fit p-1' onClick={() => deletePost.mutate()}>
+          <IoTrash size={24} />
+        </Button>
+      </span>
       {post && (
         <FormProvider {...method}>
           <form

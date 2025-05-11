@@ -34,7 +34,7 @@ model File {
   id       String @id @default(uuid())
   type     String
   src      String
-  Post     Post?  @relation(fields: [postId], references: [id])
+  Post     Post?  @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId   String
   publicId String
 }
@@ -57,16 +57,16 @@ model Post {
 model LikePost {
   id     String  @id @default(uuid())
   postId String?
-  Post   Post?   @relation(fields: [postId], references: [id])
-  user   User?   @relation(fields: [userId], references: [id])
+  Post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String?
 }
 
 model LikeComment {
   id        String   @id @default(uuid())
   commentId String?
-  comment   Comment? @relation(fields: [commentId], references: [id])
-  user      User?    @relation(fields: [userId], references: [id])
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
 }
 
@@ -82,7 +82,7 @@ model Comment {
   content   String
   post      Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
-  author    User          @relation(fields: [authorId], references: [id])
+  author    User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  String
   likes     LikeComment[]
   createdAt DateTime      @default(now())
