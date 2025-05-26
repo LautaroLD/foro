@@ -15,7 +15,7 @@ export default function PrincipalAside() {
   const user = session?.user
   if (status === 'loading')
     return (
-      <aside className={`w-auto relative p-4 `}>
+      <aside className={`w-auto relative p-4 hidden lg:flex`}>
         <div className='w-[20vw] flex flex-col gap-4'>
           <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
           <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
