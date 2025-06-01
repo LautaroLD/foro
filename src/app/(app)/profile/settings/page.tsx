@@ -78,8 +78,8 @@ export default function Page() {
       })
   }
   return (
-    <section className='p-4 space-y-4'>
-      <h1 className='text-3xl font-bold flex gap-2 w-fit '>
+    <section className='p-6 space-y-4'>
+      <h1 className='text-3xl font-bold flex gap-4 w-fit '>
         Configuraciones de perfil{' '}
         <Button primary className='w-min mx-0'>
           <BiEdit

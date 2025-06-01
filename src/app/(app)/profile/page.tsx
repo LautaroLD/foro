@@ -25,7 +25,7 @@ export default function Page() {
   })
   if (isLoading)
     return (
-      <div className='col-span-1 text-white  space-y-2 px-2 py-4'>
+      <div className='col-span-1 text-white  space-y-2 m-6'>
         <div className='p-8 w-2/3 bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='p-10 w-1/2 bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='flex flex-col gap-3 p-3'>
@@ -75,12 +75,11 @@ export default function Page() {
               <p className=' text-center mb-3'>
                 No tienes ningún post... todavía ;){' '}
               </p>
-              <Link
-                href='/create-post'
-                className=' text-center font-bold border rounded-lg w-fit m-auto  p-2 hover:bg-white hover:text-black transition-all'
-              >
-                Crea uno ahora!
-              </Link>
+              <Button primary className='w-fit rounded-lg m-auto flex' unStyled>
+                <Link href='/create-post' className='p-2 font-bold'>
+                  Crea uno ahora!
+                </Link>
+              </Button>
             </div>
           ) : (
             <PostsList urlFetch={`/api/users/${user?.id}/posts`} />

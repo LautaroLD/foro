@@ -40,6 +40,7 @@ export default function CreateComment({
         onTextChange={(val) => setComment(val.htmlValue || '')}
         style={{
           height: 200,
+          backgroundColor: '#000',
           borderBottomLeftRadius: 8,
           borderBottomRightRadius: 8,
           overflow: 'hidden',

@@ -35,11 +35,11 @@ export default function Search() {
         placeholder='Buscar'
         className='focus:outline-none  bg-transparent w-full'
       />
-      {searchResults.length > 0 && (
-        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 rounded-lg py-4 bg-slate-700 divide-y divide-slate-600 z-50 max-h-[calc(100vh-56px)] overflow-y-scroll'>
+      {searchResults.length > 0 && search && (
+        <div className='fixed sm:absolute top-10 lg:top-full w-screen sm:w-[50vw]  lg:w-full left-0  mt-2 px-0 rounded-lg py-4 bg-slate-700 divide-y divide-slate-600 z-50 max-h-[calc(100vh-56px)] overflow-y-auto '>
           {searchResults.map((post: PostExtended) => (
             <div
-              className='py-2 px-4 hover:bg-slate-900 cursor-pointer flex flex-col gap-1'
+              className='py-2 px-4 hover:bg-slate-900 cursor-pointer flex flex-col gap-1 '
               key={post.id}
               onClick={() => handleRoute(post)}
             >

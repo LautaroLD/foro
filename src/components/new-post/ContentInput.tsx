@@ -152,6 +152,7 @@ export default function ContentInput({
           value={content}
           onTextChange={(val) => setContent(val.htmlValue || '')}
           style={{
+            backgroundColor: '#000',
             height: 350,
             borderBottomLeftRadius: 8,
             borderBottomRightRadius: 8,

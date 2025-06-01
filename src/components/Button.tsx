@@ -4,11 +4,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
   children: React.ReactNode
   primary?: boolean
+  unStyled?: boolean
 }
 export default function Button({
   loading,
   children,
   primary,
+  unStyled,
   ...props
 }: ButtonProps) {
   return (
@@ -16,9 +18,10 @@ export default function Button({
       {...props}
       className={` ${
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
-      }  text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60 ${
-        props?.className
-      }`}
+      } ${
+        !unStyled &&
+        'text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60'
+      }  ${props?.className}`}
       name='button'
     >
       {loading ? (

@@ -38,7 +38,7 @@ export default function PostPage() {
 
   if (isLoading)
     return (
-      <aside className='col-span-1 text-white  space-y-2 px-2 py-4 hidden md:block'>
+      <aside className='col-span-1 text-white  space-y-2 m-6 hidden md:block'>
         <div className='p-8 w-2/3 bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
         <div className='p-60 m-auto w-4/5 bg-slate-600 animate-pulse rounded-lg'></div>
