@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Redactiva
 
-## Getting Started
+Redactiva es una plataforma intuitiva para la creación, exploración y gestión de contenido. Ofrece herramientas avanzadas para publicar ideas, debates, consultas, descubrir tendencias y personalizar la experiencia del usuario dentro de una comunidad activa de escritores y lectores.
 
-First, run the development server:
+## 🚀 Funcionalidades Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### ✍️ Creación y Edición de Posts
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Editor enriquecido con opciones avanzadas de formato (negrita, cursiva, listas, enlaces e imágenes).
+- Vista previa en tiempo real para garantizar precisión antes de publicar.
+  
+### 🔍 Descubrimiento de Contenido
+- Feed dinámico con publicaciones en tendencia y contenido destacado.
+- Filtros avanzados para explorar por categorías, popularidad y fecha.
+- Sistema de búsqueda optimizado para encontrar publicaciones específicas con rapidez.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🎨 Experiencia del Usuario
+- Modo oscuro para mejorar accesibilidad y comodidad visual.
+- Interfaz responsiva optimizada para todos los dispositivos.
+- Diseño minimalista enfocado en la usabilidad y eficiencia.
+- Interacción social mediante comentarios y likes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Redactiva es la solución ideal para quienes buscan una plataforma dinámica y bien estructurada para compartir pensamientos, descubrir contenido relevante y conectar con una comunidad vibrante.
