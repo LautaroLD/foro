@@ -56,15 +56,15 @@ export default function LikeButtonPost({ post }: { post: PostExtended }) {
   return (
     <button
       disabled={isFetching}
-      className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg '
+      className='flex gap-1 items-center  p-1'
       onClick={() => handleLike.mutate()}
     >
       {handleLike.isPending ? (
-        <BiSolidLike />
+        <BiSolidLike color='#b94d25' />
       ) : likes?.some(
           (like) => like.userId === user?.id && like.postId === post?.id
         ) ? (
-        <BiSolidLike />
+        <BiSolidLike color='#b94d25' />
       ) : (
         <BiLike />
       )}

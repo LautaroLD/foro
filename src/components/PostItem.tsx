@@ -146,13 +146,10 @@ export default function PostItem({ post }: { post: PostExtended }) {
 
       <div className='flex gap-4'>
         <LikeButtonPost post={post} />
-        <Link
-          href={`/post/${post.id}`}
-          className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg  cursor-pointer'
-        >
+        <div className='flex gap-1 items-center'>
           <BiComment />
           {post.comments.length}
-        </Link>
+        </div>
       </div>
     </li>
   )

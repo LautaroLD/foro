@@ -54,19 +54,19 @@ export default function LikeButtonComment({
   if (isError) return
 
   if (!likes) return
-  if (isFetching) return <BiSolidLike className='m-2' />
+  if (isFetching) return <BiSolidLike className='m-2' color='#b94d25' />
 
   return (
     <button
-      className='flex gap-1 items-center hover:bg-[#b94d25] p-1 rounded-lg '
+      className='flex gap-1 items-center p-1'
       onClick={() => handleLike.mutate()}
     >
       {handleLike.isPending ? (
-        <BiSolidLike />
+        <BiSolidLike color='#b94d25' />
       ) : likes.some(
           (like) => like.userId === user?.id && like.commentId === comment?.id
         ) ? (
-        <BiSolidLike />
+        <BiSolidLike color='#b94d25' />
       ) : (
         <BiLike />
       )}
