@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/libs/prisma'
 import { Params } from '@/models/params'
+import { getToken } from 'next-auth/jwt'
 
 export async function GET(request: Request, { params }: Params) {
   try {
@@ -29,8 +30,15 @@ export async function GET(request: Request, { params }: Params) {
     }
   }
 }
-export async function DELETE(request: Request, { params }: Params) {
+export async function DELETE(request: NextRequest, { params }: Params) {
   try {
+    const token = await getToken({ req: request })
+    if (!token) {
+      return NextResponse.json(
+        { error: true, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
     const { id } = await params
     const user = await prisma?.user.delete({
       where: {

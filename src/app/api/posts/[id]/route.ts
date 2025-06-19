@@ -1,14 +1,15 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/libs/prisma'
 import { Params } from '@/models/params'
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
+import { getToken } from 'next-auth/jwt'
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 })
-export async function GET(request: Request, { params }: Params) {
+export async function GET(request: NextRequest, { params }: Params) {
   try {
     const { id } = await params
     const post = await prisma?.post.findFirst({
@@ -42,12 +43,22 @@ export async function GET(request: Request, { params }: Params) {
     }
   }
 }
-export async function DELETE(request: Request, { params }: Params) {
+
+export async function DELETE(request: NextRequest, { params }: Params) {
   try {
+    const token = await getToken({ req: request })
+    if (!token) {
+      return NextResponse.json(
+        { error: true, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
     const { id } = await params
     const post = await prisma?.post.delete({
       where: {
         id,
+        authorId: token.id as string,
       },
     })
     if (!post) {
