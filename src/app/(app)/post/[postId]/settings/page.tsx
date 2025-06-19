@@ -13,7 +13,6 @@ import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { IoTrash } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 
 interface Inputs {
@@ -154,11 +153,6 @@ export default function Form() {
 
   return (
     <article className='p-6 flex flex-col gap-6'>
-      <span className='w-fit mr-auto'>
-        <Button className=' w-fit p-1' onClick={() => deletePost.mutate()}>
-          <IoTrash size={24} />
-        </Button>
-      </span>
       {post && (
         <FormProvider {...method}>
           <form
@@ -187,6 +181,13 @@ export default function Form() {
 
             <Button loading={updatePost.isPending} primary>
               <p className='p-2'>Publicar</p>
+            </Button>
+            <Button
+              type='button'
+              loading={deletePost.isPending}
+              onClick={() => deletePost.mutate()}
+            >
+              <p className='p-2'>Eliminar post</p>
             </Button>
           </form>
         </FormProvider>
