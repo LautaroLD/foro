@@ -59,7 +59,7 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
           <option value={tag.name} key={tag.id} />
         ))}
       </datalist>
-      <ul className='flex flex-wrap gap-1'>
+      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] h-auto overflow-y-auto'>
         {filteredTags.map((tag, index) => (
           <li
             key={index}

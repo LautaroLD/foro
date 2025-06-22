@@ -67,7 +67,7 @@ export default function CategoriesInput({
           <option value={category.name} key={category.id} />
         ))}
       </datalist>
-      <ul className='flex flex-wrap gap-1'>
+      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] h-auto overflow-y-auto'>
         {filteredCategories.map((category, index) => (
           <li
             key={index}
@@ -78,7 +78,6 @@ export default function CategoriesInput({
               if (categoriesSelected.includes(category.id)) {
                 setCategoriesSelected((prev) => {
                   const newList = prev.filter((i) => i !== category.id)
-                  // setValue('category', newList)
                   return newList
                 })
               } else {
