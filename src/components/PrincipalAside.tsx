@@ -30,12 +30,12 @@ export default function PrincipalAside() {
     <aside className={`w-auto relative p-4 `}>
       {openMenu ? (
         <CiSquareChevLeft
-          className='absolute top-5 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
+          className='absolute top-4 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
           onClick={() => setOpenMenu(!openMenu)}
         />
       ) : (
         <CiSquareChevRight
-          className='absolute top-5 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
+          className='absolute top-4 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
           onClick={() => setOpenMenu(!openMenu)}
         />
       )}
