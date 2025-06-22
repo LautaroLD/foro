@@ -90,7 +90,11 @@ export default function Form() {
         <TagsInput />
         <ContentInput />
 
-        <Button loading={createPost.isPending} primary>
+        <Button
+          loading={createPost.isPending}
+          primary
+          className='max-w-[200px]'
+        >
           <p className='p-2'>Publicar</p>
         </Button>
       </form>

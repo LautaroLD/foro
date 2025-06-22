@@ -20,7 +20,7 @@ export default function Button({
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
       } ${
         !unStyled &&
-        'text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg flex justify-center items-center max-w-sm mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60'
+        'text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg  max-w-fit h-fit mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60'
       }  ${props?.className}`}
       name='button'
     >

@@ -179,15 +179,20 @@ export default function Form() {
               setDeletedFiles={setDeletedFiles}
             />
 
-            <Button loading={updatePost.isPending} primary>
+            <Button
+              loading={updatePost.isPending}
+              primary
+              className='max-w-[150px] '
+            >
               <p className='p-2'>Publicar</p>
             </Button>
             <Button
               type='button'
+              className='max-w-[150px]'
               loading={deletePost.isPending}
               onClick={() => deletePost.mutate()}
             >
-              <p className='p-2'>Eliminar post</p>
+              <p className='p-2 text-base'>Eliminar post</p>
             </Button>
           </form>
         </FormProvider>

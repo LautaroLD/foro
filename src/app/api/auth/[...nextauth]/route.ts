@@ -41,7 +41,6 @@ const handler = NextAuth({
           if (!isValidPassword) {
             throw new Error()
           }
-          console.log(user)
 
           return user
         } catch (error) {

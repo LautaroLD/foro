@@ -50,13 +50,13 @@ export default function PrincipalAside() {
             <b className='text-xl'>
               Inicia sesión para tener una experiencia completa
             </b>
-            <Button primary>
+            <Button primary className='flex'>
               <Link href='/auth/login' className='w-full h-full p-2'>
                 Iniciar sesión
               </Link>
             </Button>
             <p>¿No tienes una cuenta?</p>
-            <Button>
+            <Button className='flex'>
               <Link href='/auth/register' className='w-full h-full p-2'>
                 Registrarse
               </Link>

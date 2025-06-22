@@ -19,7 +19,7 @@ export default function Header() {
   const menuLeft = useRef<null | Menu>(null)
 
   return (
-    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-cols-2 px-4'>
+    <header className='bg-slate-700 text-white shadow-md w-full min-h-14 grid grid-flow-col px-4'>
       <div className='w-full flex  h-full max-w-[180px] '>
         {screenWidth.width && screenWidth.width >= 768 && (
           <Link className='h-full relative w-[150px] flex' href='/'>
