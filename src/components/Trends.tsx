@@ -5,7 +5,6 @@ import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import React from 'react'
-import Button from './Button'
 
 export default function TrendsSection() {
   const { data, isLoading, isError } = useQuery({
@@ -29,26 +28,21 @@ export default function TrendsSection() {
 
   return (
     <section
-      className={`w-full text-white overflow-hidden  p-6 flex flex-col space-y-2`}
+      className={`w-full text-white overflow-hidden   flex flex-col space-y-2`}
     >
-      <b className={`text-xl `}>Tendencias</b>
+      <b className={`text-xl p-6`}>Tendencias de la semana</b>
       <ul
-        className={`w-full grid grid-cols-2  md:grid-cols-4  overflow-y-scroll gap-3`}
+        className={`w-full flex flex-col  overflow-y-scroll gap-3 divide-y divide-gray-600 border-t border-b border-gray-600 `}
       >
         {data?.map((trend: Trends) => (
-          <li
-            key={trend.id}
-            className=' items-center flex w-full h-full  flex-col'
-          >
-            <Button className='hover:bg-[#b94d25] transition-all h-full'>
-              <Link
-                className='w-full h-full py-2 px-1'
-                href={`/trends/${trend.type}/${trend.name}`}
-              >
-                <b>{trend.name}</b>
-                <p>{trend.posts} posts</p>
-              </Link>
-            </Button>
+          <li key={trend.id} className=' flex w-full h-full  flex-col px-6'>
+            <Link
+              className='w-full h-full py-2 px-1'
+              href={`/trends/${trend.type}/${trend.name}`}
+            >
+              <b>{trend.name}</b>
+              <p className='text-sm text-gray-400'>{trend.posts} posts</p>
+            </Link>
           </li>
         ))}
       </ul>

@@ -49,7 +49,12 @@ export default function CreateComment({
         }}
       />
 
-      <Button loading={addComment.isPending} primary disabled={!comment.length}>
+      <Button
+        loading={addComment.isPending}
+        primary
+        disabled={!comment.length}
+        className='max-w-[200px] min-w-[200px]'
+      >
         <p className='p-2'>Comentar</p>
       </Button>
     </form>

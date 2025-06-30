@@ -182,13 +182,13 @@ export default function Form() {
             <Button
               loading={updatePost.isPending}
               primary
-              className='max-w-[150px] '
+              className='max-w-[200px] min-w-[200px]'
             >
               <p className='p-2'>Publicar</p>
             </Button>
             <Button
               type='button'
-              className='max-w-[150px]'
+              className='max-w-[200px] min-w-[200px]'
               loading={deletePost.isPending}
               onClick={() => deletePost.mutate()}
             >

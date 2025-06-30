@@ -93,7 +93,7 @@ export default function Form() {
         <Button
           loading={createPost.isPending}
           primary
-          className='max-w-[200px]'
+          className='max-w-[200px] min-w-[200px]'
         >
           <p className='p-2'>Publicar</p>
         </Button>
