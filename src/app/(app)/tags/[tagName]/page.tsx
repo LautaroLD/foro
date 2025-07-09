@@ -11,8 +11,8 @@ export default function TagPage() {
   const [orderList, setOrderList] = useState('recent=desc')
 
   return (
-    <article className='p-6'>
-      <div className='flex justify-between items-center m-3'>
+    <article>
+      <div className='flex justify-between items-center px-6 py-4'>
         <h1 className='text-2xl font-bold '>
           {decodeURIComponent(tagName as string)}
         </h1>

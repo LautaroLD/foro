@@ -5,17 +5,16 @@ import { useParams } from 'next/navigation'
 import { Dropdown } from 'primereact/dropdown'
 import React, { useState } from 'react'
 
-export default function TagPage() {
+export default function CategoryPage() {
   const params = useParams()
-  const trendType = params.type
-  const trendName = params.name
+  const categoryName = params.categoryName
   const [orderList, setOrderList] = useState('recent=desc')
 
   return (
     <article>
       <div className='flex justify-between items-center px-6 py-4'>
         <h1 className='text-2xl font-bold '>
-          {decodeURIComponent(trendName as string)}
+          {decodeURIComponent(categoryName as string)}
         </h1>
         <Dropdown
           className='w-fit  text-xs'
@@ -30,7 +29,7 @@ export default function TagPage() {
         />
       </div>
       <PostsList
-        urlFetch={`/api/trends/${trendType}/${trendName}`}
+        urlFetch={`/api/categories/${categoryName}`}
         orderList={orderList}
       />
     </article>

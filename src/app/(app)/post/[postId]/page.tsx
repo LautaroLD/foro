@@ -70,7 +70,7 @@ export default function PostPage() {
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.categories.map((category) => (
               <li key={category.id}>
-                <Link href={`/trends/category/${category.name}`}>
+                <Link href={`/categories/${category.name}`}>
                   <CategoryPin category={category} />
                 </Link>
               </li>
@@ -81,7 +81,7 @@ export default function PostPage() {
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.tags.map((tag) => (
               <li key={tag.id}>
-                <Link href={`/trends/tag/${tag.name}`}>
+                <Link href={`/tags/${tag.name}`}>
                   <TagPin tag={tag} />
                 </Link>
               </li>

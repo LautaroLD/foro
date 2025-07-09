@@ -5,10 +5,12 @@ import { Params } from '@/models/params'
 export async function GET(request: Request, { params }: Params) {
   try {
     const { name } = await params
+    console.log(`Fetching posts for category: ${name}`)
+
     const { searchParams } = new URL(request.url)
     const likesParam = searchParams.get('likes')
     const recentParam = searchParams.get('recent')
-    const tag = await prisma?.tag.findFirst({
+    const category = await prisma?.category.findFirst({
       where: {
         name,
       },
@@ -39,10 +41,10 @@ export async function GET(request: Request, { params }: Params) {
         },
       },
     })
-    if (!tag) {
-      return NextResponse.json({ error: true, message: 'tag not found' })
+    if (!category) {
+      return NextResponse.json({ error: true, message: 'category not found' })
     }
-    return NextResponse.json(tag.posts)
+    return NextResponse.json(category.posts)
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({

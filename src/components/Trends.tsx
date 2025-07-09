@@ -38,7 +38,9 @@ export default function TrendsSection() {
           <li key={trend.id} className=' flex w-full h-full  flex-col px-6'>
             <Link
               className='w-full h-full py-2 px-1'
-              href={`/trends/${trend.type}/${trend.name}`}
+              href={`/${trend.type === 'tag' ? 'tags' : 'categories'}/${
+                trend.name
+              }`}
             >
               <b>{trend.name}</b>
               <p className='text-sm text-gray-400'>{trend.posts} posts</p>
