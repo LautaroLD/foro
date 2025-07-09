@@ -4,7 +4,8 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { BiLogOut } from 'react-icons/bi'
-import { CiSquareChevLeft, CiSquareChevRight } from 'react-icons/ci'
+import { RiMenuUnfold4Line } from 'react-icons/ri'
+
 import Button from './Button'
 import { useState } from 'react'
 export default function PrincipalAside() {
@@ -28,18 +29,12 @@ export default function PrincipalAside() {
 
   return (
     <aside className={`w-auto relative p-4 `}>
-      {openMenu ? (
-        <CiSquareChevLeft
-          className='absolute top-4 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
-          onClick={() => setOpenMenu(!openMenu)}
-        />
-      ) : (
-        <CiSquareChevRight
-          className='absolute top-4 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer'
-          onClick={() => setOpenMenu(!openMenu)}
-        />
-      )}
-
+      <RiMenuUnfold4Line
+        className={`absolute top-4 -right-[15px] text-3xl bg-slate-950 text-slate-600 hover:text-white cursor-pointer rounded-lg  ${
+          openMenu ? 'rotate-0' : 'rotate-180'
+        } `}
+        onClick={() => setOpenMenu(!openMenu)}
+      />
       <section
         className={`${
           openMenu ? 'w-[20vw]' : 'w-[0vw]'
