@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import React from 'react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
+import { RiLoader5Line } from 'react-icons/ri'
 import { toast } from 'react-toastify'
 
 export default function LikeButtonComment({
@@ -54,7 +55,13 @@ export default function LikeButtonComment({
   if (isError) return
 
   if (!likes) return
-  if (isFetching) return <BiSolidLike className='m-2' color='#b94d25' />
+  if (isFetching)
+    return (
+      <div className='flex gap-1 items-center  px-1 py-2'>
+        <BiSolidLike color='#b94d25' />
+        <RiLoader5Line className='animate-spin ' />
+      </div>
+    )
 
   return (
     <button

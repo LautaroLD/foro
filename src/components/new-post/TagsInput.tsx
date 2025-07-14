@@ -1,7 +1,9 @@
 import api from '@/services/config'
 import { Tag } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { RiLoader5Line } from 'react-icons/ri'
 
 export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
   const { setValue } = useFormContext()
@@ -9,13 +11,25 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
   const [filteredTags, setFilteredTags] = useState<Tag[]>([])
   const [tags, setTags] = useState<Tag[]>([])
   const refInputSearchTags = useRef<HTMLInputElement | null>(null)
+  const {
+    data: tagsData,
+    isLoading: loadingTags,
+    isError,
+  } = useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      const res = await api.get('/api/tags')
+      return res.data
+    },
+  })
 
   useEffect(() => {
-    api.get('/api/tags').then((res) => {
-      setFilteredTags(res.data)
-      setTags(res.data)
-    })
-  }, [])
+    if (loadingTags || isError) return
+    if (tagsData) {
+      setFilteredTags(tagsData)
+      setTags(tagsData)
+    }
+  }, [loadingTags, tagsData, isError])
   useEffect(() => {
     setFilteredTags(tags)
     if (refInputSearchTags.current) {
@@ -59,7 +73,10 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
           <option value={tag.name} key={tag.id} />
         ))}
       </datalist>
-      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] h-auto overflow-y-auto'>
+      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] min-h-[70px] h-auto overflow-y-auto'>
+        {loadingTags && (
+          <RiLoader5Line className='animate-spin m-auto' size={28} />
+        )}
         {filteredTags.map((tag, index) => (
           <li
             key={index}

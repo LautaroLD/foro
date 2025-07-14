@@ -1,7 +1,9 @@
 import api from '@/services/config'
 import { Category } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { RiLoader5Line } from 'react-icons/ri'
 
 export default function CategoriesInput({
   idSelected,
@@ -15,12 +17,25 @@ export default function CategoriesInput({
   )
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([])
   const [categories, setCategories] = useState<Category[]>([])
+  const {
+    data: categoriesData,
+    isLoading: loadingCategories,
+    isError,
+  } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const res = await api.get('/api/categories')
+      return res.data
+    },
+  })
+
   useEffect(() => {
-    api.get('/api/categories').then((res) => {
-      setFilteredCategories(res.data)
-      setCategories(res.data)
-    })
-  }, [])
+    if (loadingCategories || isError) return
+    if (categoriesData) {
+      setFilteredCategories(categoriesData)
+      setCategories(categoriesData)
+    }
+  }, [loadingCategories, categoriesData, isError])
   useEffect(() => {
     setFilteredCategories(categories)
     if (refInputSearchCategories.current) {
@@ -67,7 +82,10 @@ export default function CategoriesInput({
           <option value={category.name} key={category.id} />
         ))}
       </datalist>
-      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] h-auto overflow-y-auto'>
+      <ul className='flex flex-wrap gap-2 border rounded-lg border-slate-500 p-2 max-h-[150px] min-h-[70px] h-auto overflow-y-auto'>
+        {loadingCategories && (
+          <RiLoader5Line className='animate-spin m-auto' size={28} />
+        )}
         {filteredCategories.map((category, index) => (
           <li
             key={index}

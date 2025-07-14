@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { BiLike, BiSolidLike } from 'react-icons/bi'
 import { LuCircleAlert } from 'react-icons/lu'
+import { RiLoader5Line } from 'react-icons/ri'
 import { toast } from 'react-toastify'
 
 export default function LikeButtonPost({ post }: { post: PostExtended }) {
@@ -51,7 +52,13 @@ export default function LikeButtonPost({ post }: { post: PostExtended }) {
     return <LuCircleAlert />
   }
 
-  if (isFetching) return <BiSolidLike className='m-2' />
+  if (isFetching)
+    return (
+      <div className='flex gap-1 items-center  px-1 py-2'>
+        <BiSolidLike color='#b94d25' />
+        <RiLoader5Line className='animate-spin ' />
+      </div>
+    )
 
   return (
     <button
