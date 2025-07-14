@@ -20,7 +20,21 @@ export default function Page() {
       return res
     },
   })
-  if (isLoading) return <div className='text-white col-span-3'>Loading...</div>
+  if (isLoading)
+    return (
+      <div className='col-span-1 text-white  space-y-2 m-6'>
+        <div className='p-8 w-2/3 bg-slate-600 animate-pulse rounded-lg'></div>
+        <div className='p-10 w-1/2 bg-slate-600 animate-pulse rounded-lg'></div>
+        <div className='flex flex-col gap-3 p-3'>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+          <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
+        </div>
+      </div>
+    )
   if (isError) return <div>Error loading user</div>
 
   return (
