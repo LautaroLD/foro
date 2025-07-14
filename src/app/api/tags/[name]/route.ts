@@ -10,7 +10,9 @@ export async function GET(request: Request, { params }: Params) {
     const recentParam = searchParams.get('recent')
     const tag = await prisma?.tag.findFirst({
       where: {
-        name,
+        name: name?.includes('--slash--')
+          ? name.replace('--slash--', '/')
+          : name,
       },
       include: {
         posts: {

@@ -9,13 +9,13 @@ export default function TagPage() {
   const params = useParams()
   const tagName = params.tagName
   const [orderList, setOrderList] = useState('recent=desc')
-
+  const name = tagName?.includes('--slash--')
+    ? (tagName as string).replace('--slash--', '/')
+    : (tagName as string)
   return (
     <article>
       <div className='flex justify-between items-center px-6 py-4'>
-        <h1 className='text-2xl font-bold '>
-          {decodeURIComponent(tagName as string)}
-        </h1>
+        <h1 className='text-2xl font-bold '>{decodeURIComponent(name)}</h1>
         <Dropdown
           className='w-fit  text-xs'
           value={orderList}

@@ -9,13 +9,13 @@ export default function CategoryPage() {
   const params = useParams()
   const categoryName = params.categoryName
   const [orderList, setOrderList] = useState('recent=desc')
-
+  const name = categoryName?.includes('--slash--')
+    ? (categoryName as string).replace('--slash--', '/')
+    : (categoryName as string)
   return (
     <article>
       <div className='flex justify-between items-center px-6 py-4'>
-        <h1 className='text-2xl font-bold '>
-          {decodeURIComponent(categoryName as string)}
-        </h1>
+        <h1 className='text-2xl font-bold '>{decodeURIComponent(name)}</h1>
         <Dropdown
           className='w-fit  text-xs'
           value={orderList}

@@ -5,14 +5,14 @@ import { Params } from '@/models/params'
 export async function GET(request: Request, { params }: Params) {
   try {
     const { name } = await params
-    console.log(`Fetching posts for category: ${name}`)
-
     const { searchParams } = new URL(request.url)
     const likesParam = searchParams.get('likes')
     const recentParam = searchParams.get('recent')
     const category = await prisma?.category.findFirst({
       where: {
-        name,
+        name: name?.includes('--slash--')
+          ? name.replace('--slash--', '/')
+          : name,
       },
       include: {
         posts: {

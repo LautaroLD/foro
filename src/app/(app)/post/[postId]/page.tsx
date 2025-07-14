@@ -70,7 +70,13 @@ export default function PostPage() {
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.categories.map((category) => (
               <li key={category.id}>
-                <Link href={`/categories/${category.name}`}>
+                <Link
+                  href={`/categories/${
+                    category.name.includes('/')
+                      ? category.name.replace('/', '--slash--')
+                      : category.name
+                  }`}
+                >
                   <CategoryPin category={category} />
                 </Link>
               </li>
@@ -81,7 +87,13 @@ export default function PostPage() {
           <ul className='flex gap-2 list-none justify-center flex-wrap'>
             {post.tags.map((tag) => (
               <li key={tag.id}>
-                <Link href={`/tags/${tag.name}`}>
+                <Link
+                  href={`/tags/${
+                    tag.name.includes('/')
+                      ? tag.name.replace('/', '--slash--')
+                      : tag.name
+                  }`}
+                >
                   <TagPin tag={tag} />
                 </Link>
               </li>
