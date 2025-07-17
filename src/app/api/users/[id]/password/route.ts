@@ -1,4 +1,4 @@
-import { prisma } from '@/libs/prisma'
+import prisma from '@/libs/prisma'
 import { getToken } from 'next-auth/jwt'
 import { Params } from '@/models/params'
 import bcrypt from 'bcrypt'

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/libs/prisma'
+import prisma from '@/libs/prisma'
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
 
 cloudinary.config({

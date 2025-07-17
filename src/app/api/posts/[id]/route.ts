@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/libs/prisma'
+import prisma from '@/libs/prisma'
 import { Params } from '@/models/params'
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
 import { getToken } from 'next-auth/jwt'

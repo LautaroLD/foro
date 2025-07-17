@@ -1,18 +1,16 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/libs/prisma'
+import prisma from '@/libs/prisma'
 import { Params } from '@/models/params'
 
 export async function GET(request: Request, { params }: Params) {
   try {
-    const { name } = await params
+    const { slug } = await params
     const { searchParams } = new URL(request.url)
     const likesParam = searchParams.get('likes')
     const recentParam = searchParams.get('recent')
     const tag = await prisma?.tag.findFirst({
       where: {
-        name: name?.includes('--slash--')
-          ? name.replace('--slash--', '/')
-          : name,
+        slug: slug,
       },
       include: {
         posts: {

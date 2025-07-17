@@ -73,6 +73,7 @@ model LikeComment {
 model Tag {
   id    String @id @default(uuid())
   name  String @unique
+  slug  String @unique
   posts Post[] @relation("PostTags")
   users User[] @relation("UserTags")
 }
@@ -91,5 +92,6 @@ model Comment {
 model Category {
   id    String @id @default(uuid())
   name  String @unique
+  slug  String @unique
   posts Post[] @relation("PostCategories")
 }

@@ -1,21 +1,32 @@
 'use client'
 import PostsList from '@/components/PostsList'
-
+import api from '@/services/config'
+import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { Dropdown } from 'primereact/dropdown'
 import React, { useState } from 'react'
 
 export default function TagPage() {
   const params = useParams()
-  const tagName = params.tagName
+  const tagSlug = params.tagSlug
   const [orderList, setOrderList] = useState('recent=desc')
-  const name = tagName?.includes('--slash--')
-    ? (tagName as string).replace('--slash--', '/')
-    : (tagName as string)
+  const {
+    data: title,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['tag', tagSlug],
+    queryFn: async () => {
+      const res = await api.get(`/api/tags/${tagSlug}/name`)
+      return res.data
+    },
+  })
   return (
     <article>
       <div className='flex justify-between items-center px-6 py-4'>
-        <h1 className='text-2xl font-bold '>{decodeURIComponent(name)}</h1>
+        {!isLoading && !isError && (
+          <h1 className='text-2xl font-bold'>{title}</h1>
+        )}
         <Dropdown
           className='w-fit  text-xs'
           value={orderList}
@@ -28,7 +39,7 @@ export default function TagPage() {
           ]}
         />
       </div>
-      <PostsList urlFetch={`/api/tags/${tagName}`} orderList={orderList} />
+      <PostsList urlFetch={`/api/tags/${tagSlug}`} orderList={orderList} />
     </article>
   )
 }
