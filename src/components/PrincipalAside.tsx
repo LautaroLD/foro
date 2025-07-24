@@ -56,6 +56,22 @@ export default function PrincipalAside() {
                 Registrarse
               </Link>
             </Button>
+            <ul className='flex flex-col border-t border-slate-600 mt-4 py-1'>
+              {navBarItems.map(
+                (item) =>
+                  !item.private && (
+                    <li key={item.label}>
+                      <Link
+                        className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 rounded-lg'
+                        href={item.url}
+                      >
+                        <i className={item.icon} />
+                        {item.label}
+                      </Link>
+                    </li>
+                  )
+              )}
+            </ul>
           </div>
         ) : (
           <ul className=' w-[20vw] flex flex-col  h-full'>
