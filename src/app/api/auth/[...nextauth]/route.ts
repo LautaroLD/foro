@@ -5,7 +5,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import bcrypt from 'bcrypt'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
-import { Session } from 'inspector/promises'
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -28,8 +27,8 @@ function CustomAdapter(prisma: PrismaClient) {
     return prisma.user.create({
       data: {
         ...rest,
-        firstName: data.name.split(' ')[0] as string,
-        lastName: data.name.split(' ')[1] as string,
+        firstName: name.split(' ')[0] as string,
+        lastName: name.split(' ')[1] as string,
       },
     })
   }
