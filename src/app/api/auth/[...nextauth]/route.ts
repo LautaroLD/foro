@@ -1,7 +1,11 @@
 import prisma from '@/libs/prisma'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
 import bcrypt from 'bcrypt'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
+import { Session } from 'inspector/promises'
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -12,9 +16,40 @@ declare module 'next-auth' {
     }
   }
 }
-
+function CustomAdapter(prisma: PrismaClient) {
+  const adapter = PrismaAdapter(prisma)
+  adapter.createUser = async (data: {
+    id: string
+    name: string
+    email: string
+    image: string
+  }) => {
+    const { name, ...rest } = data
+    return prisma.user.create({
+      data: {
+        ...rest,
+        firstName: data.name.split(' ')[0] as string,
+        lastName: data.name.split(' ')[1] as string,
+      },
+    })
+  }
+  return adapter
+}
 const handler = NextAuth({
+  adapter: CustomAdapter(prisma),
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name || null,
+          email: profile.email || null,
+          image: profile.picture || null,
+        }
+      },
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -37,7 +72,10 @@ const handler = NextAuth({
             throw new Error()
           }
 
-          const isValidPassword = await bcrypt.compare(password, user.password)
+          const isValidPassword = await bcrypt.compare(
+            password,
+            user.password as string
+          )
           if (!isValidPassword) {
             throw new Error()
           }
@@ -74,8 +112,9 @@ const handler = NextAuth({
       }
       return token
     },
-    async redirect() {
-      return process.env.NEXTAUTH_URL as string
+    async redirect({ baseUrl }) {
+      return baseUrl
+      // return process.env.NEXTAUTH_URL as string
     },
   },
 })

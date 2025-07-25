@@ -89,7 +89,7 @@ export default function PrincipalAside() {
 
             <li
               className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 mt-auto cursor-pointer rounded-lg'
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: '/' })}
             >
               <BiLogOut size={20} />
               Salir

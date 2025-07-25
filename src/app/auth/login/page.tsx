@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-
+import { FcGoogle } from 'react-icons/fc'
 type LoginFormInputs = {
   email: string
   password: string
@@ -33,6 +33,7 @@ export default function LoginPage() {
         redirect: false,
         email: data.email,
         password: data.password,
+        callbackUrl: '/',
       })
 
       if (response && !response.ok) {
@@ -96,6 +97,13 @@ export default function LoginPage() {
           <p className='p-2'>Iniciar sesión</p>
         </Button>
       </form>
+      <button
+        className='flex w-full max-w-full justify-center align-center bg-white text-black py-2 rounded-lg  hover:bg-gray-200 transition-colors duration-200 text-lg'
+        onClick={() => signIn('google', { callbackUrl: '/' })}
+      >
+        Iniciar sesión con Google
+        <FcGoogle className='ml-2 ' size={28} />
+      </button>
       <p className='text-center mt-4 text-sm text-gray-300 '>
         ¿No tienes una cuenta?
         <Link
