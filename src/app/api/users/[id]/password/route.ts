@@ -35,7 +35,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     )
   }
 
-  const isValidPassword = await bcrypt.compare(oldPassword, user.password)
+  const isValidPassword = await bcrypt.compare(
+    oldPassword,
+    user.password as string
+  )
   if (!isValidPassword) {
     return NextResponse.json(
       { message: 'Contraseña actual incorrecta' },
