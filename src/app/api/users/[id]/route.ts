@@ -15,6 +15,8 @@ export async function GET(request: Request, { params }: Params) {
         comments: true,
         tags: true,
         posts: true,
+        sessions: true,
+        accounts: true,
       },
     })
     if (!user) {

@@ -1,7 +1,8 @@
-import { User } from '@prisma/client'
+import { Account, User } from '@prisma/client'
 import { CommentExtended } from './Comment.model'
 import { PostExtended } from './post.model'
 import { Tag } from 'primereact/tag'
+import { Session } from 'inspector/promises'
 
 export interface UserExtended extends User {
   posts: PostExtended[]
@@ -9,4 +10,6 @@ export interface UserExtended extends User {
   likePosts: PostExtended[]
   likeComments: CommentExtended[]
   Tags: Tag[]
+  accounts: Account[]
+  sessions: Session[]
 }

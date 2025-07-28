@@ -46,6 +46,7 @@ export default function Page() {
         <div className='w-fit ml-auto'>
           <Avatar
             label={`${userData.firstName[0]}${userData.lastName[0]}`}
+            image={userData.image}
             shape='circle'
             size='large'
           />

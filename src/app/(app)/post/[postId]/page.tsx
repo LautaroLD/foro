@@ -92,6 +92,7 @@ export default function PostPage() {
           <div>
             <Avatar
               label={`${post.author.firstName[0]} ${post.author.lastName[0]}`}
+              image={post.author.image as string}
               size='large'
               shape='circle'
             />

@@ -20,6 +20,7 @@ export default function PostItem({ post }: { post: PostExtended }) {
             <div className='m-0'>
               <Avatar
                 label={`${post.author.firstName[0]}${post.author.lastName[0]}`}
+                image={post.author.image as string}
                 size='large'
                 shape='circle'
               />

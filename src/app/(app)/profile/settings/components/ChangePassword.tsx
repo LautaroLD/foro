@@ -1,4 +1,5 @@
 import Button from '@/components/Button'
+import { UserExtended } from '@/models/user.model'
 import api from '@/services/config'
 import { useMutation } from '@tanstack/react-query'
 
@@ -7,10 +8,10 @@ import { toast } from 'react-toastify'
 
 export default function ChangePassword({
   enableEdit,
-  userId,
+  userData,
 }: {
   enableEdit: boolean
-  userId: string
+  userData: UserExtended
 }) {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -20,7 +21,7 @@ export default function ChangePassword({
       data.append('oldPassword', currentPassword)
       data.append('newPassword', newPassword)
       return await api.patch(
-        `/api/users/${userId}/password/`,
+        `/api/users/${userData?.id}/password/`,
         {
           oldPassword: currentPassword,
           newPassword: newPassword,
@@ -46,7 +47,7 @@ export default function ChangePassword({
     e.preventDefault()
     updatePassword.mutate()
   }
-
+  if (userData?.accounts?.length > 0) return null
   return (
     <form onSubmit={handleSubmit} className='pt-6 space-y-6'>
       <h2 className='text-2xl font-semibold'>Cambiar contraseña</h2>

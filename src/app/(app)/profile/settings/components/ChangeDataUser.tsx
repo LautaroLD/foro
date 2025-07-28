@@ -1,36 +1,31 @@
 import Button from '@/components/Button'
-import { useQuery } from '@tanstack/react-query'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import api from '@/services/config'
 import { toast } from 'react-toastify'
+import { UserExtended } from '@/models/user.model'
 
 interface Inputs {
-  name: string
+  firstName: string
+  lastName: string
   email: string
 }
 export default function ChangeDataUser({
   enableEdit,
-  userId,
+  userData,
+  isLoading,
+  isError,
 }: {
   enableEdit: boolean
-  userId: string
+  userData: UserExtended
+  isLoading: boolean
+  isError: boolean
 }) {
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<Inputs>()
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['user', userId],
-    queryFn: async () => {
-      const { data: res } = await api.get(`/api/users/${userId}`)
-      return res
-    },
-  })
+
   if (isLoading)
     return (
       <div className='space-y-6'>
@@ -61,7 +56,7 @@ export default function ChangeDataUser({
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     api
-      .patch(`/api/users/${userId}`, data)
+      .patch(`/api/users/${userData?.id}`, data)
       .then(() => {
         toast.success('Usuario actualizado')
       })
@@ -76,24 +71,38 @@ export default function ChangeDataUser({
           <label className='flex flex-col gap-2' key={data.label}>
             <b className='text-xl'>{data.label}</b>
             <input
-              disabled={!enableEdit}
+              disabled={
+                !enableEdit ||
+                (userData?.accounts?.length > 0 && data.property === 'email')
+              }
+              title={
+                userData?.accounts?.length > 0 && data.property === 'email'
+                  ? 'No se puede cambiar el email si tiene cuenta de Google'
+                  : ''
+              }
               type='text'
               defaultValue={data.value}
-              {...register(data.property as 'name' | 'email', {
-                required: 'Campo requerido',
-                pattern:
-                  data.property === 'email'
-                    ? {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'El correo no es válido',
-                      }
-                    : undefined,
-              })}
+              {...register(
+                data.property as 'firstName' | 'lastName' | 'email',
+                {
+                  required: 'Campo requerido',
+                  pattern:
+                    data.property === 'email'
+                      ? {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: 'El correo no es válido',
+                        }
+                      : undefined,
+                }
+              )}
               className='p-2 bg-black border border-slate-500 text-white rounded-lg w-fit disabled:opacity-50 disabled:cursor-not-allowed'
             />
-            {errors[data.property as 'name' | 'email'] && (
+            {errors[data.property as 'firstName' | 'lastName' | 'email'] && (
               <p className='text-red-500'>
-                {errors[data.property as 'name' | 'email']?.message}
+                {
+                  errors[data.property as 'firstName' | 'lastName' | 'email']
+                    ?.message
+                }
               </p>
             )}
           </label>
