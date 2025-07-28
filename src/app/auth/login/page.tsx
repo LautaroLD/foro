@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { FcGoogle } from 'react-icons/fc'
+import Image from 'next/image'
 type LoginFormInputs = {
   email: string
   password: string
@@ -53,6 +54,14 @@ export default function LoginPage() {
   }
   return (
     <>
+      <Image
+        src={'/logo_mobile.svg'}
+        width={50}
+        height={50}
+        alt='logo'
+        priority
+        className='mx-auto'
+      />
       <h1 className='text-2xl font-bold text-white text-center'>
         Iniciar sesión
       </h1>

@@ -2,10 +2,13 @@
 
 import Button from '@/components/Button'
 import api from '@/services/config'
+import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'react-toastify'
 
 export default function RegisterPage() {
@@ -35,6 +38,14 @@ export default function RegisterPage() {
 
   return (
     <>
+      <Image
+        src={'/logo_mobile.svg'}
+        width={50}
+        height={50}
+        alt='logo'
+        priority
+        className='mx-auto'
+      />
       <h1 className='text-2xl font-bold text-center'>Registrarse</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -115,6 +126,13 @@ export default function RegisterPage() {
           <p className='p-2'>Registrarse</p>
         </Button>
       </form>
+      <button
+        className='flex w-full max-w-full justify-center align-center bg-white text-black py-2 rounded-lg  hover:bg-gray-200 transition-colors duration-200 text-lg'
+        onClick={() => signIn('google', { callbackUrl: '/' })}
+      >
+        Registrarse con Google
+        <FcGoogle className='ml-2 ' size={28} />
+      </button>
       <p className='text-center mt-4 text-sm text-gray-300 '>
         Ya tienes cuenta?
         <Link
