@@ -45,7 +45,9 @@ export default function Page() {
           isLoading={isLoading}
           isError={isError}
         />
-        <ChangePassword enableEdit={enableEdit} userData={userData} />
+        {userData?.accounts?.length < 1 && (
+          <ChangePassword enableEdit={enableEdit} userData={userData} />
+        )}
       </div>
     </section>
   )

@@ -47,7 +47,6 @@ export default function ChangePassword({
     e.preventDefault()
     updatePassword.mutate()
   }
-  if (userData?.accounts?.length > 0) return null
   return (
     <form onSubmit={handleSubmit} className='pt-6 space-y-6'>
       <h2 className='text-2xl font-semibold'>Cambiar contraseña</h2>

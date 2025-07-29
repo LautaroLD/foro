@@ -5,26 +5,30 @@ import Link from 'next/link'
 import { BiComment } from 'react-icons/bi'
 import CategoryPin from './CategoryPin'
 import TagPin from './TagPin'
-import { Avatar } from 'primereact/avatar'
 import Image from 'next/image'
 import LikeButtonPost from './LikeButtonPost'
 import { Carousel } from 'primereact/carousel'
 import { Tag } from 'primereact/tag'
-
+import { FaUserCircle } from 'react-icons/fa'
 export default function PostItem({ post }: { post: PostExtended }) {
   return (
     <li className='px-6 py-4 w-full text-white space-y-2'>
       <Link href={`/post/${post.id}`} className='space-y-2'>
         <div>
           <div className='flex gap-1'>
-            <div className='m-0'>
-              <Avatar
-                label={`${post.author.firstName[0]}${post.author.lastName[0]}`}
-                image={post.author.image as string}
-                size='large'
-                shape='circle'
-              />
-            </div>
+            <span className='relative w-14 h-14 rounded-full overflow-hidden'>
+              {post.author?.image ? (
+                <Image
+                  fill
+                  className='rounded-full border-slate-500 border'
+                  src={post.author?.image as string}
+                  alt={`${post.author?.firstName} ${post.author?.lastName}`}
+                />
+              ) : (
+                <FaUserCircle className='w-full h-full' />
+              )}
+            </span>
+
             <div className='flex flex-col justify-center'>
               <b className='text-sm overflow-hidden text-ellipsis'>
                 {post.author?.firstName} {post.author?.lastName}
