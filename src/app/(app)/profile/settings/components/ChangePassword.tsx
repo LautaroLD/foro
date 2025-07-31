@@ -15,6 +15,7 @@ export default function ChangePassword({
 }) {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
+
   const updatePassword = useMutation({
     mutationFn: async () => {
       const data = new FormData()
@@ -67,7 +68,7 @@ export default function ChangePassword({
         <input
           disabled={!enableEdit}
           value={newPassword}
-          pattern='/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/'
+          pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$'
           title='La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número'
           required
           onChange={(e) => setNewPassword(e.target.value)}
@@ -77,7 +78,7 @@ export default function ChangePassword({
         />
       </label>
       {enableEdit && (
-        <Button className=' ml-0' loading={updatePassword.isPending}>
+        <Button className=' ml-0 min-w-48' loading={updatePassword.isPending}>
           <p className='p-2'>Guardar contraseña</p>
         </Button>
       )}

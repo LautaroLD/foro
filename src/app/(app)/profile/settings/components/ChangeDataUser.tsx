@@ -25,6 +25,7 @@ export default function ChangeDataUser({
   isError: boolean
 }) {
   const [userImage, setUserImage] = useState<string>('')
+  const [loadingChange, setLoadingChange] = useState(false)
   const {
     handleSubmit,
     register,
@@ -66,14 +67,19 @@ export default function ChangeDataUser({
   ]
 
   const onSubmit: SubmitHandler<Inputs> = async ({ image, ...data }) => {
+    setLoadingChange(true)
     if (image) {
       const formData = new FormData()
       formData.append('image', image)
-      api.patch(`/api/users/${userData?.id}/upload-image`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      api
+        .patch(`/api/users/${userData?.id}/upload-image`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .finally(() => {
+          setLoadingChange(false)
+        })
     }
     api
       .patch(`/api/users/${userData?.id}`, data)
@@ -82,6 +88,9 @@ export default function ChangeDataUser({
       })
       .catch((error) => {
         console.error('Error updating user:', error)
+      })
+      .finally(() => {
+        setLoadingChange(false)
       })
   }
 
@@ -168,7 +177,7 @@ export default function ChangeDataUser({
         ))}
       </div>
       {enableEdit && (
-        <Button className=' ml-0 '>
+        <Button className=' ml-0 min-w-48' loading={loadingChange}>
           <p className='p-2 '>Guardar cambios</p>
         </Button>
       )}

@@ -12,9 +12,6 @@ export default function Page() {
   const [enableEdit, setEnableEdit] = useState(false)
   const { data: session } = useSession()
   const user = session?.user
-  // if (status !== 'authenticated' || !user) {
-  //   return <div className='p-6'>Debes iniciar sesión para ver esta página.</div>
-  // }
   const {
     data: userData,
     isLoading,
