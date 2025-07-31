@@ -10,11 +10,11 @@ import { useQuery } from '@tanstack/react-query'
 import MDEditor from '@uiw/react-md-editor'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-// import Image from 'next/image'
+import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { Avatar } from 'primereact/avatar'
 import { Carousel } from 'primereact/carousel'
-import { Image } from 'primereact/image'
+import { Image as PrimeImage } from 'primereact/image'
+import { FaUserCircle } from 'react-icons/fa'
 import { IoSettingsSharp } from 'react-icons/io5'
 
 export default function PostPage() {
@@ -89,14 +89,18 @@ export default function PostPage() {
           </ul>
         )}
         <div className='flex gap-2 items-center '>
-          <div>
-            <Avatar
-              label={`${post.author.firstName[0]} ${post.author.lastName[0]}`}
-              image={post.author.image as string}
-              size='large'
-              shape='circle'
-            />
-          </div>
+          <span className='relative w-14 h-14 rounded-full overflow-hidden'>
+            {post.author?.image ? (
+              <Image
+                fill
+                className='rounded-full border-slate-500 border'
+                src={post.author?.image as string}
+                alt={`${post.author?.firstName} ${post.author?.lastName}`}
+              />
+            ) : (
+              <FaUserCircle className='w-full h-full' />
+            )}
+          </span>
           <div>
             <Link href={`/user/${post.author.id}`} className='font-bold'>
               {post.author.firstName} {post.author.lastName}
@@ -122,7 +126,7 @@ export default function PostPage() {
               return (
                 <div className=' h-[300px] w-full'>
                   {item.type.includes('image') ? (
-                    <Image
+                    <PrimeImage
                       preview
                       src={item.src}
                       alt={post.files.findIndex((f) => f === item).toString()}
