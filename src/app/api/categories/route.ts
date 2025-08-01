@@ -22,8 +22,8 @@ export async function POST(request: Request) {
         data.map(async (category) => {
           const newCategory = await prisma.category.create({
             data: {
-              name: category.name,
-              slug: slugify(category.name, { lower: true, strict: true }),
+              name: category,
+              slug: slugify(category, { lower: true, strict: true }),
             },
           })
           return newCategory
