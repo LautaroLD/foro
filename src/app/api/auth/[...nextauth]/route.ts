@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import bcrypt from 'bcrypt'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client/scripts/default-index.js'
 declare module 'next-auth' {
   interface Session {
     user: {
