@@ -2,9 +2,10 @@
 import PostsList from '@/components/PostsList'
 import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { Avatar } from 'primereact/avatar'
 import React from 'react'
+import { FaUserCircle } from 'react-icons/fa'
 
 export default function Page() {
   const { userId } = useParams()
@@ -40,14 +41,18 @@ export default function Page() {
   return (
     <article>
       <div className='grid  grid-flow-col w-fit gap-3 m-4'>
-        <div className='w-fit ml-auto'>
-          <Avatar
-            label={`${userData.firstName[0]}${userData.lastName[0]}`}
-            image={userData.image}
-            shape='circle'
-            size='large'
-          />
-        </div>
+        <span className='relative w-20 h-20 rounded-full overflow-hidden'>
+          {userData?.image ? (
+            <Image
+              fill
+              className='rounded-full border-slate-500 border'
+              src={userData?.image as string}
+              alt={`${userData?.firstName} ${userData?.lastName}`}
+            />
+          ) : (
+            <FaUserCircle className='w-full h-full' />
+          )}
+        </span>
         <div>
           <h1 className='text-3xl font-bold'>
             {userData?.firstName} {userData?.lastName}
