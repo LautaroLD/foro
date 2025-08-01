@@ -44,7 +44,8 @@ export default function PostsList({
       fetchNextPage()
     }
   }, [inView, hasNextPage])
-  if (isFetching) {
+
+  if (isFetching && !isFetchingNextPage) {
     return (
       <div className='flex flex-col gap-3 p-6'>
         <div className='bg-slate-600 rounded-lg  w-full h-48 animate-pulse'></div>
