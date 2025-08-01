@@ -18,6 +18,9 @@ export async function GET(request: Request, { params }: Params) {
       comments: true,
       likes: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
 
     skip: searchParams.get('page')
       ? (parseInt(searchParams.get('page') as string) - 1) * 10
