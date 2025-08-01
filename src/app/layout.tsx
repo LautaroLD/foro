@@ -13,7 +13,8 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: 'Redactiva',
-  description: 'Redactiva, el foro de los redactores',
+  description:
+    'Una comunidad colaborativa donde compartir conocimientos, debatir ideas y crecer profesionalmente',
 }
 
 export default function RootLayout({
