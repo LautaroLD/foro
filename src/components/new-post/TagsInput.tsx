@@ -24,14 +24,15 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
   })
 
   useEffect(() => {
-    if (loadingTags || isError) return
-    if (tagsData) {
+    if (!loadingTags && !isError && tagsData) {
       setFilteredTags(tagsData)
       setTags(tagsData)
     }
   }, [loadingTags, tagsData, isError])
   useEffect(() => {
-    setFilteredTags(tags)
+    if (tags.length > 0) {
+      setFilteredTags(tags)
+    }
     if (refInputSearchTags.current) {
       refInputSearchTags.current.value = ''
     }
