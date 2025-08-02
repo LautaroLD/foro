@@ -119,15 +119,18 @@ export async function POST(request: Request) {
       },
     })
 
-    if (reqFiles.length > 0) {
+    if (reqFiles.length > 0 && reqFiles.every((file) => file instanceof File)) {
       const filesByCloud = await Promise.all(
-        reqFiles.map(async (file: File) => {
+        reqFiles.map(async (file) => {
           const bytes = await file.arrayBuffer()
           const buffer = Buffer.from(bytes)
           const newFile = await new Promise((resolve, reject) => {
             cloudinary.uploader
               .upload_stream(
-                { folder: `foro/post/${newPost.id}`, resource_type: 'auto' },
+                {
+                  folder: `foro/post/${newPost.id}`,
+                  resource_type: 'auto',
+                },
                 (error, result) => {
                   if (error) {
                     reject(error)
@@ -138,11 +141,7 @@ export async function POST(request: Request) {
               )
               .end(buffer)
           })
-          if (newFile) {
-            return newFile
-          } else {
-            return null
-          }
+          return newFile
         })
       )
       const validUrls = filesByCloud.filter(
@@ -153,7 +152,7 @@ export async function POST(request: Request) {
         data: validUrls.map(({ resource_type, secure_url, public_id }) => ({
           type: resource_type,
           src: secure_url,
-          postId: newPost.id,
+          postId: newPost.id as string,
           publicId: public_id,
         })),
       })
