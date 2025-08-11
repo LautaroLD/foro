@@ -8,6 +8,7 @@ import { RiMenuUnfold4Line } from 'react-icons/ri'
 
 import Button from './Button'
 import { useState } from 'react'
+import ItemNavbar from './ItemNavbar'
 export default function PrincipalAside() {
   const [openMenu, setOpenMenu] = useState(true)
   const screenWidth = useWindowSize()
@@ -59,32 +60,14 @@ export default function PrincipalAside() {
             <ul className='flex flex-col border-t border-slate-600 mt-4 py-1'>
               {navBarItems.map(
                 (item) =>
-                  !item.private && (
-                    <li key={item.label}>
-                      <Link
-                        className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 rounded-lg'
-                        href={item.url}
-                      >
-                        <i className={item.icon} />
-                        {item.label}
-                      </Link>
-                    </li>
-                  )
+                  !item.private && <ItemNavbar key={item.label} item={item} />
               )}
             </ul>
           </div>
         ) : (
           <ul className=' w-[20vw] flex flex-col  h-full'>
             {navBarItems.map((item) => (
-              <li key={item.label}>
-                <Link
-                  className='p-3 w-full hover:bg-[#b94d25] flex items-center gap-2 rounded-lg'
-                  href={item.url}
-                >
-                  <i className={item.icon} />
-                  {item.label}
-                </Link>
-              </li>
+              <ItemNavbar key={item.label} item={item} />
             ))}
 
             <li
