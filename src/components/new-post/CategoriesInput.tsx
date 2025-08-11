@@ -15,8 +15,8 @@ export default function CategoriesInput({
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>(
     idSelected || []
   )
-  const [filteredCategories, setFilteredCategories] = useState<Category[]>([])
   const [categories, setCategories] = useState<Category[]>([])
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>([])
   const {
     data: categoriesData,
     isLoading: loadingCategories,
@@ -30,14 +30,15 @@ export default function CategoriesInput({
   })
 
   useEffect(() => {
-    if (loadingCategories || isError) return
-    if (categoriesData) {
+    if (!loadingCategories && !isError && categoriesData) {
       setFilteredCategories(categoriesData)
       setCategories(categoriesData)
     }
   }, [loadingCategories, categoriesData, isError])
   useEffect(() => {
-    setFilteredCategories(categories)
+    if (categories.length > 0) {
+      setFilteredCategories(categories)
+    }
     if (refInputSearchCategories.current) {
       refInputSearchCategories.current.value = ''
     }
@@ -86,26 +87,27 @@ export default function CategoriesInput({
         {loadingCategories && (
           <RiLoader5Line className='animate-spin m-auto' size={28} />
         )}
-        {filteredCategories.map((category, index) => (
-          <li
-            key={index}
-            className={`p-1 text-sm  text-white rounded-lg hover:bg-blue-800 cursor-pointer ${
-              categoriesSelected.includes(category.id) && 'bg-blue-600'
-            }`}
-            onClick={() => {
-              if (categoriesSelected.includes(category.id)) {
-                setCategoriesSelected((prev) => {
-                  const newList = prev.filter((i) => i !== category.id)
-                  return newList
-                })
-              } else {
-                setCategoriesSelected((prev) => [...prev, category.id])
-              }
-            }}
-          >
-            {category.name}
-          </li>
-        ))}
+        {!loadingCategories &&
+          filteredCategories.map((category, index) => (
+            <li
+              key={index}
+              className={`p-1 text-sm  text-white rounded-lg hover:bg-blue-800 cursor-pointer ${
+                categoriesSelected.includes(category.id) && 'bg-blue-600'
+              }`}
+              onClick={() => {
+                if (categoriesSelected.includes(category.id)) {
+                  setCategoriesSelected((prev) => {
+                    const newList = prev.filter((i) => i !== category.id)
+                    return newList
+                  })
+                } else {
+                  setCategoriesSelected((prev) => [...prev, category.id])
+                }
+              }}
+            >
+              {category.name}
+            </li>
+          ))}
       </ul>
     </section>
   )
