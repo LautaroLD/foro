@@ -68,6 +68,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   tags          Tag[]         @relation("UserTags")
+  categories    Category[]    @relation("UserCategories")
   likePosts     LikePost[]
   likeComments  LikeComment[]
   createdAt     DateTime      @default(now())
@@ -166,6 +167,7 @@ model Category {
   name  String @unique
   slug  String @unique
   posts Post[] @relation("PostCategories")
+  users User[] @relation("UserCategories")
 
   @@index([name], name: "idx_category_name")
   @@index([slug], name: "idx_category_slug")
