@@ -14,6 +14,7 @@ export async function GET(request: Request, { params }: Params) {
       include: {
         comments: true,
         tags: true,
+        categories: true,
         posts: true,
         sessions: true,
         accounts: true,
@@ -63,12 +64,27 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 export async function PATCH(request: Request, { params }: Params) {
   try {
     const { id } = await params
-    const data = await request.json()
+    const {
+      categories: reqCategories,
+      tags: reqTags,
+      ...data
+    } = await request.json()
     const user = await prisma?.user.update({
       where: {
         id,
       },
-      data,
+      data: {
+        ...data,
+        categories: reqCategories && {
+          set:
+            reqCategories.length > 0
+              ? reqCategories.map((id: string) => ({ id }))
+              : [],
+        },
+        tags: reqTags && {
+          set: reqTags.length > 0 ? reqTags.map((id: string) => ({ id })) : [],
+        },
+      },
     })
     return NextResponse.json(user)
   } catch (error) {

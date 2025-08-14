@@ -25,6 +25,12 @@ export const navBarItems = [
     private: true,
   },
   {
+    label: 'Mis temas',
+    url: '/topics',
+    icon: PrimeIcons.LIST,
+    private: true,
+  },
+  {
     label: 'Configuración',
     url: '/settings',
     icon: PrimeIcons.COG,
