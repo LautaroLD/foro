@@ -10,6 +10,7 @@ import api from '@/services/config'
 import { toast } from 'react-toastify'
 import ContentInput from './ContentInput'
 import Button from '../Button'
+import axios from 'axios'
 interface Inputs {
   [key: string]: string | string[] | File[]
   title: string
@@ -35,13 +36,15 @@ export default function Form() {
   const { handleSubmit, register } = method
   const onSubmit = (data: Inputs) => {
     const formData = new FormData()
+    const formDataCloudinary = new FormData()
 
     for (const key in data) {
-      if (
-        key === 'files' ||
-        key === 'categories' ||
-        (key === 'tags' && data[key].length > 0)
-      ) {
+      if (key === 'files') {
+        data[key].forEach((item: File | string) => {
+          formDataCloudinary.append(key, item)
+        })
+      }
+      if (key === 'categories' || (key === 'tags' && data[key].length > 0)) {
         data[key].forEach((item: File | string) => {
           formData.append(key, item)
         })
@@ -51,19 +54,55 @@ export default function Form() {
     }
     if (user) {
       formData.append('authorId', user.id)
-      createPost.mutate(formData)
+      createPost.mutate({ formData, formDataCloudinary })
     } else {
       toast.error('User not authenticated')
     }
   }
 
   const createPost = useMutation({
-    mutationFn: async (data: FormData) => {
-      return await api.post(`/api/posts`, data, {
+    mutationFn: async ({
+      formData,
+      formDataCloudinary,
+    }: {
+      formData: FormData
+      formDataCloudinary?: FormData
+    }) => {
+      const newPost = await api.post(`/api/posts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
+      console.log(newPost)
+      if (formDataCloudinary) {
+        const uploadPromises = Array.from(formDataCloudinary.entries()).map(
+          async ([, value]) => {
+            const formDataFile = new FormData()
+            formDataFile.append('file', value)
+            formDataFile.append('upload_preset', 'post_foro')
+            formDataFile.append('resource_type', 'auto')
+            formDataFile.append('folder', `foro/post/${newPost.data.id}`)
+
+            const { data } = await axios.post(
+              `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+              formDataFile
+            )
+
+            return {
+              resource_type: data.resource_type,
+              secure_url: data.secure_url,
+              public_id: data.public_id,
+              postId: newPost.data.id,
+            }
+          }
+        )
+
+        const files = await Promise.all(uploadPromises)
+        console.log('Files to save:', files)
+
+        await api.post(`/api/file`, files)
+      }
+      return newPost
     },
     onSuccess: (data) => {
       const postId = data.data.id
