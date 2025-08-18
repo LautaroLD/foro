@@ -62,6 +62,9 @@ export default function PostsList({
   return (
     <>
       {children}
+      {data?.pages[0].length === 0 && (
+        <p className='text-center'>No se encontraron posts</p>
+      )}
       {data?.pages.map((page, i) => (
         <ul
           key={i + '-page'}
