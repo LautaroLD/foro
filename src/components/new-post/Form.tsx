@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 import ContentInput from './ContentInput'
 import Button from '../Button'
 import axios from 'axios'
+import CreateNewCategory from './CreateNewCategory'
+import CreateNewTag from './CreateNewTag'
 interface Inputs {
   [key: string]: string | string[] | File[]
   title: string
@@ -125,8 +127,15 @@ export default function Form() {
             className='p-2 bg-black border border-slate-500 text-white rounded-lg'
           />
         </label>
-        <CategoriesInput />
-        <TagsInput />
+        <div>
+          <CategoriesInput />
+          <CreateNewCategory />
+        </div>
+        <div>
+          <TagsInput />
+          <CreateNewTag />
+        </div>
+
         <ContentInput />
 
         <Button loading={createPost.isPending} primary>
