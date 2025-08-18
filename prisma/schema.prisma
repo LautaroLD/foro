@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("REDACTIVA_PRISMA_DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("REDACTIVA_PRISMA_DATABASE_URL")
+  shadowDatabaseUrl = env("DATABASE_LOCAL_URL")
 }
 
 model Account {
@@ -27,9 +28,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@index([id], name: "idx_account_id")
   @@index([userId], name: "idx_account_user_id")
-  @@index([provider, providerAccountId], name: "idx_account_provider_provider_account_id")
 }
 
 model Session {
@@ -39,7 +38,6 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([sessionToken], name: "idx_session_session_token")
   @@index([userId], name: "idx_session_user_id")
   @@index([expires], name: "idx_session_expires")
   @@index([sessionToken, userId], name: "idx_session_session_token_user_id")
@@ -73,11 +71,9 @@ model User {
   likeComments  LikeComment[]
   createdAt     DateTime      @default(now())
 
-  @@index([email], name: "idx_user_email")
   @@index([firstName], name: "idx_user_first_name")
   @@index([lastName], name: "idx_user_last_name")
   @@index([emailVerified], name: "idx_user_email_verified")
-  @@index([id], name: "idx_user_id")
 }
 
 model File {
@@ -108,6 +104,8 @@ model Post {
   likes       LikePost[]
   createdAt   DateTime   @default(now())
 
+  @@index([typeContent, createdAt], name: "idx_post_type_created_at")
+  @@index([authorId, createdAt], name: "idx_post_author_created_at")
   @@index([authorId], name: "idx_post_author_id")
   @@index([title], name: "idx_post_title")
   @@index([typeContent], name: "idx_post_type_content")
@@ -121,6 +119,7 @@ model LikePost {
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String?
 
+  @@index([postId, userId], name: "idx_like_post_post_user")
   @@index([postId], name: "idx_like_post_post_id")
   @@index([userId], name: "idx_like_post_user_id")
 }
@@ -142,9 +141,6 @@ model Tag {
   slug  String @unique
   posts Post[] @relation("PostTags")
   users User[] @relation("UserTags")
-
-  @@index([name], name: "idx_tag_name")
-  @@index([slug], name: "idx_tag_slug")
 }
 
 model Comment {
@@ -157,6 +153,7 @@ model Comment {
   likes     LikeComment[]
   createdAt DateTime      @default(now())
 
+  @@index([postId, createdAt], name: "idx_comment_post_created_at")
   @@index([postId], name: "idx_comment_post_id")
   @@index([authorId], name: "idx_comment_author_id")
   @@index([createdAt], name: "idx_comment_created_at")
@@ -168,7 +165,4 @@ model Category {
   slug  String @unique
   posts Post[] @relation("PostCategories")
   users User[] @relation("UserCategories")
-
-  @@index([name], name: "idx_category_name")
-  @@index([slug], name: "idx_category_slug")
 }
