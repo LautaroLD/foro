@@ -118,12 +118,8 @@ export default function RegisterPage() {
           )}
         </label>
 
-        <Button
-          loading={loading}
-          primary
-          className='flex w-full max-w-full justify-center'
-        >
-          <p className='p-2'>Registrarse</p>
+        <Button loading={loading} primary>
+          Registrarse
         </Button>
       </form>
       <button

@@ -29,4 +29,4 @@ export const categories = [
   { name: 'Gestión de Talento' },
   { name: 'Relaciones Internacionales' },
   { name: 'Automotriz' },
-]
+];

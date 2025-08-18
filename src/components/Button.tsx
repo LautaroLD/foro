@@ -5,11 +5,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   primary?: boolean
   unStyled?: boolean
+  size?: 'sm' | 'lg'
 }
 export default function Button({
   loading,
   children,
   primary,
+  size,
   unStyled,
   ...props
 }: ButtonProps) {
@@ -20,12 +22,14 @@ export default function Button({
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
       } ${
         !unStyled &&
-        'text-white rounded-lg hover:bg-opacity-70 w-full font-bold text-lg  max-w-fit h-fit mx-auto disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60'
+        `text-white rounded-lg hover:opacity-70  font-bold text-lg  h-fit  disabled:bg-slate-500 disabled:cursor-not-allowed disabled:opacity-60 ${
+          size === 'sm' ? 'p-1 w-fit' : 'p-2 w-full'
+        }`
       }  ${props?.className}`}
       name='button'
     >
       {loading ? (
-        <RiLoader5Line className='animate-spin mx-auto m-2' size={28} />
+        <RiLoader5Line className='animate-spin mx-auto' size={28} />
       ) : (
         <>{children}</>
       )}

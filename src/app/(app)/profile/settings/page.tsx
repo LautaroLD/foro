@@ -1,12 +1,12 @@
 'use client'
 import Button from '@/components/Button'
 import React, { useState } from 'react'
-import { BiEdit } from 'react-icons/bi'
 import ChangePassword from './components/ChangePassword'
 import ChangeDataUser from './components/ChangeDataUser'
 import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
 import api from '@/services/config'
+import { MdOutlineLockOpen, MdOutlineLock } from 'react-icons/md'
 
 export default function Page() {
   const [enableEdit, setEnableEdit] = useState(false)
@@ -27,12 +27,18 @@ export default function Page() {
     <section className='p-6 space-y-8'>
       <h1 className='text-2xl font-bold flex gap-4 w-fit '>
         Configuraciones de perfil{' '}
-        <Button type='button' primary className=' mx-0'>
-          <BiEdit
-            onClick={() => setEnableEdit(!enableEdit)}
-            size={30}
-            className=' p-1 '
-          />{' '}
+        <Button type='button' primary size='sm'>
+          {enableEdit ? (
+            <MdOutlineLockOpen
+              onClick={() => setEnableEdit(!enableEdit)}
+              size={25}
+            />
+          ) : (
+            <MdOutlineLock
+              onClick={() => setEnableEdit(!enableEdit)}
+              size={25}
+            />
+          )}
         </Button>
       </h1>
       <div className='space-y-8 divide-y'>

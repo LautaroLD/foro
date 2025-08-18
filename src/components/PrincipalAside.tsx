@@ -47,13 +47,13 @@ export default function PrincipalAside() {
               Inicia sesión para tener una experiencia completa
             </b>
             <Button primary className='flex'>
-              <Link href='/auth/login' className='w-full h-full p-2'>
+              <Link href='/auth/login' className='w-full h-full'>
                 Iniciar sesión
               </Link>
             </Button>
             <p>¿No tienes una cuenta?</p>
             <Button className='flex'>
-              <Link href='/auth/register' className='w-full h-full p-2'>
+              <Link href='/auth/register' className='w-full h-full'>
                 Registrarse
               </Link>
             </Button>

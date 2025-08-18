@@ -54,7 +54,7 @@ export default function NewTopicsModal({
   }
   return (
     <div className='w-screen h-screen bg-black bg-opacity-50 fixed top-0 left-0 flex items-center justify-center'>
-      <div className='bg-slate-900 text-white p-6 rounded-lg shadow-lg w-3/4 md:w-1/2 lg:w-1/3'>
+      <div className='bg-slate-900 text-white p-6 rounded-lg shadow-lg w-full md:w-1/2 '>
         <h2 className='text-2xl font-semibold mb-4'>
           Elige los temas de tu interés
         </h2>
@@ -65,20 +65,14 @@ export default function NewTopicsModal({
           >
             <CategoriesInput idSelected={method.watch('categories')} />
             <TagsInput idSelected={method.watch('tags')} />
-            <Button
-              primary
-              className=' max-w-none'
-              loading={updateTopics.isPending}
-            >
-              Guardar
-            </Button>
-            <Button
-              type='button'
-              className=' max-w-none'
-              onClick={() => setIsOpen(false)}
-            >
-              Cancelar
-            </Button>
+            <div className='flex flex-col md:flex-row gap-4 justify-end'>
+              <Button primary loading={updateTopics.isPending}>
+                Guardar
+              </Button>
+              <Button type='button' onClick={() => setIsOpen(false)}>
+                Cancelar
+              </Button>
+            </div>
           </form>
         </FormProvider>
       </div>

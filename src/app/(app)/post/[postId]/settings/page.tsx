@@ -217,22 +217,18 @@ export default function Form() {
               deletedFiles={deletedFiles}
               setDeletedFiles={setDeletedFiles}
             />
-
-            <Button
-              loading={updatePost.isPending}
-              primary
-              className='max-w-[200px] min-w-[200px]'
-            >
-              <p className='p-2'>Publicar</p>
-            </Button>
-            <Button
-              type='button'
-              className='max-w-[200px] min-w-[200px]'
-              loading={deletePost.isPending}
-              onClick={() => deletePost.mutate()}
-            >
-              <p className='p-2 text-base'>Eliminar post</p>
-            </Button>
+            <div className='flex flex-col md:flex-row gap-4 justify-end'>
+              <Button loading={updatePost.isPending} primary>
+                Publicar
+              </Button>
+              <Button
+                type='button'
+                loading={deletePost.isPending}
+                onClick={() => deletePost.mutate()}
+              >
+                Eliminar post
+              </Button>
+            </div>
           </form>
         </FormProvider>
       )}

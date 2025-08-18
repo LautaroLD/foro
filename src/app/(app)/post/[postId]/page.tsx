@@ -60,8 +60,8 @@ export default function PostPage() {
           </p>
           {user && post.author.id === user?.id && (
             <Link href={`/post/${post.id}/settings`} className='w-fit ml-auto'>
-              <Button className='w-fit' primary>
-                <IoSettingsSharp size={30} className='p-1' />
+              <Button primary>
+                <IoSettingsSharp size={25} />
               </Button>
             </Link>
           )}

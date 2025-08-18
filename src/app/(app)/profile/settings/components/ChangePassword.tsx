@@ -78,8 +78,8 @@ export default function ChangePassword({
         />
       </label>
       {enableEdit && (
-        <Button className=' ml-0 min-w-48' loading={updatePassword.isPending}>
-          <p className='p-2'>Guardar contraseña</p>
+        <Button size='sm' primary loading={updatePassword.isPending}>
+          Guardar contraseña
         </Button>
       )}
     </form>

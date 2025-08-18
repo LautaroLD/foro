@@ -32,12 +32,13 @@ export default function TopicsSection() {
     <section
       className={`w-full text-white overflow-hidden   flex flex-col space-y-2`}
     >
-      <b className={`text-xl px-6 mt-3`}>Mis temas favoritos</b>
+      <b className={`text-2xl px-6 mt-3`}>Mis temas favoritos</b>
       <Button
         onClick={() => setIsOpen(true)}
-        className='p-1 font-normal ml-6 text-sm'
+        size='sm'
+        className='text-sm ml-6 font-light'
       >
-        Editar temas de tu interés
+        Edita tus temas favoritos
       </Button>
       {(status !== 'authenticated' || isError) && null}
       {(status === 'loading' || isLoading || isRefetching) && (

@@ -1,40 +1,38 @@
-// tagsData.js
 
 export const tags = [
   { name: 'Gastronomía' },
   { name: 'Vinos' },
   { name: 'Coctelería' },
-  { name: 'Fotografía' },
-  { name: 'Viajes' },
-  { name: 'Historia' },
-  { name: 'Cine' },
-  { name: 'Música' },
-  { name: 'Deportes' },
-  { name: 'Medio Ambiente' },
+  { name: 'Fotoperiodismo' },            // reemplaza Fotografía
+  { name: 'Turismo Sostenible' },        // reemplaza Viajes
+  { name: 'Historia Contemporánea' },    // reemplaza Historia
+  { name: 'Documental' },                // reemplaza Cine
+  { name: 'Música Electroacústica' },    // reemplaza Música
+  { name: 'E-sports' },                  // reemplaza Deportes
+  { name: 'Desarrollo Sustentable' },    // reemplaza Medio Ambiente
   { name: 'Salud Mental' },
-  { name: 'Desarrollo Personal' },
   { name: 'Finanzas Personales' },
-  { name: 'Emprendimiento' },
-  { name: 'Marketing' },
-  { name: 'Psicología' },
+  { name: 'Startups' },                  // reemplaza Emprendimiento
+  { name: 'Neuromarketing' },            // reemplaza Marketing
+  { name: 'Neuropsicología' },           // reemplaza Psicología
   { name: 'Filosofía' },
-  { name: 'Ciencia' },
+  { name: 'Tecnologías Emergentes' },    // reemplaza Ciencia
   { name: 'Astronomía' },
   { name: 'Ecología' },
-  { name: 'Arte' },
-  { name: 'Literatura' },
+  { name: 'Arte Digital' },              // reemplaza Arte
+  { name: 'Poesía Moderna' },            // reemplaza Literatura
   { name: 'Teatro' },
-  { name: 'Moda' },
+  { name: 'Estilo de Vida' },            // reemplaza Moda
   { name: 'Jardinería' },
   { name: 'Fauna Silvestre' },
   { name: 'Idiomas' },
-  { name: 'Educación' },
-  { name: 'Política' },
+  { name: 'Tecnología Educativa' },      // reemplaza Educación
+  { name: 'Políticas Públicas' },        // reemplaza Política
   { name: 'Derecho' },
   { name: 'Historia del Arte' },
   { name: 'Artesanía' },
   { name: 'Motivación' },
-  { name: 'Negocios' },
+  { name: 'Economía Colaborativa' },     // reemplaza Negocios
   { name: 'Inversiones' },
   { name: 'Cultura Pop' },
   { name: 'Videojuegos' },

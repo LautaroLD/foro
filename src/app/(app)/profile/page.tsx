@@ -61,8 +61,8 @@ export default function Page() {
           <h1 className='text-3xl font-bold flex justify-center align-center gap-2'>
             {userData?.firstName} {userData?.lastName}
             <Link href={'/profile/settings'}>
-              <Button className='w-fit' primary>
-                <IoSettingsSharp size={30} className='p-1' />
+              <Button size='sm' primary>
+                <IoSettingsSharp size={25} />
               </Button>
             </Link>
           </h1>
@@ -82,10 +82,8 @@ export default function Page() {
               <p className=' text-center mb-3'>
                 No tienes ningún post... todavía ;){' '}
               </p>
-              <Button primary className='w-fit rounded-lg m-auto flex' unStyled>
-                <Link href='/create-post' className='p-2 font-bold'>
-                  Crea uno ahora!
-                </Link>
+              <Button primary size='sm' className='mx-auto'>
+                <Link href='/create-post'>Crea uno ahora!</Link>
               </Button>
             </div>
           ) : (

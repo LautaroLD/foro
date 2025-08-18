@@ -177,8 +177,8 @@ export default function ChangeDataUser({
         ))}
       </div>
       {enableEdit && (
-        <Button className=' ml-0 min-w-48' loading={loadingChange}>
-          <p className='p-2 '>Guardar cambios</p>
+        <Button primary size='sm' loading={loadingChange}>
+          Guardar cambios
         </Button>
       )}
     </form>

@@ -98,12 +98,8 @@ export default function LoginPage() {
           )}
         </label>
 
-        <Button
-          loading={loading}
-          primary
-          className='flex w-full max-w-full justify-center'
-        >
-          <p className='p-2'>Iniciar sesión</p>
+        <Button loading={loading} primary>
+          Iniciar sesión
         </Button>
       </form>
       <button
