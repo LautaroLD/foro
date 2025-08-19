@@ -46,6 +46,7 @@ export default function CreateNewCategory() {
             className='px-2 py-1  bg-black border border-slate-500 text-white rounded-lg'
           />
           <Button
+            disabled={!categoryName}
             primary
             type='button'
             size='sm'
