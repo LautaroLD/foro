@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { PostFile } from '@/models/file.model'
+import { useMutation } from '@tanstack/react-query'
 import { Carousel } from 'primereact/carousel'
 import { Editor } from 'primereact/editor'
 import { Image } from 'primereact/image'
@@ -11,6 +11,10 @@ import { classNames } from 'primereact/utils'
 import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { BiCloudUpload, BiXCircle } from 'react-icons/bi'
+import { SiGooglegemini } from 'react-icons/si'
+import Button from '../Button'
+import api from '@/services/config'
+import { toast } from 'react-toastify'
 
 export default function ContentInput({
   contentInput,
@@ -33,6 +37,23 @@ export default function ContentInput({
     filesInput || []
   )
 
+  const getContentByAi = useMutation({
+    mutationFn: async () => {
+      const res = await api.post('/api/gemini-content', {
+        title: getValues('title'),
+        categories: getValues('categories'),
+        tags: getValues('tags'),
+      })
+      return res.data
+    },
+    onSuccess: (data) => {
+      setContent(data)
+    },
+    onError: (error) => {
+      console.error('Error generating content:', error)
+      toast.error('No se pudo generar el contenido con IA')
+    },
+  })
   const removeImage = (item: PostFile) => {
     const index = files.findIndex((f) => f.src === item.src)
     if (deletedFiles && setDeletedFiles) {
@@ -148,19 +169,41 @@ export default function ContentInput({
         </div>
       )}
       {type == 'text' && (
-        <Editor
-          value={content}
-          onTextChange={(val) => setContent(val.htmlValue || '')}
-          style={{
-            backgroundColor: '#000',
-            height: 350,
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-            overflow: 'hidden',
-            padding: 2,
-            border: '1px solid #64748b ',
-          }}
-        />
+        <>
+          {getContentByAi.isError && (
+            <p className='text-red-500'>Error al generar el contenido con IA</p>
+          )}
+          <div className='flex items-center gap-2 mb-2'>
+            <p className='text-sm max-w-md text-gray-400'>
+              Puedes generar el contenido con IA, debes agregar primero el
+              titulo. <br /> Agrega categorías y etiquetas para obtener un
+              resultado mas preciso{' '}
+            </p>
+            <Button
+              disabled={getValues('title') === ''}
+              loading={getContentByAi.isPending}
+              title='Debes agregar un titulo para generar el contenido con IA'
+              type='button'
+              size='sm'
+              onClick={() => getContentByAi.mutate()}
+            >
+              <SiGooglegemini size={28} />
+            </Button>
+          </div>
+          <Editor
+            value={content}
+            onTextChange={(val) => setContent(val.htmlValue || '')}
+            style={{
+              backgroundColor: '#000',
+              height: 350,
+              borderBottomLeftRadius: 8,
+              borderBottomRightRadius: 8,
+              overflow: 'hidden',
+              padding: 2,
+              border: '1px solid #64748b ',
+            }}
+          />
+        </>
       )}
     </div>
   )
