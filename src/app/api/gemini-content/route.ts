@@ -5,8 +5,6 @@ import prisma from '@/libs/prisma'
 export async function POST(request: Request) {
   try {
     const data = await request.json()
-    console.log('Received data:', data)
-
     const categories =
       data.categories.length > 0
         ? await prisma?.category.findMany({
@@ -29,8 +27,6 @@ export async function POST(request: Request) {
             },
           })
         : []
-    console.log('Categories:', categories)
-    console.log('Tags:', tags)
     const res = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: `Debes escribir el contenido de un post de blog sobre ${data.title}.`,

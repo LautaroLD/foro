@@ -125,7 +125,6 @@ export default function Form() {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(postUpdated)
       if (formDataCloudinary) {
         const uploadPromises = Array.from(formDataCloudinary.entries()).map(
           async ([, value]) => {
@@ -150,7 +149,6 @@ export default function Form() {
         )
 
         const files = await Promise.all(uploadPromises)
-        console.log('Files to save:', files)
 
         await api.post(`/api/file`, files)
       }
