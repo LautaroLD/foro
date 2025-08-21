@@ -182,7 +182,7 @@ export default function ContentInput({
               resultado mas preciso{' '}
             </p>
             <Button
-              disabled={watch('title') === '' || watch('title') === undefined}
+              disabled={watch('title') === ''}
               loading={getContentByAi.isPending}
               title='Debes agregar un titulo para generar el contenido con IA'
               type='button'

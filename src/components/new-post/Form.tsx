@@ -32,7 +32,10 @@ export default function Form() {
 
   const method = useForm<Inputs>({
     defaultValues: {
+      title: '',
       typeContent: 'image',
+      categories: [],
+      tags: [],
     },
   })
   const { handleSubmit, register } = method
