@@ -29,7 +29,7 @@ export default function ContentInput({
   deletedFiles?: PostFile[]
   setDeletedFiles?: React.Dispatch<React.SetStateAction<PostFile[]>>
 }) {
-  const { setValue, getValues } = useFormContext()
+  const { setValue, getValues, watch } = useFormContext()
   const [content, setContent] = useState(contentInput || '')
 
   const [type, setType] = useState<'image' | 'text'>(typeContent || 'text')
@@ -180,7 +180,7 @@ export default function ContentInput({
               resultado mas preciso{' '}
             </p>
             <Button
-              disabled={getValues('title') === ''}
+              disabled={watch('title') === ''}
               loading={getContentByAi.isPending}
               title='Debes agregar un titulo para generar el contenido con IA'
               type='button'
