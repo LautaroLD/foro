@@ -67,6 +67,8 @@ export default function ContentInput({
   useEffect(() => {
     setValue('typeContent', type)
   }, [type])
+  console.log(watch('title'))
+
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex gap-5 items-center'>
@@ -180,7 +182,7 @@ export default function ContentInput({
               resultado mas preciso{' '}
             </p>
             <Button
-              disabled={watch('title') === ''}
+              disabled={watch('title') === '' || watch('title') === undefined}
               loading={getContentByAi.isPending}
               title='Debes agregar un titulo para generar el contenido con IA'
               type='button'
