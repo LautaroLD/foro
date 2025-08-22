@@ -67,7 +67,6 @@ export default function ContentInput({
   useEffect(() => {
     setValue('typeContent', type)
   }, [type])
-  console.log(watch('title') === '')
 
   return (
     <div className='flex flex-col gap-2'>
