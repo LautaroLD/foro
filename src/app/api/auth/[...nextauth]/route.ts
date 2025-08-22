@@ -5,6 +5,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import bcrypt from 'bcrypt'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client/scripts/default-index.js'
+import { AdapterUser } from 'next-auth/adapters'
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -12,6 +13,8 @@ declare module 'next-auth' {
       name?: string | null
       email?: string | null
       image?: string | null
+      firstName?: string | null
+      lastName?: string | null
     }
   }
 }
@@ -84,7 +87,11 @@ const handler = NextAuth({
             throw new Error()
           }
 
-          return user
+          return {
+            ...user,
+            firstName: user.firstName || null,
+            lastName: user.lastName || null,
+          }
         } catch (error) {
           console.error('Authorization error:', error)
           if (error instanceof Error) {
@@ -107,13 +114,23 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (session.user && token.id) {
         session.user.id = token.id as string
+        session.user.firstName = token.firstName as string
+        session.user.lastName = token.lastName as string
       }
+
       return session
     },
     async jwt({ token, user }) {
       if (user) {
+        const userComplete = user as AdapterUser & {
+          firstName?: string | null
+          lastName?: string | null
+        }
         token.id = user.id
+        token.firstName = userComplete.firstName
+        token.lastName = userComplete.lastName
       }
+
       return token
     },
     async redirect({ baseUrl }) {

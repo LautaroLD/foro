@@ -1,6 +1,12 @@
 import { PrimeIcons } from 'primereact/api'
 export const navBarItems = [
   {
+    label: 'Mi perfil',
+    url: '/profile',
+    icon: PrimeIcons.USER,
+    private: true,
+  },
+  {
     label: 'Inicio',
     url: '/',
     icon: PrimeIcons.HOME,
@@ -18,12 +24,7 @@ export const navBarItems = [
     icon: PrimeIcons.CHART_LINE,
     private: false,
   },
-  {
-    label: 'Mi perfil',
-    url: '/profile',
-    icon: PrimeIcons.USER,
-    private: true,
-  },
+
   {
     label: 'Mis temas',
     url: '/topics',

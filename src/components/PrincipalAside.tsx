@@ -9,6 +9,7 @@ import { RiMenuUnfold4Line } from 'react-icons/ri'
 import Button from './Button'
 import { useState } from 'react'
 import ItemNavbar from './ItemNavbar'
+import ProfileItemNavBar from './ProfileItemNavBar'
 export default function PrincipalAside() {
   const [openMenu, setOpenMenu] = useState(true)
   const screenWidth = useWindowSize()
@@ -67,7 +68,13 @@ export default function PrincipalAside() {
         ) : (
           <ul className=' w-[20vw] flex flex-col  h-full'>
             {navBarItems.map((item) => (
-              <ItemNavbar key={item.label} item={item} />
+              <li key={item.label}>
+                {item.url === '/profile' ? (
+                  <ProfileItemNavBar item={item} />
+                ) : (
+                  <ItemNavbar item={item} />
+                )}
+              </li>
             ))}
 
             <li
