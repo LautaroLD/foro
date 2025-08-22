@@ -18,7 +18,6 @@ export default function Button({
   return (
     <button
       {...props}
-      disabled={loading}
       className={` ${
         primary ? 'bg-[#b94d25]' : 'bg-transparent border border-[#b94d25]'
       } ${
