@@ -31,15 +31,15 @@ export async function POST(request: Request) {
       model: 'gemini-2.5-flash',
       contents: `Debes escribir el contenido de un post de blog donde el titulo es este: ${
         data.title
-      }. debes usar etiquetas html, no usar markdown. Responde solo con el contenido del post, sin ningún tipo de metadatos ni información adicional, ni vuelvas a escribir el titulo. el texto debe ser lo mas natural posible, no debe parecer que fue escrito por una IA.
+      }. debes usar etiquetas HTML, no usar markdown. Responde solo con el contenido del post, sin ningún tipo de metadatos ni información adicional, ni vuelvas a escribir el titulo. el texto debe ser lo mas natural posible, no debe parecer que fue escrito por una IA.
       ${
         categories?.length &&
-        'debes tener en cuenta las siguientes categorías para la redacción: ' +
+        'debes tener en cuenta las siguientes categorías para la redacción, no las menciones como enlaces, deben estar en negrita con <b>: ' +
           categories.map((cat) => cat.name).join(', ')
       }
         ${
           tags?.length &&
-          'tiene en cuentas las siguientes etiquetas para la redacción: ' +
+          'tiene en cuentas las siguientes etiquetas para la redacción, no las menciones como enlaces, deben estar en negrita con <b> : ' +
             tags.map((tag) => tag.name).join(', ')
         }`,
       config: {
