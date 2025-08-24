@@ -27,14 +27,14 @@ export default function CreateNewTag() {
   })
   return (
     <div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 my-2'>
         <p className='text-gray-400 text-sm'>¿No encontraste tu etiqueta?</p>
-        <p
+        <b
           className='text-[#b94d25] text-sm hover:cursor-pointer'
           onClick={() => setShowCreateTag(true)}
         >
           ¡Crea una nueva!
-        </p>
+        </b>
       </div>
       {showCreateTag && (
         <div className='flex gap-2 items-center justify-start'>
@@ -43,7 +43,7 @@ export default function CreateNewTag() {
             onChange={(e) => setTagName(e.target.value)}
             type='text'
             placeholder='Nombre de la etiqueta'
-            className='px-2 py-1  bg-black border border-slate-500 text-white rounded-lg'
+            className='px-2 py-1 focus:outline-none  bg-black border border-slate-500 text-white rounded-lg'
           />
           <Button
             disabled={!tagName}
