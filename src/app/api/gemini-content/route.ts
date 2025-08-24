@@ -29,9 +29,9 @@ export async function POST(request: Request) {
         : []
     const res = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: `Debes escribir el contenido de un post de blog sobre ${data.title}.`,
+      contents: `Debes escribir el contenido de un post de blog donde el titulo es este: ${data.title}.`,
       config: {
-        systemInstruction: `debes usar etiquetas html, no usar markdown. Responde solo con el contenido del post, sin ningún tipo de metadatos ni información adicional. el texto debe ser lo mas natural posible, no debe parecer que fue escrito por una IA.
+        systemInstruction: `debes usar etiquetas html, no usar markdown. Responde solo con el contenido del post, sin ningún tipo de metadatos ni información adicional, ni vuelvas a escribir el titulo. el texto debe ser lo mas natural posible, no debe parecer que fue escrito por una IA.
       ${
         categories?.length &&
         'tiene en cuenta las siguientes categorías: ' + categories
