@@ -1,4 +1,5 @@
 'use client'
+import FollowButton from '@/components/FollowButton'
 import PostsList from '@/components/PostsList'
 import api from '@/services/config'
 import { useQuery } from '@tanstack/react-query'
@@ -37,6 +38,7 @@ export default function Page() {
       </div>
     )
   if (isError) return <div>Error loading user</div>
+  console.log(userData)
 
   return (
     <article>
@@ -61,6 +63,21 @@ export default function Page() {
           Usuario desde: {new Date(
             userData.createdAt
           ).toLocaleDateString()}{' '}
+        </div>
+        <FollowButton
+          followingId={userData?.id}
+          followers={userData?.followers}
+          following={userData?.following}
+        />
+      </div>
+      <div className='flex gap-4 mx-4'>
+        <div className='flex flex-col  text-center'>
+          <b className='text-sm'>Seguidores</b>
+          <b className='text-3xl'>{userData?.followers?.length ?? 0}</b>
+        </div>
+        <div className='flex flex-col  text-center'>
+          <b className='text-sm'>Siguiendo </b>
+          <b className='text-3xl'>{userData?.following?.length ?? 0}</b>
         </div>
       </div>
       <div>

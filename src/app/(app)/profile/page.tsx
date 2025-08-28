@@ -72,6 +72,16 @@ export default function Page() {
           </p>
         </div>
       </div>
+      <div className='flex gap-4 mx-4'>
+        <div className='flex flex-col  text-center'>
+          <b className='text-sm'>Seguidores</b>
+          <b className='text-3xl'>{userData?.followers?.length ?? 0}</b>
+        </div>
+        <div className='flex flex-col  text-center'>
+          <b className='text-sm'>Siguiendo </b>
+          <b className='text-3xl'>{userData?.following?.length ?? 0}</b>
+        </div>
+      </div>
       <div>
         <h2 className='text-xl  font-bold m-6'>
           Mis Posts ({userData?.posts?.length})

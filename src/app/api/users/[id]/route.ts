@@ -15,6 +15,8 @@ export async function GET(request: Request, { params }: Params) {
         comments: true,
         tags: true,
         categories: true,
+        followers: true,
+        following: true,
         posts: true,
         sessions: true,
         accounts: true,

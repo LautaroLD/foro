@@ -29,7 +29,10 @@ export default function Button({
       name='button'
     >
       {loading ? (
-        <RiLoader5Line className='animate-spin mx-auto' size={28} />
+        <RiLoader5Line
+          className='animate-spin mx-auto'
+          size={size === 'sm' ? 20 : 28}
+        />
       ) : (
         <>{children}</>
       )}

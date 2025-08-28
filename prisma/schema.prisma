@@ -70,6 +70,8 @@ model User {
   likePosts     LikePost[]
   likeComments  LikeComment[]
   createdAt     DateTime      @default(now())
+  followers     UserFollow[]  @relation("Followers")
+  following     UserFollow[]  @relation("Following")
 
   @@index([firstName], name: "idx_user_first_name")
   @@index([lastName], name: "idx_user_last_name")
@@ -165,4 +167,18 @@ model Category {
   slug  String @unique
   posts Post[] @relation("PostCategories")
   users User[] @relation("UserCategories")
+}
+
+model UserFollow {
+  id          Int      @id @default(autoincrement())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower  User @relation("Following", fields: [followerId], references: [id])
+  following User @relation("Followers", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
+  @@index([followingId])
+  @@index([followerId])
 }
