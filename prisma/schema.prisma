@@ -170,7 +170,8 @@ model Category {
 }
 
 model UserFollow {
-  id          Int      @id @default(autoincrement())
+  id String @id @default(uuid())
+
   followerId  String
   followingId String
   createdAt   DateTime @default(now())
