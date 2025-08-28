@@ -6,7 +6,6 @@ export async function POST(request: NextRequest) {
     const { followingId } = await request.json()
     const token = await getToken({ req: request })
     const followerId = token?.id as string
-    console.log(token?.id)
     if (followerId && followingId) {
       const following = await prisma?.userFollow.findFirst({
         where: {

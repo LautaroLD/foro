@@ -38,8 +38,6 @@ export default function Page() {
       </div>
     )
   if (isError) return <div>Error loading user</div>
-  console.log(userData)
-
   return (
     <article>
       <div className='grid  grid-flow-col w-fit gap-3 m-4'>
