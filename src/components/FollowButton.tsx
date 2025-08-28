@@ -14,7 +14,7 @@ export default function FollowButton({
   followers: UserFollow[]
   following: UserFollow[]
 }) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const userId = session?.user?.id
   const queryClient = useQueryClient()
   const followUser = useMutation({
@@ -36,19 +36,23 @@ export default function FollowButton({
   }
   return (
     <>
-      <Button
-        onClick={() => {
-          followUser.mutate()
-        }}
-        primary={!isFollowing}
-        size='sm'
-        loading={followUser.isPending}
-      >
-        <span className='flex items-center text-sm'>
-          {isFollowing ? <>Siguiendo</> : <>Seguir</>}
-        </span>
-      </Button>
-      {isFollowed && <p className='text-sm text-gray-400'>Te sigue</p>}
+      {status !== 'loading' && status !== 'unauthenticated' && (
+        <>
+          <Button
+            onClick={() => {
+              followUser.mutate()
+            }}
+            primary={!isFollowing}
+            size='sm'
+            loading={followUser.isPending}
+          >
+            <span className='flex items-center text-sm'>
+              {isFollowing ? <>Siguiendo</> : <>Seguir</>}
+            </span>
+          </Button>
+          {isFollowed && <p className='text-sm text-gray-400'>Te sigue</p>}
+        </>
+      )}
     </>
   )
 }
