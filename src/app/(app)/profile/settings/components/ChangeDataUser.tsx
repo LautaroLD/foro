@@ -6,6 +6,7 @@ import { UserExtended } from '@/models/user.model'
 import Image from 'next/image'
 import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
+import { useQueryClient } from '@tanstack/react-query'
 interface Inputs {
   [key: string]: string | File
   firstName: string
@@ -32,7 +33,7 @@ export default function ChangeDataUser({
     setValue,
     formState: { errors },
   } = useForm<Inputs>()
-
+  const queryClient = useQueryClient()
   if (isLoading)
     return (
       <div className='space-y-6'>
@@ -77,6 +78,9 @@ export default function ChangeDataUser({
             'Content-Type': 'multipart/form-data',
           },
         })
+        .then(() => {
+          queryClient.refetchQueries({ queryKey: ['user', userData?.id] })
+        })
         .finally(() => {
           setLoadingChange(false)
         })
@@ -85,6 +89,9 @@ export default function ChangeDataUser({
       .patch(`/api/users/${userData?.id}`, data)
       .then(() => {
         toast.success('Usuario actualizado')
+        queryClient.refetchQueries({
+          queryKey: ['user', userData?.id],
+        })
       })
       .catch((error) => {
         console.error('Error updating user:', error)

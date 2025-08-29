@@ -70,7 +70,7 @@ export default function PrincipalAside() {
             {navBarItems.map((item) => (
               <li key={item.label}>
                 {item.url === '/profile' ? (
-                  <ProfileItemNavBar item={item} />
+                  <ProfileItemNavBar userId={user?.id as string} />
                 ) : (
                   <ItemNavbar item={item} />
                 )}

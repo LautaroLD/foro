@@ -1,28 +1,32 @@
-import { useSession } from 'next-auth/react'
+'use client'
+import api from '@/services/config'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 
-export default function ProfileItemNavBar({
-  item,
-}: {
-  item: {
-    label: string
-    url: string
-    icon: string
-  }
-}) {
-  const { status, data: session } = useSession()
-  const user = session?.user
-  if (status === 'loading') {
+export default function ProfileItemNavBar({ userId }: { userId: string }) {
+  // const { status, data: session } = useSession()
+  const {
+    data: user,
+    isLoading,
+    isRefetching,
+  } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: async () => {
+      const res = await api.get(`/api/users/${userId}`)
+      return res.data
+    },
+  })
+  if (isLoading || isRefetching) {
     return (
-      <div className='p-6 w-full bg-slate-600 animate-pulse rounded-lg'></div>
+      <div className='p-9 w-full bg-slate-600 animate-pulse rounded-lg'></div>
     )
   }
   return (
     <Link
-      href={item.url}
+      href={'/profile'}
       className='border border-slate-600  p-2 rounded-lg hover:bg-[#b94d25] flex items-center gap-2'
     >
       <div className='flex gap-2 items-center '>
