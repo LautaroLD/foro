@@ -45,14 +45,16 @@ export default function Form() {
 
     for (const key in data) {
       if (key === 'files') {
-        data[key].forEach((item: File | string) => {
+        data[key].forEach((item: File) => {
           formDataCloudinary.append(key, item)
         })
       }
-      if (key === 'categories' || (key === 'tags' && data[key].length > 0)) {
-        data[key].forEach((item: File | string) => {
-          formData.append(key, item)
-        })
+      if (key === 'categories' || key === 'tags') {
+        if (data[key].length > 0) {
+          data[key].forEach((item: string) => {
+            formData.append(key, item)
+          })
+        }
       } else {
         formData.append(key, data[key] as string)
       }

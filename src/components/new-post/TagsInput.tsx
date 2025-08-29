@@ -36,6 +36,7 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
     if (refInputSearchTags.current) {
       refInputSearchTags.current.value = ''
     }
+    setValue('tags', tagsSelected)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tagsSelected])
   return (
@@ -88,12 +89,10 @@ export default function TagsInput({ idSelected }: { idSelected?: string[] }) {
               if (tagsSelected.includes(tag.id)) {
                 setTagsSelected((prev) => {
                   const newList = prev.filter((i) => i !== tag.id)
-                  setValue('tags', newList)
                   return newList
                 })
               } else {
-                setTagsSelected([...tagsSelected, tag.id])
-                setValue('tags', [...tagsSelected, tag.id])
+                setTagsSelected((prev) => [...prev, tag.id])
               }
             }}
           >
