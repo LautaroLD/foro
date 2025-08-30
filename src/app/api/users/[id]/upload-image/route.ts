@@ -1,7 +1,7 @@
 import { Params } from '@/models/params'
 import { NextResponse } from 'next/server'
 import { v2 as cloudinary } from 'cloudinary'
-import prisma from '@/libs/prisma'
+// import prisma from '@/libs/prisma'
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
@@ -42,7 +42,7 @@ export async function PATCH(request: Request, { params }: Params) {
     return NextResponse.json({ message: 'Image uploaded successfully' })
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message, status: 500 })
+      return NextResponse.json({ message: error.message, error: true })
     }
   }
 }
