@@ -11,7 +11,6 @@ export async function GET(request: Request) {
         message: 'commentId is required',
       })
     }
-    // const { postId } = await request.json()
 
     const comment = await prisma?.comment.findUnique({
       where: { id: commentId },

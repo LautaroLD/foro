@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const PUBLIC_ROUTES = [
   '/auth/login',
+  '/trends',
   '/auth/register',
   '/favicon.ico',
   '/_next/static',
   '/public',
   '/',
-] // Define your public routes here
+]
 
 export async function middleware(request: NextRequest) {
   let token

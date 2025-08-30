@@ -28,10 +28,14 @@ export async function GET(request: Request, { params }: Params) {
     return NextResponse.json(user)
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({
-        message: error.message,
-        status: 500,
-      })
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      )
     }
   }
 }

@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { useQueryClient } from '@tanstack/react-query'
+import { AxiosInstance } from 'axios'
 interface Inputs {
   [key: string]: string | File
   firstName: string
@@ -69,36 +70,30 @@ export default function ChangeDataUser({
 
   const onSubmit: SubmitHandler<Inputs> = async ({ image, ...data }) => {
     setLoadingChange(true)
+    const promises: Promise<AxiosInstance>[] = []
+
     if (image) {
       const formData = new FormData()
       formData.append('image', image)
-      api
-        .patch(`/api/users/${userData?.id}/upload-image`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+
+      promises.push(
+        api.patch(`/api/users/${userData?.id}/upload-image`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(() => {
-          queryClient.refetchQueries({ queryKey: ['user', userData?.id] })
-        })
-        .catch((error) => {
-          console.error('Error updating user:', error)
-          toast.error('Error al actualizar la imagen')
-        })
-        .finally(() => {
-          setLoadingChange(false)
-        })
+      )
     }
-    api
-      .patch(`/api/users/${userData?.id}`, data)
+
+    promises.push(api.patch(`/api/users/${userData?.id}`, data))
+
+    Promise.all(promises)
       .then(() => {
-        toast.success('Usuario actualizado')
-        queryClient.refetchQueries({
-          queryKey: ['user', userData?.id],
-        })
+        toast.success('Usuario actualizado correctamente')
+
+        queryClient.refetchQueries({ queryKey: ['user', userData?.id] })
       })
       .catch((error) => {
-        console.error('Error updating user:', error)
+        console.error('Error actualizando usuario o imagen:', error)
+        toast.error('Ocurrió un error al actualizar los datos')
       })
       .finally(() => {
         setLoadingChange(false)

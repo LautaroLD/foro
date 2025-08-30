@@ -7,19 +7,14 @@ import React from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 
 export default function ProfileItemNavBar({ userId }: { userId: string }) {
-  // const { status, data: session } = useSession()
-  const {
-    data: user,
-    isLoading,
-    isRefetching,
-  } = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ['user', userId],
     queryFn: async () => {
       const res = await api.get(`/api/users/${userId}`)
       return res.data
     },
   })
-  if (isLoading || isRefetching) {
+  if (isLoading) {
     return (
       <div className='p-9 w-full bg-slate-600 animate-pulse rounded-lg'></div>
     )

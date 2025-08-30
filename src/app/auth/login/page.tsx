@@ -44,8 +44,6 @@ export default function LoginPage() {
       if (response && response.ok) {
         router.push('/')
       }
-
-      // Handle login success
     } catch (error) {
       console.error(error)
     } finally {

@@ -135,7 +135,6 @@ const handler = NextAuth({
     },
     async redirect({ baseUrl }) {
       return baseUrl
-      // return process.env.NEXTAUTH_URL as string
     },
   },
 })

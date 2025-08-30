@@ -9,7 +9,6 @@ export async function GET(request: Request) {
     if (!postId) {
       return NextResponse.json({ error: true, message: 'postId is required' })
     }
-    // const { postId } = await request.json()
 
     const posts = await prisma?.post.findUnique({
       where: { id: postId },

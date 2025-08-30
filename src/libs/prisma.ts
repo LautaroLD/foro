@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import slugify from 'slugify'
 
-// 1. Define el tipo del cliente extendido para mayor seguridad
 const extendedPrismaClient = new PrismaClient()
   .$extends(withAccelerate())
   .$extends({
@@ -32,13 +31,11 @@ const extendedPrismaClient = new PrismaClient()
     },
   })
 
-// 2. Declara el tipo global usando el cliente extendido
 declare global {
   // eslint-disable-next-line no-var
   var prisma: typeof extendedPrismaClient | undefined
 }
 
-// 3. Inicializa el cliente global o crea uno nuevo
 const prisma = global.prisma || extendedPrismaClient
 
 if (process.env.NODE_ENV !== 'production') {
