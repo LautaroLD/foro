@@ -42,7 +42,14 @@ export async function PATCH(request: Request, { params }: Params) {
     return NextResponse.json({ message: 'Image uploaded successfully' })
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message, error: true })
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      )
     }
   }
 }

@@ -81,6 +81,10 @@ export default function ChangeDataUser({
         .then(() => {
           queryClient.refetchQueries({ queryKey: ['user', userData?.id] })
         })
+        .catch((error) => {
+          console.error('Error updating user:', error)
+          toast.error('Error al actualizar la imagen')
+        })
         .finally(() => {
           setLoadingChange(false)
         })
